@@ -1,63 +1,127 @@
-<div class="ajouterUtilisateur">
-  <div class="cadrePrincipal">
+<div class="contenus-container">
+  <div class="container-left">
     <div class="optionsNiveau">
-      <div class="groupeNiveauDebutant">
-        <div class="rectangleDebutant"></div>
-        <div class="texteDebutant">Niveau 1</div>
-      </div>
-      <div class="groupeNiveauIntermediaire">
-        <div class="rectangleIntermediaire"></div>
-        <div class="texteIntermediaire">Niveau 2</div>
-      </div>
-      <div class="groupeNiveauAvance">
-        <div class="rectangleAvance"></div>
-        <div class="texteAvance">Niveau 3</div>
-      </div>
+      <app-button
+        label= "Débutant"
+        color="primary"
+        icon="trash"
+        type="button"
+        [disabled] = false
+        largeur="flex: 1"
+      >
+      </app-button>
+      <app-button
+        label= "Intermédiaire"
+        color="primary"
+        icon="trash"
+        type="button"
+        [disabled] = false
+        largeur="flex: 1"
+      >
+      </app-button>
+      <app-button
+        label= "Avancé"
+        color="primary"
+        icon="trash"
+        type="button"
+        [disabled] = false
+        largeur="flex: 1"
+      >
+      </app-button>
     </div>
     <div class="conteneurCours">
-      <div class="cours1">
-        <div class="carteCours">
-          <div class="titreCours">Cours 1</div>
+      <div class="cours menu">
+        <div class="beforeDrop">
+          <div class="icon-titre" (click)="setActive('Cours 1')"  [ngClass]="{'active': activeCours === 'Cours 1'}">
+            <div class="menu-titre" (click)="openDropdown()">
+              <p>Cours 1</p>
+            </div>
+            <div class="menu-icon">
+              @if (isDropdownOpen == true && activeCours === 'Cours 1'){
+                <ion-icon name="chevron-up" size="large" class="chevron" (click)="hideDropdown()"></ion-icon>
+              }
+              @if (isDropdownOpen == false || activeCours !== 'Cours 1'){
+                <ion-icon name="chevron-down" size="large" class="chevron" (click)="openDropdown()"></ion-icon>
+              }
+            </div>
+          </div>
+          <div class="menu-icon">
+            <ion-icon name="ellipsis-vertical" size="large" class="menu-drop" style="color: var(--couleur-main)"></ion-icon>
+          </div>
         </div>
+        <!-- Sous-options du menu déroulant -->
+        @if (isDropdownOpen && activeCours === 'Cours 1'){
+          <div class="lesson-menu">
+            <div class="beforeDrop">
+              <div class="icon-titre" (click)="setActive('Lesson 1')"  [ngClass]="{'active': activeLesson === 'Lesson 1' && activeCours === 'Cours 1'}">
+                <div class="menu-titre" (click)="openDropdown()">
+                  <p>Leçon 1</p>
+                </div>
+              </div>
+              <div class="menu-icon">
+                <ion-icon name="ellipsis-vertical" size="large" class="menu-drop" style="color: var(--couleur-main)"></ion-icon>
+              </div>
+            </div>
+            <div class="beforeDrop">
+              <div class="icon-titre" (click)="setActiveLesson('Lesson 2')"  [ngClass]="{'active': activeLesson === 'Lesson 2' && activeCours === 'Cours 1'}">
+                <div class="menu-titre" (click)="openDropdown()">
+                  <p>Leçon 2</p>
+                </div>
+              </div>
+              <div class="menu-icon">
+                <ion-icon name="ellipsis-vertical" size="large" class="menu-drop" style="color: var(--couleur-main)"></ion-icon>
+              </div>
+            </div>
+          </div>
+        }
       </div>
-      <div class="chapitre1">
-        <div class="conteneurChapitre">
-          <div class="texteChapitre1">chapitre 1 : Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed porta odio sed </div>
+      <div class="cours menu">
+        <div class="beforeDrop">
+          <div class="icon-titre" (click)="setActive('Cours 2')"  [ngClass]="{'active': activeCours === 'Cours 2'}">
+            <div class="menu-titre" (click)="openDropdown()">
+              <p >Cours 2</p>
+            </div>
+            <div class="menu-icon">
+              @if (isDropdownOpen == true && activeCours === 'Cours 2'){
+                <ion-icon name="chevron-up" size="large" class="chevron" (click)="hideDropdown()"></ion-icon>
+              }
+              @if (isDropdownOpen == false || activeCours !== 'Cours 2'){
+                <ion-icon name="chevron-down" size="large" class="chevron" (click)="openDropdown()"></ion-icon>
+              }
+            </div>
+          </div>
+          <div class="menu-icon">
+            <ion-icon name="ellipsis-vertical" size="large" class="menu-drop" style="color: var(--couleur-main)"></ion-icon>
+          </div>
         </div>
-        <div class="indicateurs">
-          <div class="indicateurVert"></div>
-          <div class="indicateurVert"></div>
-          <div class="indicateurVert"></div>
-        </div>
-      </div>
-      <div class="chapitre2">
-        <div class="conteneurChapitre">
-          <div class="texteChapitre2">chapitre 2 : Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed porta odio sed </div>
-        </div>
-        <div class="indicateurs">
-          <div class="indicateurVert"></div>
-          <div class="indicateurVert"></div>
-          <div class="indicateurVert"></div>
-        </div>
-      </div>
-      <div class="chapitre3">
-        <div class="conteneurChapitre">
-          <div class="texteChapitre3">chapitre 3 : Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed porta odio sed </div>
-        </div>
-        <div class="indicateurs">
-          <div class="indicateurVert"></div>
-          <div class="indicateurVert"></div>
-          <div class="indicateurVert"></div>
-        </div>
+        <!-- Sous-options du menu déroulant -->
+        @if (isDropdownOpen && activeCours === 'Cours 2'){
+          <div class="lesson-menu">
+            <div class="beforeDrop">
+              <div class="icon-titre" (click)="setActive('Lesson 1')"  [ngClass]="{'active': activeLesson === 'Lesson 1' && activeCours === 'Cours 2'}">
+                <div class="menu-titre" (click)="openDropdown()">
+                  <p>Leçon 1</p>
+                </div>
+              </div>
+              <div class="menu-icon">
+                <ion-icon name="ellipsis-vertical" size="large" class="menu-drop" style="color: var(--couleur-main)"></ion-icon>
+              </div>
+            </div>
+            <div class="beforeDrop">
+              <div class="icon-titre" (click)="setActiveLesson('Lesson 2')"  [ngClass]="{'active': activeLesson === 'Lesson 2' && activeCours === 'Cours 2'}">
+                <div class="menu-titre" (click)="openDropdown()">
+                  <p>Leçon 2</p>
+                </div>
+              </div>
+              <div class="menu-icon">
+                <ion-icon name="ellipsis-vertical" size="large" class="menu-drop" style="color: var(--couleur-main)"></ion-icon>
+              </div>
+            </div>
+          </div>
+        }
       </div>
     </div>
   </div>
-  <div class="cadreActions">
-    <div class="titreActions">Actions</div>
-    <div class="ajouterUtilisateurBouton">
-      <div class="rectangleAjouter">
-        <div class="texteAjouter">Ajouter un Utilisateur</div>
-      </div>
-    </div>
+  <div class="contenus-right">
   </div>
 </div>
