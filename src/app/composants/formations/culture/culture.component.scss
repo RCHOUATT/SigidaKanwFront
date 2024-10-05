@@ -1,0 +1,278 @@
+.container-left {
+  width: 385px;
+  padding: var(--padding);
+  border-radius: var(--border-radius);
+  border: 1px var(--couleur-bordure-container-principaux) solid;
+  background-color: var(--couleur-container-principaux);
+  display: flex;
+  flex-direction: column;
+  gap: var(--padding);
+}
+.container-right
+{
+  display: flex;
+  flex-flow: column;
+  gap: var(--padding);
+  border: 1px var(--couleur-bordure-container-principaux) solid;
+  background-color: var(--couleur-container-principaux);
+  border-radius: var(--border-radius);
+  flex: 1;
+  transition: flex 0.1s linear;
+  padding: var(--padding);
+}
+
+.optionsNiveau {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+
+.option {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  cursor: pointer;
+
+}
+
+.option ion-icon {
+  margin-right: 10px;
+}
+
+.conteneurCours
+{
+  display: flex;
+  flex-flow: column nowrap;
+  gap: var(--padding);
+}
+.icon-titre:hover, .icon-titre:focus, .icon-titre.active
+{
+  background-color: var(--couleur-main);
+}
+
+ion-icon
+{
+  color: var(--couleur-gray);
+}
+.menu:hover ion-icon, .menu:hover p, .menu:focus ion-icon, .menu:focus p, .menu-drop:hover, .icon-titre.active ion-icon
+{
+  color: var(--couleur-black);
+}
+ion-icon
+{
+  &:hover{
+    color: black;
+  }
+  &:active{
+    color: #009302;
+  }
+}
+.menus-containers{
+  display: flex;
+  flex-flow: column wrap;
+  gap: var(--padding);
+}
+.icon-titre
+{
+  width: 100%;
+  display: flex;
+  padding: var(--padding);
+  flex-flow: row nowrap;
+  align-items: center;
+  gap: var(--padding);
+  height: fit-content;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  //border: 1px solid green;
+  justify-content: space-between;
+  border-radius: var(--border-radius);
+}
+
+.menu-titre
+{
+  overflow: hidden;
+  color: var(--couleur-menu-text);
+  cursor: pointer;
+  flex: 1;
+}
+
+.menu-selected, .menu-selected .menu-titre
+{
+  color: var(--couleur-menu-titre-selectionne);
+  background-color: #3de169;
+}
+.menu-icon, .menu-icon img
+{
+  width: 20px;
+  height: 20px;
+}
+.breadcrumb-menu-icon
+{
+  width: 12px;
+  height: 12px;
+}
+.menu-icon, .breadcrumb-menu-icon
+{
+  display: flex;
+  align-content: center;
+  align-items: center;
+  justify-content: space-between;
+  /*background-color: blue;*/
+}
+
+.menu
+{
+  display: flex;
+  flex-flow: column nowrap;
+  column-gap: var(--padding);
+  row-gap: var(--padding);
+  align-items: center;
+  min-height: 40px;
+  flex-shrink: 0;
+  border-radius: var(--border-radius);
+  text-overflow: ellipsis;
+  overflow: hidden;
+  //border: 1px solid green;
+}
+
+.lesson-menu
+{
+  display: flex;
+  flex-flow: column nowrap;
+  column-gap: var(--padding);
+  row-gap: var(--padding);
+  align-items: center;
+  min-height: 40px;
+  border-radius: var(--border-radius);
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 100%;
+  //border: 1px solid green;
+}
+
+.beforeDrop{
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  gap: var(--padding);
+  height: fit-content;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  //border: 1px solid green;
+  border-radius: var(--border-radius);
+}
+
+.breadcrumb
+{
+  display: flex;
+  flex-flow: row nowrap;
+  column-gap: var(--padding);
+  width: fit-content;
+  align-items: center;
+}
+.container-right-en-tete
+{
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+.breadcrumb-titre
+{
+  width: fit-content;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  gap: var(--padding);
+  height: 100%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  //border: 1px solid green;
+  justify-content: space-between;
+  border-radius: var(--border-radius);
+}
+.breadcrumb-titre p
+{
+  text-wrap: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 12px;
+  color: var(--couleur-main);
+}
+.breadcrumb-titre p, .breadcrumb-titre ion-icon
+{
+  color: var(--couleur-main);
+}
+.titre-element,
+.titre-contenu
+{
+  display: flex;
+  flex-flow: row nowrap;
+  width: 100%;
+  justify-content: space-between;
+  gap: var(--padding);
+}
+.titre-element p, .titre-contenu p
+{
+  text-wrap: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  font-size: 14px;
+  color: var(--couleur-gray);
+  flex: 1;
+}
+.resume-element p, .contenu p
+{
+  font-size: 14px;
+  color: var(--couleur-gray);
+  flex: 1;
+}
+.cours-datils
+{
+  width: 100%;
+  height: fit-content;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  gap: var(--padding);
+  display: flex;
+  padding: var(--padding);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--couleur-bordure-container-principaux);
+}
+.contenu-datils
+{
+  width: 100%;
+  height: fit-content;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  gap: var(--padding);
+  display: flex;
+  padding: var(--padding);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--couleur-bordure-container-principaux);
+}
+.fichier img
+{
+  width: 200px;
+  height: 100px;
+  border-radius: var(--border-radius);
+  object-fit: cover;
+}
+.contenu
+{
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  flex-flow: row nowrap;
+  gap: var(--padding);
+}
+.resume-element
+{
+  width: 100%;
+}

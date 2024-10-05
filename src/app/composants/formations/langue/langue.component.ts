@@ -20,6 +20,7 @@ export class LangueComponent {
   isDropdownOpen = true;
   activeCours: string = 'Cours 1'; // Par défaut
   activeLesson: string = 'Lesson 1';
+  activeNiveau: string = 'Niveau 1';
 
 
   hideDropdown() {
