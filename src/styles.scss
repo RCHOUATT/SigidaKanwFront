@@ -1,1 +1,48 @@
 /* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root{
+  --padding: 10px;
+  --margin: 10px;
+  --border-radius: 10px;
+  --couleur-body: #E7FFEE;
+  --couleur-main: #58CC02;
+  --couleur-secondaire: #5ADA60;
+  --couleur-gray: #6F757E;
+  --couleur-titre: #4b4b4b;
+  --couleur-gray-light: #E1E1E1;
+  --couleur-menu-titre: #6F757E;
+  --couleur-menu-titre-selectionne: #000000;
+  --couleur-container-principaux: #fff;
+  --couleur-bordure-container-principaux: #6F757E;
+}
+
+*{
+  font-family: 'Poppins', Helvetica, Arial, sans-serif;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  letter-spacing: normal;
+  position: relative;
+}
+
+body
+{
+  width: 100vw;
+  height: 100vh;
+  border-radius: 0;
+  background-color: var(--couleur-body);
+}
+::-webkit-scrollbar{
+  display: none;
+}
+
+.contenus-container{
+  display: flex;
+  flex-flow: row wrap;
+  gap: calc(var(--padding) * 2);
+  height: 100%;
+  width: 100%;
+}
