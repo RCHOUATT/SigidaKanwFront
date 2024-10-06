@@ -1,4 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -34,6 +35,7 @@ body
   height: 100vh;
   border-radius: 0;
   background-color: var(--couleur-body);
+  //color: var(--couleur-gray)
 }
 ::-webkit-scrollbar{
   display: none;
@@ -51,3 +53,23 @@ body
 {
   cursor: pointer;
 }
+
+ion-icon, svg
+{
+  &:hover{
+    color: black;
+    fill: black;
+    stroke: black;
+  }
+  &:active{
+    stroke: #009302;
+    color: #009302;
+    fill: #009302;
+  }
+}
+
+.menu:hover ion-icon, .menu:hover p, .menu:focus ion-icon, .menu:focus p, .menu-drop:hover, .icon-titre.active ion-icon, svg
+{
+  color: var(--couleur-black);
+}
+

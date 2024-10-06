@@ -19,6 +19,7 @@
   flex: 1;
   transition: flex 0.1s linear;
   padding: var(--padding);
+  overflow-y: scroll;
 }
 
 .optionsNiveau {
@@ -29,7 +30,7 @@
 }
 
 
-.option {
+/*.option {
   display: flex;
   align-items: center;
   padding: 10px;
@@ -39,7 +40,7 @@
 
 .option ion-icon {
   margin-right: 10px;
-}
+}*/
 
 .conteneurCours
 {
@@ -52,23 +53,13 @@
   background-color: var(--couleur-main);
 }
 
-ion-icon
+ion-icon, svg
 {
   color: var(--couleur-gray);
+  fill: var(--couleur-gray);
 }
-.menu:hover ion-icon, .menu:hover p, .menu:focus ion-icon, .menu:focus p, .menu-drop:hover, .icon-titre.active ion-icon
-{
-  color: var(--couleur-black);
-}
-ion-icon
-{
-  &:hover{
-    color: black;
-  }
-  &:active{
-    color: #009302;
-  }
-}
+
+
 .menus-containers{
   display: flex;
   flex-flow: column wrap;
@@ -225,11 +216,11 @@ ion-icon
   color: var(--couleur-gray);
   flex: 1;
 }
-.resume-element p, .contenu p
+.resume-element p, .contenu p, .reponse p
 {
   font-size: 14px;
   color: var(--couleur-gray);
-  flex: 1;
+  width: 100%;
 }
 .cours-datils
 {
@@ -272,7 +263,11 @@ ion-icon
   flex-flow: row nowrap;
   gap: var(--padding);
 }
-.resume-element
+.resume-element, .reponse
 {
   width: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  gap: calc( var(--padding) / 2);
 }
+

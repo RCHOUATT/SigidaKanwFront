@@ -17,5 +17,9 @@ export const routes: Routes = [
   {
     path: "formation/langue",
     loadComponent: () => import("./composants/formations/langue/langue.component").then(m => m.LangueComponent)
+  },
+  {
+    path: "ajouterCours",
+    loadComponent: () => import("./composants/formations/ajouterCours/ajouterCours.component").then(m => m.AjouterCoursComponent)
   }
 ];

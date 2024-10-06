@@ -103,7 +103,8 @@
   font-weight: 900;
   color: var(--couleur-main);
 }
-.menu-icon, .menu-icon img
+//.menu-icon, .menu-icon img, .menu-icon svg
+.menu-icon, .menu-icon svg, .menu-icon svg
 {
   width: 20px;
   height: 20px;
@@ -177,18 +178,29 @@
   cursor: pointer;
 }
 
-.option ion-icon {
+//.option ion-icon
+.option svg
+{
   margin-right: 10px;
 }
 .menu:hover, .menu:focus
 {
   background-color: var(--couleur-main);
 }
-ion-icon
+//ion-icon
+svg
 {
-  color: var(--couleur-gray);
+  stroke: var(--couleur-gray);
+  //color: var(--couleur-gray);
+  fill: var(--couleur-gray);
 }
-.menu:hover ion-icon, .menu:hover p, .menu:focus ion-icon, .menu:focus p
+//.menu:hover ion-icon, .menu:hover p, .menu:focus ion-icon, .menu:focus p
+.menu:hover svg, .menu:focus svg
+{
+  fill: var(--couleur-black);
+  stroke: var(--couleur-black);
+}
+.menu:hover p, .menu:focus p
 {
   color: var(--couleur-black);
 }
@@ -252,7 +264,8 @@ ion-icon
   justify-content: center;
 }
 
-.recherche .icon img
+//.recherche .icon img
+.recherche .icon svg
 {
   width: 20px;
   height: 20px;

@@ -1,0 +1,102 @@
+<div class="contenus-container">
+  <div class="contenu">
+    <p style="color: black; font-weight: bold">Ajouter un nouveau cours</p>
+    <p>Ces informations décriront plus en détail le cours.</p>
+    <div class="forms-container">
+      <div class="timeline-container">
+        <div class="line-container">
+          <div class="line"></div>
+          <div class="line-01" [style]="largeur"></div>
+        </div>
+        <div class="steps">
+          <div class="debuter">
+            <div class="circle" [ngClass]="{'etatActive': etat >= 1 }"></div>
+            <p>Debuter</p>
+          </div>
+          <div class="chapitre">
+            <div class="circle" [ngClass]="{'etatActive' : etat >= 2 }"></div>
+            <p>Chapitre</p>
+          </div>
+          <div class="test">
+            <div class="circle" [ngClass]="{'etatActive' : etat >= 3}"></div>
+            <p>Test</p>
+          </div>
+        </div>
+      </div>
+      <div class="forms-c01">
+        <p style="color: black; font-weight: bold">Remplisser les champs suivants</p>
+        <div class="forms-c03">
+          <div class="forms-c02">
+            <p style="color: black; font-weight: bold" class="titre-c1">Niveau</p>
+            <div class="field">
+              <select class="niveau select-s01">
+                <!--<select class="niveau" (change)="stockercat($event.target)">
+                  @for (cat of categories; track $index) {
+                    <option  value="{{cat.category}}" >{{ cat.category }}</option>
+                  }-->
+                <option  value="debutant" >Débutant</option>
+                <option  value="intermédiaire" >Intermédiaire</option>
+                <option  value="Avancé" >Avancé</option>
+              </select>
+            </div>
+          </div>
+          <div class="forms-c02">
+            <p style="color: black; font-weight: bold" class="titre-c1">Titre</p>
+            <div class="field">
+              <input type="text" name="text" id="text-i01" class="text-i01" placeholder="Titre">
+              <!--<div class="menu-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512"><polyline points="112 184 256 328 400 184" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:48px"/></svg>
+              </div>
+              -->
+            </div>
+          </div>
+          <div class="forms-c02">
+            <p style="color: black; font-weight: bold" class="titre-c1">Titre</p>
+            <div class="field">
+              <textarea name="description" id="id-01" class="id-01" placeholder="Description"></textarea>
+              <!--<div class="menu-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512"><polyline points="112 184 256 328 400 184" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:48px"/></svg>
+              </div>
+              -->
+            </div>
+          </div>
+        </div>
+        <div class="btn-c01">
+          @if (etat == 1){
+            <app-button
+              label= "annuler"
+              color="primary"
+              icon="trash"
+              type="button"
+              [disabled] = false
+              largeur="flex: 1"
+            >
+            </app-button>
+          }
+          @if (etat != 1){
+            <app-button
+              label= "retour"
+              color="primary"
+              icon="trash"
+              type="button"
+              [disabled] = false
+              largeur="flex: 1"
+              (click)="changeEtatsnegatif()"
+            >
+            </app-button>
+          }
+          <app-button
+            label= "suivant"
+            color="primary"
+            icon="trash"
+            type="button"
+            [disabled] = false
+            largeur="flex: 1"
+            (click)="changeEtatspositif()"
+          >
+          </app-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

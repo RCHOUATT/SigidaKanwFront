@@ -93,86 +93,147 @@
       </div>
     </div>
   </div>
-  <div class="container-right">
-    <div class="container-right-en-tete">
-      <div class="breadcrumb">
-        <!--Fil d'ariane-->
-        @if(activeNiveau){
-          <div class="breadcrumb-titre" >
-            <div class="breadcrumb-menu-titre" (click)="openDropdown()">
-              <p >{{ activeNiveau }}</p>
+  @if (!activeTest)
+  {
+    <div class="container-right">
+      <div class="container-right-en-tete">
+        <div class="breadcrumb">
+          <!--Fil d'ariane-->
+          @if(activeNiveau){
+            <div class="breadcrumb-titre" >
+              <div class="breadcrumb-menu-titre" (click)="openDropdown()">
+                <p >{{ activeNiveau }}</p>
+              </div>
+              <div class="breadcrumb-menu-icon">
+                <ion-icon name="chevron-forward" size="large" class="arrow-forward"></ion-icon>
+              </div>
             </div>
-            <div class="breadcrumb-menu-icon">
-              <ion-icon name="chevron-forward" size="large" class="arrow-forward"></ion-icon>
+          }
+          @if(activeCours){
+            <div class="breadcrumb-titre" >
+              <div class="breadcrumb-menu-titre" (click)="openDropdown()">
+                <p >{{activeCours}}</p>
+              </div>
+              <div class="breadcrumb-menu-icon">
+                <ion-icon name="chevron-forward" size="large" class="arrow-forward"></ion-icon>
+              </div>
             </div>
+          }
+          @if(activeLesson){
+            <div class="breadcrumb-titre" >
+              <div class="breadcrumb-menu-titre" (click)="openDropdown()">
+                <p >{{activeLesson}}</p>
+              </div>
+            </div>
+          }
+        </div>
+        <app-button
+          label= "Modifier"
+          color="primary"
+          icon="trash"
+          type="button"
+          [disabled] = false
+          largeur="flex: 1"
+        >
+        </app-button>
+        <app-button
+          label= "Test Associé"
+          color="primary"
+          icon="trash"
+          type="button"
+          [disabled] = false
+          largeur="flex: 1"
+          (click)="setActiveTest()"
+        >
+        </app-button>
+      </div>
+      <div class="cours-datils" >
+        <div class="titre-element">
+          <p><strong style="color: black">Titre : </strong>Lorem ipsum dolor sit amet, consectetur adipiscing elit.  </p>
+          <div class="menu-icon">
+            <ion-icon name="refresh" size="large" class="menu-drop"></ion-icon>
           </div>
-        }
-        @if(activeCours){
-          <div class="breadcrumb-titre" >
-            <div class="breadcrumb-menu-titre" (click)="openDropdown()">
-              <p >{{activeCours}}</p>
-            </div>
-            <div class="breadcrumb-menu-icon">
-              <ion-icon name="chevron-forward" size="large" class="arrow-forward"></ion-icon>
-            </div>
+        </div>
+        <div class="ligne" style="width:100%; height: 0px; border: 1px #E1E1E1 solid"></div>
+        <div class="resume-element">
+          <p><strong style="color: black">Resumé : </strong>Lorem ipsum dolor sit amet, consectetur adipiscing elit.  </p>
+        </div>
+      </div>
+      <div class="contenu-datils" >
+        <div class="titre-contenu">
+          <p><strong style="color: black">Sous-titre : </strong>Lorem ipsum dolor sit amet, consectetur adipiscing elit.  </p>
+          <div class="menu-icon">
+            <ion-icon name="volume-high" size="large" class="menu-drop"></ion-icon>
           </div>
-        }
-        @if(activeLesson){
-          <div class="breadcrumb-titre" >
-            <div class="breadcrumb-menu-titre" (click)="openDropdown()">
-              <p >{{activeLesson}}</p>
-            </div>
+          <div class="menu-icon">
+            <ion-icon name="refresh" size="large" class="menu-drop"></ion-icon>
           </div>
-        }
-      </div>
-      <app-button
-        label= "Modifier"
-        color="primary"
-        icon="trash"
-        type="button"
-        [disabled] = false
-        largeur="flex: 1"
-      >
-      </app-button>
-      <app-button
-        label= "Test Associé"
-        color="primary"
-        icon="trash"
-        type="button"
-        [disabled] = false
-        largeur="flex: 1"
-      >
-      </app-button>
-    </div>
-    <div class="cours-datils" >
-      <div class="titre-element">
-        <p><strong style="color: black">Titre : </strong>Lorem ipsum dolor sit amet, consectetur adipiscing elit.  </p>
-        <div class="menu-icon">
-          <ion-icon name="refresh" size="large" class="menu-drop"></ion-icon>
         </div>
-      </div>
-      <div class="ligne" style="width:100%; height: 0px; border: 1px #E1E1E1 solid"></div>
-      <div class="resume-element">
-        <p><strong style="color: black">Resumé : </strong>Lorem ipsum dolor sit amet, consectetur adipiscing elit.  </p>
+        <div class="ligne" style="width:100%; height: 0px; border: 1px #E1E1E1 solid"></div>
+        <div class="contenu">
+          <div class="fichier">
+            <img src="assets/Images/contenu_test.png"/>
+          </div>
+          <p><strong style="color: black">contenu : </strong>Lorem ipsum dolor sit amet, consectetur adipiscing elitLorem ipsum dolor sit amet, consectetur adipiscing elitLorem ipsum dolor sit amet, consectetur adipiscing elitLorem ipsum dolor sit amet, consectetur adipiscing elit.  </p>
+        </div>
       </div>
     </div>
-    <div class="contenu-datils" >
-      <div class="titre-contenu">
-        <p><strong style="color: black">Sous-titre : </strong>Lorem ipsum dolor sit amet, consectetur adipiscing elit.  </p>
-        <div class="menu-icon">
-          <ion-icon name="volume-high" size="large" class="menu-drop"></ion-icon>
+  }
+  @if (activeTest)
+  {
+    <div class="container-right">
+      <div class="container-right-en-tete">
+        <div class="menu-icon" (click)="setActiveTest()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512"><path d="M448,440a16,16,0,0,1-12.61-6.15c-22.86-29.27-44.07-51.86-73.32-67C335,352.88,301,345.59,256,344.23V424A16,16,0,0,1,229,435.57l-176-168a16,16,0,0,1,0-23.14l176-168A16,16,0,0,1,256,88v80.36c74.14,3.41,129.38,30.91,164.35,81.87C449.32,292.44,464,350.9,464,424a16,16,0,0,1-16,16Z"/></svg>
         </div>
-        <div class="menu-icon">
-          <ion-icon name="refresh" size="large" class="menu-drop"></ion-icon>
+        <app-button
+          label= "Modifier"
+          color="primary"
+          icon="trash"
+          type="button"
+          [disabled] = false
+          largeur="flex: 1"
+        >
+        </app-button>
+      </div>
+      <div class="cours-datils" >
+        <div class="titre-element">
+          <p><strong style="color: black">Titre : </strong>Lorem ipsum dolor sit amet, consectetur adipiscing elit.  </p>
+          <div class="menu-icon">
+            <ion-icon name="refresh" size="large" class="menu-drop"></ion-icon>
+          </div>
+        </div>
+        <div class="ligne" style="width:100%; height: 0px; border: 1px #E1E1E1 solid"></div>
+        <div class="resume-element">
+          <p><strong style="color: black">Resumé : </strong>Lorem ipsum dolor sit amet, consectetur adipiscing elit.  </p>
+          <p><strong style="color: black">Le nombre de point pour ce test : </strong>100</p>
         </div>
       </div>
-      <div class="ligne" style="width:100%; height: 0px; border: 1px #E1E1E1 solid"></div>
-      <div class="contenu">
-        <div class="fichier">
-          <img src="assets/Images/contenu_test.png"/>
+      <div class="contenu-datils" >
+        <div class="titre-contenu">
+          <p><strong style="color: black">Question 1 : </strong>Lorem ipsum dolor sit amet, consectetur adipiscing elit.  </p>
+          <div class="menu-icon">
+            <ion-icon name="volume-high" size="large" class="menu-drop"></ion-icon>
+          </div>
+          <div class="menu-icon">
+            <ion-icon name="refresh" size="large" class="menu-drop"></ion-icon>
+          </div>
         </div>
-        <p><strong style="color: black">contenu : </strong>Lorem ipsum dolor sit amet, consectetur adipiscing elitLorem ipsum dolor sit amet, consectetur adipiscing elitLorem ipsum dolor sit amet, consectetur adipiscing elitLorem ipsum dolor sit amet, consectetur adipiscing elit.  </p>
+        <div class="ligne" style="width:100%; height: 0px; border: 1px #E1E1E1 solid"></div>
+        <div class="contenu">
+          <div class="fichier">
+            <img src="assets/Images/contenu_test.png"/>
+          </div>
+          <div class="reponse">
+            <p><strong style="color: black">Reponse Correcte : </strong>Consectetur adipiscing elitLorem ipsum .  </p>
+            <p><strong style="color: black">Reponse possible : </strong>Consectetur adipiscing elitLorem ipsum .  </p>
+            <p><strong style="color: black">Reponse possible : </strong>Consectetur adipiscing elitLorem ipsum .  </p>
+            <p><strong style="color: black">Reponse possible : </strong>Consectetur adipiscing elitLorem ipsum .  </p>
+            <p><strong style="color: black">Reponse possible : </strong>Consectetur adipiscing elitLorem ipsum .  </p>
+            <p><strong style="color: black">Reponse possible : </strong>Consectetur adipiscing elitLorem ipsum .  </p>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
+  }
 </div>

@@ -19,6 +19,7 @@ export class CultureComponent {
   activeCours: string = 'Cours 1'; // Par défaut
   activeLesson: string = 'Lesson 1';
   activeNiveau: string = 'Niveau 1';
+  activeTest: boolean = true;
 
 
   hideDropdown() {
@@ -34,5 +35,9 @@ export class CultureComponent {
   }
   setActiveLesson(lesson: string) {
     this.activeLesson = lesson;
+  }
+
+  setActiveTest() {
+    this.activeTest = !this.activeTest;
   }
 }
