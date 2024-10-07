@@ -9,15 +9,15 @@
           <div class="line-01" [style]="largeur"></div>
         </div>
         <div class="steps">
-          <div class="debuter">
+          <div class="debuter" [ngClass]="{'etatActiveTextColor': etat >= 1 }">
             <div class="circle" [ngClass]="{'etatActive': etat >= 1 }"></div>
             <p>Debuter</p>
           </div>
-          <div class="chapitre">
+          <div class="chapitre" [ngClass]="{'etatActiveTextColor': etat >= 2 }">
             <div class="circle" [ngClass]="{'etatActive' : etat >= 2 }"></div>
             <p>Chapitre</p>
           </div>
-          <div class="test">
+          <div class="test" [ngClass]="{'etatActiveTextColor': etat >= 3 }">
             <div class="circle" [ngClass]="{'etatActive' : etat >= 3}"></div>
             <p>Test</p>
           </div>
@@ -29,21 +29,27 @@
           <div class="forms-c02">
             <p style="color: black; font-weight: bold" class="titre-c1">Niveau</p>
             <div class="field">
-              <select class="niveau select-s01">
-                <!--<select class="niveau" (change)="stockercat($event.target)">
-                  @for (cat of categories; track $index) {
-                    <option  value="{{cat.category}}" >{{ cat.category }}</option>
-                  }-->
-                <option  value="debutant" >Débutant</option>
-                <option  value="intermédiaire" >Intermédiaire</option>
-                <option  value="Avancé" >Avancé</option>
+              <select class="niveau select-s01" (change)="stockerNiveau($event.target)">
+                @for (lev of niveauEtudes; track $index) {
+                  <option  value="{{lev.niveau}}" >{{ lev.niveau }}</option>
+                }
+              </select>
+            </div>
+          </div>
+          <div class="forms-c02">
+            <p style="color: black; font-weight: bold" class="titre-c1">Type</p>
+            <div class="field">
+              <select class="type select-s01" (change)="stockerType($event.target)">
+                @for (typ of typeCours; track $index) {
+                  <option  value="{{typ.type}}" >{{ typ.type }}</option>
+                }
               </select>
             </div>
           </div>
           <div class="forms-c02">
             <p style="color: black; font-weight: bold" class="titre-c1">Titre</p>
             <div class="field">
-              <input type="text" name="text" id="text-i01" class="text-i01" placeholder="Titre">
+              <input type="text" name="text" id="text-i01" class="text-i01" placeholder="Titre" [ngModel]="cours.titre">
               <!--<div class="menu-icon">
                 <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512"><polyline points="112 184 256 328 400 184" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:48px"/></svg>
               </div>
@@ -51,9 +57,9 @@
             </div>
           </div>
           <div class="forms-c02">
-            <p style="color: black; font-weight: bold" class="titre-c1">Titre</p>
+            <p style="color: black; font-weight: 600" class="titre-c1">Description</p>
             <div class="field">
-              <textarea name="description" id="id-01" class="id-01" placeholder="Description"></textarea>
+              <textarea name="description" id="id-01" class="id-01" placeholder="Description" [ngModel]="cours.description"></textarea>
               <!--<div class="menu-icon">
                 <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512"><polyline points="112 184 256 328 400 184" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:48px"/></svg>
               </div>
@@ -92,6 +98,7 @@
             type="button"
             [disabled] = false
             largeur="flex: 1"
+            (click)="AjouterCours()"
             (click)="changeEtatspositif()"
           >
           </app-button>
