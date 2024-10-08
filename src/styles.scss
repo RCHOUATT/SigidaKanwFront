@@ -73,3 +73,10 @@ ion-icon, svg
   color: var(--couleur-black);
 }
 
+.divider
+{
+  width: 100%;
+  height: 2px;
+  background-color: var(--couleur-gray-light);
+  border-color: #fff;
+}

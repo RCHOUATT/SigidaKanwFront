@@ -30,7 +30,7 @@ p
   display: flex;
   flex-flow: column nowrap;
   width: 100%;
-  padding: var(--padding);
+  padding: calc(32.5px) var(--padding) var(--padding) var(--padding);
   align-items: center;
   justify-content: center;
   row-gap: var(--padding);
@@ -47,6 +47,8 @@ p
   border-radius: var(--border-radius);
   padding: var(--padding);
   z-index: 100;
+  position: absolute;
+  top: 0;
 }
 .steps{
   display: flex;
@@ -113,13 +115,14 @@ p
   display: flex;
   flex-flow: column nowrap;
   width: 100%;
-  max-height: 643px;
+  max-height: 356px;
   background-color: white;
   border: 1px solid var(--couleur-bordure-container-principaux);
   border-radius: var(--border-radius);
-  transform: translateY(-42.5px);
+  //transform: translateY(-42.5px);
   padding: 42.5px 10px 10px 10px;
   gap: var(--padding);
+  overflow-y: scroll;
 }
 .forms-c03
 {
@@ -128,6 +131,19 @@ p
   flex-flow: row wrap;
   align-items: start;
   gap: var(--padding);
+}
+.forms-c031
+{
+  display: flex;
+  width: 100%;
+  max-height: 100%;
+  flex-flow: column nowrap;
+  align-items: start;
+  gap: var(--padding);
+}
+.forms-c031 p, .elmt-increment > p
+{
+  text-align: start;
 }
 .forms-c02
 {
@@ -139,6 +155,15 @@ p
   align-items: start;
   row-gap: calc(var(--padding) / 2);
 }
+.forms-c04
+{
+  display: flex;
+  width: 100%;
+  flex-flow: column nowrap;
+  align-items: start;
+  row-gap: calc(var(--padding) / 2);
+}
+
 .forms-c02 p
 {
   text-align: left;
@@ -193,4 +218,48 @@ svg
   display: flex;
   width: 100%;
   justify-content: space-between;
+}
+
+.elmt-increment
+{
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+.elmt-increment-01
+{
+  max-width: 100px;
+  width: 25%;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.elmt-nom
+{
+  width: fit-content;
+}
+
+.ict-01
+{
+  width: 30px;
+  height: 30px;
+  background-color: var(--couleur-main);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+
+  &:active{
+    stroke: #009302;
+    color: #009302;
+    fill: #009302;
+  }
+
+  svg
+  {
+    fill: var(--couleur-gray-light);
+    stroke: var(--couleur-gray-light);
+  }
 }
