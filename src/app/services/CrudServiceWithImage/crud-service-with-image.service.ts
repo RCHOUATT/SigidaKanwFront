@@ -19,7 +19,7 @@ export class CrudServiceWithImageService {
    * @param {File[]} fichiers - Les fichiers à associer à l'entité.
    * @return {Observable<string>} Un observable qui émet la réponse du serveur.
    */
-  creer<T>(name: string, entity: T, fichiers: File[]): Observable<string> {
+  creer(name: string, entity: any, fichiers: File[]): Observable<string> {
     const formData = new FormData();
     formData.append('entity', JSON.stringify(entity)); // Convertit l'objet en chaîne JSON
 
@@ -30,6 +30,7 @@ export class CrudServiceWithImageService {
       });
     }
 
+    console.log("formData", formData);
     return this.http.post<string>(`${this.baseUrl}/${name}/creer`, formData); // Appel à l'API
   }
 

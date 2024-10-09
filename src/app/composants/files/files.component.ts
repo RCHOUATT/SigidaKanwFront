@@ -52,7 +52,7 @@ export class FilesComponent {
 
 
   // Gestion des fichiers sélectionnés
-  handleFiles(files: FileList) {
+  /*handleFiles(files: FileList) {
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
 
@@ -70,6 +70,33 @@ export class FilesComponent {
         console.warn(`Le fichier ${file.name} est vide ou corrompu.`);
       }
     }
+  }*/
+
+  handleFiles(files: FileList) {
+    const actualFiles: File[] = [];
+
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+
+      // Vérification si la taille du fichier est correcte
+      if (file.size > 0) {
+        const fileURL = URL.createObjectURL(file);
+        this.files.push({
+          file: file,
+          src: fileURL,
+          type: file.type
+        });
+
+        // Ajout du fichier à la liste de fichiers réels à envoyer
+        actualFiles.push(file);
+      } else {
+        console.warn(`Le fichier ${file.name} est vide ou corrompu.`);
+      }
+    }
+
+    // Mise à jour des fichiers dans le service pour les envoyer
+    this.service.updateFiles(actualFiles); // Ici, on envoie uniquement les fichiers eux-mêmes
+    console.log(this.files); // Vous pouvez toujours afficher votre tableau personnalisé ici
   }
 
   // Vérification du type de fichier
