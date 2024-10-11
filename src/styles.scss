@@ -80,3 +80,13 @@ ion-icon, svg
   background-color: var(--couleur-gray-light);
   border-color: #fff;
 }
+
+.active
+{
+  background-color: var(--couleur-main);
+}
+
+.active p
+{
+  color: black;
+}

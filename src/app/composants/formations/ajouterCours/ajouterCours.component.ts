@@ -9,6 +9,10 @@ import {FormsModule} from "@angular/forms";
 import {FilesComponent} from "../../files/files.component";
 import {shareService} from "../../../services/shareService";
 import {CrudServiceWithImageService} from "../../../services/CrudServiceWithImage/crud-service-with-image.service";
+import {contenus} from "../../../models/Contenu";
+import {ReponsePossible} from "../../../models/ReponsePossible";
+import {Question} from "../../../models/Question";
+import {Test} from "../../../models/Test";
 
 @Component({
   selector: 'app-ajouterCours',
@@ -24,17 +28,22 @@ import {CrudServiceWithImageService} from "../../../services/CrudServiceWithImag
 })
 export class AjouterCoursComponent implements OnInit {
 
-  constructor(private service: CrudServiceWithoutImageService, private service2: CrudServiceWithImageService, private service1: shareService) {
+  constructor(private service: CrudServiceWithoutImageService, private service2: CrudServiceWithImageService, private service1: shareService  ) {
   }
 
   ngOnInit() {
     this.loadTypeCours();
     this.loadNiveauEtudes();
+    this.loadTypeTest();
     this.authToken = sessionStorage.getItem("authToken")
     this.service1.currentFiles.subscribe(files => {
       this.files = files;
     });
-    this.questions.push({nbreReponsePossible: 1, reponsePossible: [this.reponsePossible], reponseCorrecte: "",})
+    this.questions.push({
+      nbreReponsePossible: 1,
+      reponsePossible: [new ReponsePossible({id: 0})],
+      question: new Question({id: 0})});
+    this.contenu.push(new contenus({id: 0}));
   }
 
   cours: Cours = {
@@ -52,32 +61,42 @@ export class AjouterCoursComponent implements OnInit {
     resume: "",
   };
 
-  contenus : {
-  titre: string,
-  description: string,
-  chapitre: any,
-  files?: [],
+  //contenus : contenus = new contenus();
+
+  questionToBd : {
+    question: string,
+    reponseCorrecte: string,
+    test: any,
+    files?: [],
   } = {
-    titre: "",
-    description: "",
-    chapitre: {
+    question: "",
+    reponseCorrecte: "",
+    test: {
       id: 0
     },
-    files: []
   };
 
+  reponsePossibleToBd={
+    reponsePossible: "",
+    question: {
+      id: 0,
+    }
+  }
+
+  test = new Test({id:0}, {id:0} );
   files: any[] = [];
 
   etat: number = 1;
   largeur: string = `width: calc((${this.etat} - 1) * 50%); transition: width 0.3s linear;`;
   typeCours: any[]= [];
+  typeTest: any[]= [];
   type: any;
   niveauEtudes: any[]= [];
   niveau: any;
   authToken: any;
   nbreContenu = 1;//le nombre d'élement(comme question pour les test ou contenu pour les chapitres) qui doit être ajouter à la page.
   nbreQuestion = 1;//le nombre d'élement(comme question pour les test ou contenu pour les chapitres) qui doit être ajouter à la page.
-  contenu : number[] = [0];//Liste d'element. Elle n'est utilisé que pour la boucle
+  contenu : any[] = [];//Liste d'element. Elle n'est utilisé que pour la boucle
   nbreReponsePossible = 1;//le nombre d'élement(comme question pour les test ou contenu pour les chapitres) qui doit être ajouter à la page.
   reponsePossible = "";//Liste d'element. Elle n'est utilisé que pour la boucle
 
@@ -85,26 +104,30 @@ export class AjouterCoursComponent implements OnInit {
   questions : any[] = [];
 
   incrementNbreElment(){
-      if (this.nbreContenu<10 && this.etat == 2){
-        this.nbreContenu++;
-        this.contenu = Array(this.nbreContenu).fill(0).map((idx, i) => i);
-        console.log(this.contenu);
-      }else if (this.nbreQuestion<10 && this.etat == 3){
-        this.nbreQuestion++;
-        this.questions.push({nbreReponsePossible: 1, reponsePossible: [this.reponsePossible], reponseCorrecte: "",}) ;
-        console.log(this.questions);
+    if (this.nbreContenu<10 && this.etat == 2){
+      this.nbreContenu++;
+      //this.contenu = Array(this.nbreContenu).fill(0).map((idx, i) => i);
+      this.contenu.push(new contenus({id: 0}));
+      console.log(this.contenu);
+    }else if (this.nbreQuestion<10 && this.etat == 3){
+      this.nbreQuestion++;
+      this.questions.push({
+        nbreReponsePossible: 1,
+        reponsePossible: [new ReponsePossible({id: 0})],
+        question: new Question({id : 0})});
+      console.log(this.questions);
     }
   }
 
 
   incrementNbreReponse(question: any){
     console.log("question : ", this.questions[question])
-    //console.log("questionClasse : ", this.question)
+    console.log("index : ", question)
     if (this.questions[question].nbreReponsePossible<10) {
       this.nbreReponsePossible++;
       this.questions[question].nbreReponsePossible++;
       console.log("question nbreRepo : ", this.questions[question].nbreReponsePossible)
-      this.questions[question].reponsePossible.push(this.reponsePossible);
+      this.questions[question].reponsePossible.push(new ReponsePossible({id: 0}));
       console.log("question RepoPoss : ", this.questions[question].reponsePossible);
       console.log("question modifié : ", this.questions[question]);
       console.log("Liste questions : ", this.questions);
@@ -112,28 +135,34 @@ export class AjouterCoursComponent implements OnInit {
   }
 
   decrementNbreElment(){
-      if (this.nbreContenu<=10 && this.nbreContenu>1 && this.etat == 2){
-        this.nbreContenu--;
-        this.contenu = Array(this.nbreContenu).fill(0).map((idx, i) => i);
-        console.log(this.contenu);
-      }else if (this.nbreQuestion<=10 && this.nbreQuestion>1 && this.etat == 3){
-        this.nbreQuestion--;
-        this.questions.pop();
-        console.log(this.questions);
-      }
+    if (this.nbreContenu<=10 && this.nbreContenu>1 && this.etat == 2){
+      this.nbreContenu--;
+      this.contenu = Array(this.nbreContenu).fill(0).map((idx, i) => i);
+      console.log(this.contenu);
+    }else if (this.nbreQuestion<=10 && this.nbreQuestion>1 && this.etat == 3){
+      this.nbreQuestion--;
+      this.questions.pop();
+      console.log(this.questions);
+    }
   }
 
   decrementNbreReponse(question: any){
-      if (this.questions[question].nbreReponsePossible<=10 && this.questions[question].nbreReponsePossible>1){
-        this.nbreReponsePossible--;
-        this.questions[question].reponsePossible.pop();
-        console.log(this.questions[question].reponsePossible);
-      }
+    if (this.questions[question].nbreReponsePossible<=10 && this.questions[question].nbreReponsePossible>1){
+      this.nbreReponsePossible--;
+      this.questions[question].reponsePossible.pop();
+      console.log(this.questions[question].reponsePossible);
+    }
   }
 
   stockerType(t:any){
-    this.cours.typeCours = this.typeCours.find(data => data.type === t.value);
-    console.log(this.cours.niveauEtudes)
+    if (this.etat == 1){
+      this.cours.typeCours = this.typeCours.find(data => data.type === t.value);
+      console.log(this.cours.typeCours);
+    }
+    if (this.etat == 3){
+      this.test.typeTest = this.typeTest.find(data => data.type === t.value);
+      console.log(this.test.typeTest)
+    }
   }
   stockerNiveau(n:any){
     this.cours.niveauEtudes = this.niveauEtudes.find(data => data.niveau === n.value);
@@ -152,7 +181,19 @@ export class AjouterCoursComponent implements OnInit {
         console.error('Erreur lors du chargement des types:', err);
       }
     });
-  }
+  };
+  loadTypeTest() {
+    this.service.get("typeTests").subscribe({
+      next: (data) => {
+        this.typeTest = data; // Remplit la liste des utilisateurs
+        this.test.typeTest = this.typeTest[0];
+        console.log(this.test.typeTest);
+      },
+      error: (err) => {
+        console.error('Erreur lors du chargement des types:', err);
+      }
+    });
+  };
 
   loadNiveauEtudes() {
     this.service.get("niveauEtudes").subscribe({
@@ -204,22 +245,58 @@ export class AjouterCoursComponent implements OnInit {
       });
     }else if (this.etat == 2){
       console.log(this.chapitre);
+      console.log(this.contenu);
       this.service.post("chapitre", this.chapitre, this.authToken).subscribe((data)=>{
         this.chapitre = data;
-        this.contenus.chapitre.id = data.id
+        this.test.chapitre.id = data.id;
+        //this.contenus.chapitre.id = data.id
         //pour ajouter les fichiers
-        this.service1.currentFiles.subscribe(files => {
-          this.files = files;
-        });
-        this.service2.creer('contenu', this.contenus, this.files)
-          .subscribe(response => {
-            console.log('Réponse : ', response);
+        this.contenu.forEach(c=>{
+          this.service1.currentFiles.subscribe(files => {
+            this.files = files;
           });
-        this.changeEtatspositif()
+          console.log('contenu : ', c);
+          c.chapitre.id = data.id;
+          this.service2.creer('contenu', c, this.files)
+            .subscribe(response => {
+              console.log('Réponse : ', response);
+            });
+          this.changeEtatspositif();
+        })
       });
-    }else{
+    }else if (this.etat == 3){
+      console.log(this.test);
+      //console.log(this.questions);
+      this.service.post("test", this.test, this.authToken).subscribe((data)=>{
+        this.test = data;
+        console.log("question",this.questions);
+        this.questions.forEach(q=>{
+          q.question.test.id = data.id;
+          console.log("qActuelle : ",q);
+          this.service1.currentFiles.subscribe(files => {
+            this.files = files;
+          });
+          this.service2.creer('question', q.question, this.files)
+            .subscribe(response => {
+              q.reponsePossible.forEach((r : ReponsePossible) =>{
+                r.question.id = r.question.id;
+                console.log("reponse : ",r);
+                this.service.post('reponsePossible', r, this.authToken)
+                  .subscribe(response => {
+                    console.log('Réponse : ', response);
+                  });
+              })
+              console.log('Réponse : ', response);
+            });
 
-    }
+        });
+        console.log("data: ", data);
+        //console.log(data);
+        //console.log(this.test);
+        //console.log(this.questionToBd.test.id);
+        this.goBack()
+      });
+    };
   }
 
   async AjouterContenu() {
@@ -234,6 +311,10 @@ export class AjouterCoursComponent implements OnInit {
     }else{
 
     }
+  }
+
+  goBack(): void {
+    window.history.back();
   }
 
 }

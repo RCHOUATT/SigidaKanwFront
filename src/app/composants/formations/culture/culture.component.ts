@@ -16,9 +16,9 @@ import {NgClass} from "@angular/common";
 export class CultureComponent {
 
   isDropdownOpen = true;
-  activeCours: string = 'Cours 1'; // Par défaut
+  activeCours: string = 'Cours 1';  // Par défaut
   activeLesson: string = 'Lesson 1';
-  activeNiveau: string = 'Niveau 1';
+  activeNiveau: string = 'DEBUTANT';
   activeTest: boolean = true;
 
 

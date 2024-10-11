@@ -57,6 +57,10 @@
 }
 .detail p
 {
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-wrap: nowrap;
   text-align: left;
 }
 .Liste-contenu p
@@ -71,7 +75,7 @@
 .detail{
   display: flex;
   flex-flow: column nowrap;
-  flex: 1;
+  width: calc(100% - 40px);
 }
 .Liste-entete
 {
@@ -84,6 +88,13 @@
 .Liste-contenu
 {
   border-radius: var(--border-radius);
+  cursor: pointer;
+  &:hover{
+    background-color: var(--couleur-main);
+  }
+  &:hover p{
+    color: black;
+  }
 }
 .Liste-entete, .Liste-contenu
 {

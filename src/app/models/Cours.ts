@@ -1,10 +1,24 @@
-export interface Cours {
-  id?: number; // id est optionnelle
-  titre: string;
-  typeCours: any; // Remplacez 'any' par le type approprié
-  niveauEtudes: any; // Remplacez 'any' par le type approprié
-  description: string;
+export class Cours {
+  id?: number;
+  titre?: string;
+  description?: string;
+  niveauEtudes?: {};
+  typeCours?: {};
+  utilisateur?: {};
+
+  constructor(
+    id?: number,
+    titre?: string,
+    description?: string,
+    niveauEtudes?: {},
+    typeCours?: {},
+    utilisateur?: {}
+  ) {
+    this.id = id;
+    this.titre = titre;
+    this.description = description;
+    this.niveauEtudes = niveauEtudes;
+    this.typeCours = typeCours;
+    this.utilisateur = utilisateur;
+  }
 }
-
-
-

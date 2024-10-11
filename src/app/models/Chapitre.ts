@@ -1,8 +1,18 @@
-import {Cours} from "./Cours";
+export class Chapitre {
+  id?: number;
+  titre?: string;
+  resume?: string;
+  cours?: {};
 
-export interface Chapitre {
-  id?: number;           // Identifiant unique du chapitre (optionnel lors de la création)
-  titre: string;         // Titre du chapitre
-  resume: string;        // Résumé du chapitre
-  cours: Cours;         // Cours associé à ce chapitre
+  constructor(
+    id?: number,
+    titre?: string,
+    resume?: string,
+    cours?: {},
+  ) {
+    this.id = id;
+    this.titre = titre;
+    this.resume = resume;
+    this.cours = cours;
+  }
 }

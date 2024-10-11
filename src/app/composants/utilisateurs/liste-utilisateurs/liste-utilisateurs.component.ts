@@ -1,18 +1,25 @@
 import {Component, OnInit} from '@angular/core';
 import {Utilisateur} from "../../../models/Utilisateur";
 import {CrudServiceWithImageService} from "../../../services/CrudServiceWithImage/crud-service-with-image.service";
+import {NgClass} from "@angular/common";
+import {FormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-liste-utilisateurs',
   standalone: true,
-  imports: [],
+  imports: [
+    NgClass,
+    FormsModule
+  ],
   templateUrl: './liste-utilisateurs.component.html',
   styleUrl: './liste-utilisateurs.component.scss'
 })
 export class ListeUtilisateursComponent implements OnInit {
   utilisateurs: Utilisateur[] = []; // Liste des utilisateurs
-  newUser: Utilisateur = { nom: '', email: '', mdp: '', role: { id: 1, role: 'USER' } }; // Utilisateur à créer
+  activeUser = false;
+  activeUserId: number | undefined = 0;
 
+  //[ngClass]="{'active': activeUser}
   constructor(private service: CrudServiceWithImageService) {}
 
   ngOnInit(): void {
@@ -28,6 +35,12 @@ export class ListeUtilisateursComponent implements OnInit {
         console.error('Erreur lors du chargement des utilisateurs:', err);
       }
     });
+  }
+
+  setActive(activeUserId : number | undefined) {
+    this.activeUser = true;
+    this.activeUserId = activeUserId;
+    localStorage.setItem("activeUserId", `${activeUserId}`)
   }
 
 }

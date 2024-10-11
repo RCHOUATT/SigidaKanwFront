@@ -111,7 +111,7 @@
               <div class="forms-c04">
                 <p style="color: black; font-weight: bold" class="titre-c1">Sous-titre</p>
                 <div class="field">
-                  <input type="text" name="text" id="{{$index}}" class="text-i01" placeholder="Titre" [(ngModel)]="contenus.titre">
+                  <input type="text" name="text" id="{{$index}}" class="text-i01" placeholder="Titre" [(ngModel)]="elment.titre">
                   <!--<div class="menu-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512"><polyline points="112 184 256 328 400 184" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:48px"/></svg>
                   </div>
@@ -121,7 +121,7 @@
               <div class="forms-c04">
                 <p style="color: black; font-weight: 600" class="titre-c1">Description</p>
                 <div class="field">
-                  <textarea name="description" id="{{$index}}" class="id-01" placeholder="Description" [(ngModel)]="contenus.description"></textarea>
+                  <textarea name="description" id="{{$index}}" class="id-01" placeholder="Description" [(ngModel)]="elment.description"></textarea>
                   <!--<div class="menu-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512"><polyline points="112 184 256 328 400 184" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:48px"/></svg>
                   </div>
@@ -139,7 +139,17 @@
             <div class="forms-c04">
               <p style="color: black; font-weight: bold" class="titre-c1">Titre</p>
               <div class="field">
-                <input type="text" name="text" id="text-i0{{etat}}" class="text-i01" placeholder="Titre" [(ngModel)]="cours.titre">
+                <input type="text" name="text" id="text-i0{{etat}}" class="text-i01" placeholder="Titre" [(ngModel)]="test.titre">
+                <!--<div class="menu-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512"><polyline points="112 184 256 328 400 184" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:48px"/></svg>
+                </div>
+                -->
+              </div>
+            </div>
+            <div class="forms-c04">
+              <p style="color: black; font-weight: bold" class="titre-c1">Nombre de point</p>
+              <div class="field">
+                <input type="number" name="number" id="text-i0{{etat}}" class="text-i01" placeholder="Titre" [(ngModel)]="test.nbrePoint">
                 <!--<div class="menu-icon">
                   <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512"><polyline points="112 184 256 328 400 184" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:48px"/></svg>
                 </div>
@@ -149,11 +159,21 @@
             <div class="forms-c04">
               <p style="color: black; font-weight: 600" class="titre-c1">Resumé</p>
               <div class="field">
-                <textarea name="description" id="id-0{{etat + 1}}" class="id-01" placeholder="Resumé" [(ngModel)]="cours.description"></textarea>
+                <textarea name="description" id="id-0{{etat + 1}}" class="id-01" placeholder="Resumé" [(ngModel)]="test.description"></textarea>
                 <!--<div class="menu-icon">
                   <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512"><polyline points="112 184 256 328 400 184" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:48px"/></svg>
                 </div>
                 -->
+              </div>
+            </div>
+            <div class="forms-c04">
+              <p style="color: black; font-weight: bold" class="titre-c1">Type</p>
+              <div class="field">
+                <select class="type select-s01" (change)="stockerType($event.target)">
+                  @for (typ of typeTest; track $index) {
+                    <option  value="{{typ.type}}" >{{ typ.type }}</option>
+                  }
+                </select>
               </div>
             </div>
             <div class="divider"></div>
@@ -175,7 +195,7 @@
               <div class="forms-c04">
                 <p style="color: black; font-weight: bold" class="titre-c1">Question {{ $index + 1 }} </p>
                 <div class="field">
-                  <input type="text" name="text" id="{{$index}}" class="text-i01" placeholder="Question" [(ngModel)]="cours.titre">
+                  <input type="text" name="text" id="{{$index}}" class="text-i01" placeholder="Question" [(ngModel)]="quest.question.question">
                   <!--<div class="menu-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512"><polyline points="112 184 256 328 400 184" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:48px"/></svg>
                   </div>
@@ -185,7 +205,7 @@
               <div class="forms-c04">
                 <p style="color: black; font-weight: 600" class="titre-c1">Reponse Correcte</p>
                 <div class="field">
-                  <textarea name="description" id="{{$index}}" class="id-01" placeholder="Description" [(ngModel)]="cours.description"></textarea>
+                  <textarea name="description" id="{{$index}}" class="id-01" placeholder="Description" [(ngModel)]="quest.question.reponseCorrecte"></textarea>
                   <!--<div class="menu-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512"><polyline points="112 184 256 328 400 184" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:48px"/></svg>
                   </div>
@@ -211,7 +231,7 @@
                 <div class="forms-c04">
                   <p style="color: black; font-weight: 600" class="titre-c1">Reponse possible</p>
                   <div class="field">
-                    <textarea name="description" id="{{$index}}" class="id-01" placeholder="Description" [(ngModel)]="cours.description"></textarea>
+                    <textarea name="description" id="{{$index}}" class="id-01" placeholder="Repons possible" [(ngModel)]="elment.reponsePossible"></textarea>
                     <!--<div class="menu-icon">
                       <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512"><polyline points="112 184 256 328 400 184" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:48px"/></svg>
                     </div>
@@ -234,6 +254,7 @@
               type="button"
               [disabled] = false
               largeur="flex: 1"
+              (click)="back()"
             >
             </app-button>
           }
