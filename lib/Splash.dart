@@ -55,15 +55,15 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
     if (token != null) {
       print(token);
       // Rediriger vers la page d'accueil si le token est valide
-      Navigator.pushReplacement(
+      Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => ApprenantNav()),
       );
     } else {
       // Rediriger vers la page de connexion si le token n'est pas trouvé
-      Navigator.pushReplacement(
+      Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => Login()),
+        MaterialPageRoute(builder: (context) => Accueil()),
       );
     }
   }

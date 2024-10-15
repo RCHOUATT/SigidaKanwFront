@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 
@@ -21,7 +22,7 @@ class Realisation extends StatelessWidget {
     late bool pass = true;
     return Scaffold(
       body: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 18),
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
           width: double.infinity,
           height: double.infinity,
           color: const Color(0xFFE3EDFD),
@@ -44,7 +45,7 @@ class Realisation extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 5),
                             margin: const EdgeInsets.fromLTRB(0,0,0,13),
                             decoration: BoxDecoration(
-                                color: Color(0xFFFFFFFF),
+                                color: Color(0xFF58CC02),
                                 borderRadius: BorderRadius.circular(15)
                             ),
                             child: LayoutBuilder(
@@ -57,61 +58,29 @@ class Realisation extends StatelessWidget {
                                     children: [
                                       Container(
                                         width: width1 * 0.127,
+                                        //color: Colors.green,
                                         child: TextButton(
                                           onPressed: (){
                                             Navigator.pop(context);
                                           },
                                           child: Image.asset(
                                             "Assets/Icons/back.png",
-                                            color: const Color(0xFF1E90FF),
+                                            color: const Color(0xFFFFFFFF),
                                           ),
                                         ),
                                       ),
-                                      Container(
-                                        width: width1 * 0.67,
-                                        child: TextField(
-                                          maxLines: 1,
-                                          controller: searchUser,
-                                          keyboardType: TextInputType.text,
-                                          onChanged: (value) {
-                                            searchValue = value;
-                                          },
-                                          decoration: InputDecoration(
-                                            hintText: "searchValue",
-                                            prefixIcon: Icon(Icons.search),
-                                            contentPadding: const EdgeInsets.symmetric(horizontal: 5, vertical: 0),
-                                            floatingLabelAlignment: FloatingLabelAlignment.center,
-                                            border: OutlineInputBorder(
-                                              borderRadius: BorderRadius.circular(10.0),
-                                            ),
-                                            enabledBorder: OutlineInputBorder(
-                                              borderSide: const BorderSide(
-                                                color: Colors.transparent,
-                                              ),
-                                              borderRadius: BorderRadius.circular(10.0),
-                                            ),
-                                            focusedBorder: OutlineInputBorder(
-                                              borderSide: const BorderSide(
-                                                color: Colors.transparent,
-                                              ),
-                                              borderRadius: BorderRadius.circular(10.0),
-                                            ),
-                                          ),
-                                          style: const TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 16,
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
-                                        ),
-                                      ),
-                                      Container(
-                                        width: width1 * 0.152,
-                                        child: CircleAvatar(
-                                          radius: 50,
-                                          child: ClipOval(
-                                            child: Image.asset(
-                                              "Assets/Images/profil.png",
-                                              fit: BoxFit.cover,
+                                      Expanded(
+                                        child: Container(
+                                          width: double.infinity,
+                                          //color: Colors.blue,
+                                          child: const Text(
+                                            "Niveaux",
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                color: Color(0xFFFFFFFF),
+                                                fontFamily: "Lexend",
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w600
                                             ),
                                           ),
                                         ),
@@ -124,9 +93,8 @@ class Realisation extends StatelessWidget {
                         Container(
                             width: double.infinity,
                             height: heigth * 0.89,
-                            padding: const EdgeInsets.all(10),
                             decoration: BoxDecoration(
-                              color: Colors.white,
+                              //color: Colors.white,
                               borderRadius: BorderRadius.circular(15),
                             ),
                             child: SingleChildScrollView(
@@ -136,18 +104,27 @@ class Realisation extends StatelessWidget {
                                 children: [
                                   TextButton(
                                     onPressed: () {
-                                      Navigator.pushNamed(context, "/chatRoom");
+                                      //Navigator.pushNamed(context, "/chatRoom");
                                     },
                                     style: TextButton.styleFrom(
                                         padding: const EdgeInsets.all(0),
+                                        backgroundColor: Color(0xFFFFFFFF),
                                         foregroundColor: const Color(0xFF232323),
                                         shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(0),
+                                          borderRadius: BorderRadius.circular(15),
                                         )
                                     ),
                                     child: Container(
                                       width: double.infinity,
+                                      //margin: const EdgeInsets.fromLTRB(0, 0, 0, 10),
+                                      padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                                       height: 50,
+                                      decoration: const BoxDecoration(
+                                        //color: Color(0xFFFFFFFF),
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(15),
+                                        ),
+                                      ),
                                       child: LayoutBuilder(
                                         builder: (context, constraints){
                                           double width = constraints.maxWidth;
@@ -156,54 +133,26 @@ class Realisation extends StatelessWidget {
                                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             crossAxisAlignment: CrossAxisAlignment.center,
                                             children: [
-                                              CircleAvatar(
-                                                child: ClipOval(
-                                                  child: Image.asset(
-                                                    "Assets/Images/profil.png",
-                                                    fit: BoxFit.cover,
-                                                  ),
-                                                ),
-                                              ),
-                                              Container(
-                                                width : width * 0.28,
-                                                child: const Text(
-                                                  "@Username",
-                                                  overflow: TextOverflow.ellipsis,
-                                                  maxLines: 1,
-                                                  style: TextStyle(
-                                                    fontSize: 14,
-                                                    fontFamily: 'Nunito',
-                                                    fontWeight: FontWeight.w500,
-                                                  ),
-                                                ),
-                                              ),
                                               Container(
                                                 width : width * 0.3,
                                                 child: const Text(
-                                                  "@Username",
+                                                  "Débutant",
                                                   overflow: TextOverflow.ellipsis,
                                                   maxLines: 1,
                                                   style: TextStyle(
-                                                    color: Color(0xFF1E90FF),
+                                                    color: Color(0xFF000000),
                                                     fontSize: 14,
-                                                    fontFamily: 'Nunito',
+                                                    fontFamily: 'Lexend',
                                                     fontWeight: FontWeight.w500,
                                                   ),
                                                 ),
                                               ),
                                               Container(
-                                                width : width * 0.3,
-                                                child: const Text(
-                                                  "12 : 00",
-                                                  overflow: TextOverflow.ellipsis,
-                                                  maxLines: 1,
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                    color: Color(0xFF1E90FF),
-                                                    fontSize: 14,
-                                                    fontFamily: 'Nunito',
-                                                    fontWeight: FontWeight.w500,
-                                                  ),
+                                                width : 14,
+                                                //color: Colors.white,
+                                                child: Image.asset(
+                                                  "Assets/Icons/right-arrow.png",
+                                                  color: Color(0xFF000000),
                                                 ),
                                               ),
                                             ],
@@ -212,20 +161,32 @@ class Realisation extends StatelessWidget {
                                       ),
                                     ),
                                   ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
                                   TextButton(
                                     onPressed: () {
-                                      Navigator.pushNamed(context, "/chatRoom");
+                                      //Navigator.pushNamed(context, "/chatRoom");
                                     },
                                     style: TextButton.styleFrom(
                                         padding: const EdgeInsets.all(0),
+                                        backgroundColor: Color(0xFFFFFFFF),
                                         foregroundColor: const Color(0xFF232323),
                                         shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(0),
+                                          borderRadius: BorderRadius.circular(15),
                                         )
                                     ),
                                     child: Container(
                                       width: double.infinity,
+                                      //margin: const EdgeInsets.fromLTRB(0, 0, 0, 10),
+                                      padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                                       height: 50,
+                                      decoration: const BoxDecoration(
+                                        //color: Color(0xFFFFFFFF),
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(15),
+                                        ),
+                                      ),
                                       child: LayoutBuilder(
                                         builder: (context, constraints){
                                           double width = constraints.maxWidth;
@@ -234,54 +195,99 @@ class Realisation extends StatelessWidget {
                                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             crossAxisAlignment: CrossAxisAlignment.center,
                                             children: [
-                                              CircleAvatar(
-                                                child: ClipOval(
-                                                  child: Image.asset(
-                                                    "Assets/Images/profil.png",
-                                                    fit: BoxFit.cover,
-                                                  ),
-                                                ),
-                                              ),
-                                              Container(
-                                                width : width * 0.28,
-                                                child: const Text(
-                                                  "@Username",
-                                                  overflow: TextOverflow.ellipsis,
-                                                  maxLines: 1,
-                                                  style: TextStyle(
-                                                    fontSize: 14,
-                                                    fontFamily: 'Nunito',
-                                                    fontWeight: FontWeight.w500,
-                                                  ),
-                                                ),
-                                              ),
                                               Container(
                                                 width : width * 0.3,
                                                 child: const Text(
-                                                  "@Username",
+                                                  "Intermediaire",
                                                   overflow: TextOverflow.ellipsis,
                                                   maxLines: 1,
                                                   style: TextStyle(
-                                                    color: Color(0xFF1E90FF),
+                                                    color: Color(0xFF000000),
                                                     fontSize: 14,
-                                                    fontFamily: 'Nunito',
+                                                    fontFamily: 'Lexend',
                                                     fontWeight: FontWeight.w500,
                                                   ),
                                                 ),
                                               ),
                                               Container(
-                                                width : width * 0.3,
-                                                child: const Text(
-                                                  "-- : --",
-                                                  overflow: TextOverflow.ellipsis,
-                                                  maxLines: 1,
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                    color: Color(0xFF1E90FF),
-                                                    fontSize: 14,
-                                                    fontFamily: 'Nunito',
-                                                    fontWeight: FontWeight.w500,
+                                                width : 14,
+                                                //color: Colors.white,
+                                                child: Image.asset(
+                                                  "Assets/Icons/right-arrow.png",
+                                                  color: Color(0xFF000000),
+                                                ),
+                                              ),
+                                            ],
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      //Navigator.pushNamed(context, "/chatRoom");
+                                    },
+                                    style: TextButton.styleFrom(
+                                        padding: const EdgeInsets.all(0),
+                                        backgroundColor: Color(0xFFDFDFDF),
+                                        foregroundColor: const Color(0xFF232323),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(15),
+                                        )
+                                    ),
+                                    child: Container(
+                                      width: double.infinity,
+                                      //margin: const EdgeInsets.fromLTRB(0, 0, 0, 10),
+                                      padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                                      height: 50,
+                                      decoration: const BoxDecoration(
+                                        //color: Color(0xFFDFDFDF),
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(15),
+                                        ),
+                                      ),
+                                      child: LayoutBuilder(
+                                        builder: (context, constraints){
+                                          double width = constraints.maxWidth;
+                                          double height = constraints.maxHeight;
+                                          return Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                            children: [
+                                              Container(
+                                                width : 24,
+                                                height: 24,
+                                                //color: Colors.white,
+                                                child: Image.asset(
+                                                  "Assets/Icons/lock.png",
+                                                  color: const Color(0xFF9BD570),
+                                                ),
+                                              ),
+                                              const SizedBox(width: 10),
+                                              Expanded(
+                                                child: Container(
+                                                  child: const Text(
+                                                    "Avance",
+                                                    overflow: TextOverflow.ellipsis,
+                                                    maxLines: 1,
+                                                    style: TextStyle(
+                                                      color: Color(0xFF404040),
+                                                      fontSize: 14,
+                                                      fontFamily: 'Lexend',
+                                                      fontWeight: FontWeight.w500,
+                                                    ),
                                                   ),
+                                                ),
+                                              ),
+                                              Container(
+                                                width : 14,
+                                                //color: Colors.white,
+                                                child: Image.asset(
+                                                  "Assets/Icons/right-arrow.png",
+                                                  color: Color(0xFF404040),
                                                 ),
                                               ),
                                             ],

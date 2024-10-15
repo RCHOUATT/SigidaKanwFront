@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'CoursCulturel.dart';
+import 'Level.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -84,6 +86,75 @@ class Home extends StatelessWidget {
                   ],
                 ),
               ),
+              const SizedBox(height: 10),
+              LayoutBuilder(
+              builder: (context,  Constraints) {
+                double width = Constraints.maxWidth;
+                return
+                  Wrap(
+                    direction: Axis.horizontal,
+                    spacing: 10,
+                    children: [
+                      SizedBox(
+                        width: (width * 0.5) - 6,
+                        height: 52,
+                        child: ElevatedButton(
+                          onPressed: () async {
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => const Level()));
+                            // Appel du service d'authentification;
+                          },
+                          style: ElevatedButton.styleFrom(
+                            elevation: 5,
+                            backgroundColor: Color(0xFFFFFFFF),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 18, vertical: 7),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
+                          child: const Text(
+                            "Langues",
+                            style: TextStyle(
+                              color: Color(0xFF000000),
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                              fontFamily: "Lexend",
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: (width * 0.5) - 6,
+                        height: 52,
+                        child: ElevatedButton(
+                          onPressed: () async {
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => CoursCulturel()));
+                            // Appel du service d'authentification;
+                          },
+                          style: ElevatedButton.styleFrom(
+                            elevation: 5,
+                            backgroundColor: Color(0xFFFFFFFF),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 18, vertical: 7),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
+                          child: const Text(
+                            "Culrures",
+                            style: TextStyle(
+                              color: Color(0xFF000000),
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                              fontFamily: "Lexend",
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                }
+              )
               /*Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -226,7 +297,7 @@ class Home extends StatelessWidget {
                   ),
                 ],
               ),*/
-              Column(
+              /*Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
@@ -726,7 +797,7 @@ class Home extends StatelessWidget {
                     )
                   ),
                 ],
-              ),
+              ),*/
             ],
           ),
         ),

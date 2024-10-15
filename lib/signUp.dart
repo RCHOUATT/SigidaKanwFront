@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:sigidakanwmobile/ApprenantNav.dart';
-import 'package:sigidakanwmobile/signUp.dart';
+import 'Login.dart';
 import 'service/AuthService.dart'; // Assurez-vous que le chemin d'importation est correct
 import 'CustomTextField.dart';
 
-class Login extends StatefulWidget {
-  const Login({super.key});
+class Signup extends StatefulWidget {
+  const Signup({super.key});
 
   @override
-  _LoginState createState() => _LoginState();
+  _SignupState createState() => _SignupState();
 }
 
-class _LoginState extends State<Login> {
+class _SignupState extends State<Signup> {
   bool pass = true; // Correction: pas besoin de 'late' ici
   String email = '';
   String password = '';
@@ -37,14 +37,14 @@ class _LoginState extends State<Login> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Expanded(
-                  flex: 3,
+                  flex: 4,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Container(
-                        width: 200,
-                        height: 200,
+                        width: 100,
+                        height: 100,
                         child: Image.asset(
                           "Assets/Images/logo_green.png",
                           fit: BoxFit.fill,
@@ -91,6 +91,40 @@ class _LoginState extends State<Login> {
                               },
                             ),
                             const SizedBox(height: 16.0),
+                            CustomTextField(
+                              labelText: 'Email',
+                              hintText: 'Entrez votre email',
+                              controller: emailController,
+                              prefixIcon: Icons.email,
+                              keyboardType: TextInputType.emailAddress,
+                              onChanged: (value) {
+                                setState(() {
+                                  email = value;
+                                  print(email);
+                                });
+                              },
+                            ),
+                            const SizedBox(height: 16.0),
+                            CustomTextField(
+                              labelText: 'Mot de passe',
+                              hintText: 'Entrez votre mot de passe',
+                              isPassword: pass,
+                              controller: passwordController,
+                              suffixIcon: IconButton(
+                                icon: Icon(pass ? Icons.visibility : Icons.visibility_off),
+                                onPressed: () {
+                                  setState(() {
+                                    pass = !pass; // Change l'état du mot de passe
+                                  });
+                                },
+                              ),
+                              onChanged: (value) {
+                                setState(() {
+                                  password = value;
+                                });
+                              },
+                            ),
+                            const SizedBox(height: 16.0),
                             SizedBox(
                               width: double.infinity,
                               height: 52,
@@ -101,7 +135,7 @@ class _LoginState extends State<Login> {
 
                                   if (token != null) {
                                     // Redirection après connexion réussie
-                                    Navigator.pushReplacement(
+                                    Navigator.push(
                                       context,
                                       MaterialPageRoute(builder: (context) => ApprenantNav()),
                                     );
@@ -137,7 +171,6 @@ class _LoginState extends State<Login> {
                     ],
                   ),
                 ),
-                Expanded(child: Container()),
                 Container(
                   width: double.infinity,
                   child: Wrap(
@@ -151,7 +184,7 @@ class _LoginState extends State<Login> {
                       ),
                       TextButton(
                         onPressed: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => Signup()));
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => Login()));
                         },
                         child: const Text(
                           "Inscriver-vous",

@@ -32,7 +32,7 @@ class _HomePageState extends State<ApprenantNav> {
       body: _page[_selectedIndfinal],
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        selectedItemColor: Colors.blue, // Utiliser une couleur solide
+        selectedItemColor: Color(0xFF58CC02), // Utiliser une couleur solide
         unselectedItemColor: Colors.grey,
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
@@ -41,7 +41,7 @@ class _HomePageState extends State<ApprenantNav> {
               "Assets/Icons/home.png",
               width: 26,
               height: 26,
-              color: _selectedIndfinal == 0 ? Colors.blue : Colors.grey,
+              color: _selectedIndfinal == 0 ? Color(0xFF58CC02) : Colors.grey,
             ),
             label: "Accueil",
           ),
@@ -51,7 +51,7 @@ class _HomePageState extends State<ApprenantNav> {
               "Assets/Icons/trophy.png",
               width: 26,
               height: 26,
-              color: _selectedIndfinal == 1 ? Colors.blue : Colors.grey,
+              color: _selectedIndfinal == 1 ? Color(0xFF58CC02) : Colors.grey,
             ),
             label: "Réalisation",
           ),
@@ -61,7 +61,7 @@ class _HomePageState extends State<ApprenantNav> {
               "Assets/Icons/person.png",
               width: 26,
               height: 26,
-              color: _selectedIndfinal == 2 ? Colors.blue : Colors.grey,
+              color: _selectedIndfinal == 2 ? Color(0xFF58CC02) : Colors.grey,
             ),
             label: "Profil",
           ),
