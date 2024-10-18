@@ -95,7 +95,7 @@ export class FilesComponent {
     }
 
     // Mise à jour des fichiers dans le service pour les envoyer
-    this.service.updateFiles(actualFiles); // Ici, on envoie uniquement les fichiers eux-mêmes
+    this.service.updateFiles(this.files); // Ici, on envoie uniquement les fichiers eux-mêmes
     console.log(this.files); // Vous pouvez toujours afficher votre tableau personnalisé ici
   }
 

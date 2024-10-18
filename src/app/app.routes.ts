@@ -5,10 +5,14 @@ export const routes: Routes = [
     path: "home",
     loadComponent: () => import("./composants/home/home.component").then(m => m.HomeComponent)
   },
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
   {
     path: "utilisateur",
     loadComponent: () => import("./composants/utilisateurs/utilisateurs.component").then(m => m.UtilisateursComponent)
+  },
+  {
+    path: "login",
+    loadComponent: () => import("./composants/login/login.component").then(m => m.LoginComponent)
   },
   {
     path: "formation/culture",
@@ -21,5 +25,9 @@ export const routes: Routes = [
   {
     path: "ajouterCours",
     loadComponent: () => import("./composants/formations/ajouterCours/ajouterCours.component").then(m => m.AjouterCoursComponent)
+  },
+  {
+    path: "appLanding",
+    loadComponent: () => import("./landing/landing.component").then(m => m.LandingComponent)
   }
 ];

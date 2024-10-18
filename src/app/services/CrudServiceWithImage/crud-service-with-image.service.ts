@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
-import { Observable } from "rxjs";
+import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
+import {catchError, Observable, throwError} from "rxjs";
 import { Question } from "../../models/Question"; // Assurez-vous d'importer le modèle Question
 
 @Injectable({
@@ -12,6 +12,11 @@ export class CrudServiceWithImageService {
 
   constructor(private http: HttpClient) {}
 
+  headers = new HttpHeaders({
+    'Authorization': `Bearer ${localStorage.getItem('token')}`
+  });
+
+
   /**
    * Crée un objet existant.
    * @param {string} name - Le nom de l'entité (par exemple, 'question').
@@ -19,19 +24,22 @@ export class CrudServiceWithImageService {
    * @param {File[]} fichiers - Les fichiers à associer à l'entité.
    * @return {Observable<string>} Un observable qui émet la réponse du serveur.
    */
-  creer(name: string, entity: any, fichiers: File[]): Observable<string> {
+  creer(name: string, entity: any, fichiers: { file: File; src: string; type: string }[]): Observable<any> {
     const formData = new FormData();
     formData.append('entity', JSON.stringify(entity)); // Convertit l'objet en chaîne JSON
 
     // Ajoute les fichiers au FormData s'ils existent
-    if (fichiers) {
-      fichiers.forEach(file => {
-        formData.append('fichiers', file);
+    if (fichiers && fichiers.length > 0) {
+      fichiers.forEach(item => {
+        if (item.file) { // Vérifie que 'file' existe
+          formData.append('fichiers', item.file); // Ajoute le fichier
+        }
       });
     }
 
-    console.log("formData", formData);
-    return this.http.post<string>(`${this.baseUrl}/${name}/creer`, formData); // Appel à l'API
+    console.log(formData); // Pour le débogage
+
+    return this.http.post<any>(`${this.baseUrl}/${name}/creer`, formData, { headers: this.headers });
   }
 
   /**
