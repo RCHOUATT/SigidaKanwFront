@@ -48,6 +48,18 @@
     <app-ajouter-contenu class="forms-add" [chapitre]="this.activeChapitre"></app-ajouter-contenu>
   </div>
 }
+@if (addChapitre)
+{
+  <div class="formulaire">
+    <div class="shadows1" (click)="setAddChapitre()"></div>
+    <!--<div class="fermer_container" (click)="setAddContenu()">
+      <div class="fermer" (click)="setAddContenu()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512"><path d="M256,48C141.31,48,48,141.31,48,256s93.31,208,208,208,208-93.31,208-208S370.69,48,256,48Zm75.31,260.69a16,16,0,1,1-22.62,22.62L256,278.63l-52.69,52.68a16,16,0,0,1-22.62-22.62L233.37,256l-52.68-52.69a16,16,0,0,1,22.62-22.62L256,233.37l52.69-52.68a16,16,0,0,1,22.62,22.62L278.63,256Z"/></svg>
+      </div>
+    </div>-->
+    <app-ajouter-chapitre class="forms-add" [ChapitreCoursId]="this.activeCoursId"></app-ajouter-chapitre>
+  </div>
+}
 <div class="container" >
   <nav class="sideBar">
     <div class="logo-and-menus">
@@ -239,7 +251,7 @@
                 (click)="setActiveLangueName(language.nom.charAt(0).toUpperCase() + language.nom.slice(1).toLowerCase())"
                 (click)="setActiveNiveau(niveau[0].niveau.charAt(0).toUpperCase() + niveau[0].niveau.slice(1).toLowerCase())"
                 (click)="findCoursByLevelAndlangue(niveau[0].niveau, 'LINGUSTIQUE', language.nom)"
-                (click)="setActive('Cours ' + this.coursPerLevelAndLanguage[0].id)"
+                (click)="setActive('Cours ' + this.coursPerLevelAndLanguage[0].id, this.coursPerLevelAndLanguage[0].id)"
                 (click)="setActiveCoursNom('Cours ' + 1)"
                 (click)="setActiveLessonNom('chapitre ' + 1)"
                 (click)="findChapitreByCours(this.coursPerLevelAndLanguage[0].id)"
@@ -262,7 +274,7 @@
                 largeur="flex: 1"
                 (click)="setActiveNiveau(niveau.niveau.charAt(0).toUpperCase() + niveau.niveau.slice(1).toLowerCase())"
                 (click)="findCoursByLevelAndlangue(niveau.niveau, 'LINGUSTIQUE', activelangue)"
-                (click)="setActive('Cours ' + this.coursPerLevelAndLanguage[0].id)"
+                (click)="setActive('Cours ' + this.coursPerLevelAndLanguage[0].id, this.coursPerLevelAndLanguage[0].id)"
                 (click)="setActiveCoursNom('Cours ' + 1)"
                 (click)="setActiveLessonNom('chapitre ' + 1)"
                 (click)="findChapitreByCours(this.coursPerLevelAndLanguage[0].id)"
@@ -281,7 +293,7 @@
                 <div class="cours menu">
                   <div class="beforeDrop">
                     <div class="icon-titre"
-                         (click)="setActive('Cours ' + cour.id)"
+                         (click)="setActive('Cours ' + cour.id, cour.id)"
                          (click)="setActiveCoursNom('Cours ' + ($index + 1))"
                          (click)="setActiveLessonNom('chapitre ' + 1)"
                          (click)="findChapitreByCours(cour.id)"
@@ -341,7 +353,7 @@
                 <div class="cours menu">
                   <div class="beforeDrop">
                     <div class="icon-titre"
-                         (click)="setActive('Cours ' + cour.id)"
+                         (click)="setActive('Cours ' + cour.id, cour.id)"
                          (click)="setActiveCoursNom('Cours ' + ($index + 1))"
                          (click)="setActiveLessonNom('chapitre ' + 1)"
                          (click)="findChapitreByCours(cour.id)"
@@ -400,7 +412,7 @@
                 <div class="cours menu">
                   <div class="beforeDrop">
                     <div class="icon-titre"
-                         (click)="setActive('Cours ' + cour.id)"
+                         (click)="setActive('Cours ' + cour.id, cour.id)"
                          (click)="setActiveCoursNom('Cours ' + ($index + 1))"
                          (click)="setActiveLessonNom('chapitre ' + 1)"
                          (click)="findChapitreByCours(cour.id)"
@@ -538,7 +550,7 @@
                     [disabled] = false
                     largeur="flex: 1"
                     (click)="setoptions()"
-                    [routerLink]="['/ajouterChapitre']"
+                    (click)="setAddChapitre()"
                   >
                   </app-button>
                 </div>

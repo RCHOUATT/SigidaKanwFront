@@ -15,6 +15,7 @@ import {langue} from "../../../models/langue";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CrudServiceWithImageService} from "../../../services/CrudServiceWithImage/crud-service-with-image.service";
 import {AjouterContenuComponent} from "../ajouter-contenu/ajouter-contenu.component";
+import {AjouterChapitreComponent} from "../ajouter-chapitre/ajouter-chapitre.component";
 
 @Component({
   selector: 'app-langue',
@@ -25,7 +26,8 @@ import {AjouterContenuComponent} from "../ajouter-contenu/ajouter-contenu.compon
     NgClass,
     ReactiveFormsModule,
     FormsModule,
-    AjouterContenuComponent
+    AjouterContenuComponent,
+    AjouterChapitreComponent
   ],
   templateUrl: './langue.component.html',
   styleUrls: ['./langue.component.scss'],  // Correction ici
@@ -114,6 +116,7 @@ export class LangueComponent implements OnInit {
 
   isDropdownOpen = true;
   activeCours: string = 'Cours 1';  // Par défaut
+  activeCoursId: number = 0;  // Par défaut
   activeLesson: string = 'Lesson 1';
   activeNiveau: string = 'Debutant';
   activelangue = 'SENOUFO';
@@ -321,8 +324,9 @@ export class LangueComponent implements OnInit {
     this.isDropdownOpen = true;
   }
 
-   setActive(menuItem: string) {
+   setActive(menuItem: string, id: number) {
     this.activeCours = menuItem;
+    this.activeCoursId = id,
     console.log("cours active :", this.activeCours);
   }
   setAddLangue() {

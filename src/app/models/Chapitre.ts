@@ -1,14 +1,18 @@
 export class Chapitre {
+  cours: {
+    id?: number;
+  };
   id?: number;
   titre?: string;
   resume?: string;
-  cours?: {};
 
   constructor(
+    cours: {
+      id?: number;
+    },
     id?: number,
     titre?: string,
     resume?: string,
-    cours?: {},
   ) {
     this.id = id;
     this.titre = titre;

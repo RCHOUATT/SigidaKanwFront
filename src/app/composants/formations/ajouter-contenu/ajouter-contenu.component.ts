@@ -14,7 +14,7 @@ import {Question, QuestionFiles} from "../../../models/Question";
 import {ContenuFiles, contenus} from "../../../models/Contenu";
 import {Cours} from "../../../models/Cours";
 import {Test} from "../../../models/Test";
-import {RouterLink} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
 import {Chapitre} from "../../../models/Chapitre";
 import {LangueComponent} from "../langue/langue.component";
 
@@ -40,7 +40,7 @@ export class AjouterContenuComponent implements OnInit{
               private service2: CrudServiceWithImageService,
               private service1: shareService,
               public loginService: LoginService,
-              public langueComponent: LangueComponent,
+              public router: Router,
   ) {
   }
 
@@ -82,7 +82,6 @@ export class AjouterContenuComponent implements OnInit{
       this.service2.creer('contenu', c, this.files)
         .subscribe(response => {
           console.log('Réponse : ', response);
-
         });
     });
   }

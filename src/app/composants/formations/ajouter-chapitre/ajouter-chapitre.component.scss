@@ -27,8 +27,6 @@ p
 }
 .forms-container
 {
-  display: flex;
-  flex-flow: column nowrap;
   width: 100%;
   padding: calc(32.5px) var(--padding) var(--padding) var(--padding);
   align-items: center;
@@ -120,7 +118,7 @@ p
   border: 1px solid var(--couleur-bordure-container-principaux);
   border-radius: var(--border-radius);
   //transform: translateY(-42.5px);
-  padding: 42.5px 10px 10px 10px;
+  padding: var(--padding);
   gap: var(--padding);
   overflow-y: scroll;
 }
@@ -280,8 +278,8 @@ svg
 }
 .container{
   padding: var(--padding);
-  width: 100%;
-  height: 100vh;
+  width: fit-content;
+  height: fit-content;
   /* border: 1px solid blue; */
   display: flex;
   flex-flow: row nowrap;
