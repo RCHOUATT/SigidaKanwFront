@@ -269,8 +269,6 @@ export class CultureComponent {
     console.log("this.contenuperchapitre: ", this.contenuPerChapitre);
   }
 
-
-
   hideDropdown() {
     this.isDropdownOpen = false;
   }
@@ -332,4 +330,6 @@ export class CultureComponent {
   changerPageTitre(titre : String){
     this.pageActuelle = titre;
   }
+
+
 }

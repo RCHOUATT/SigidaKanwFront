@@ -6,15 +6,15 @@
   cursor: pointer;
   display: flex;
   align-items: center;
-  text-align: center;
-  justify-content: center;
+  text-align: left;
   //border: 1px solid var(--couleur-bordure-container-principaux);
   overflow: hidden;
   text-overflow: ellipsis;
-  text-wrap: nowrap;
+  text-wrap: wrap;
   height: 40px;
   flex: 1;
-  width: 120px;
+  width: fit-content;
+  padding: var(--padding);
 
   &.primary {
     background-color: var(--couleur-main);

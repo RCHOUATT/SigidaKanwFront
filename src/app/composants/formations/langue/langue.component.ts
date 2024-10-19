@@ -1,4 +1,4 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
+import {Component, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA, OnInit} from '@angular/core';
 import { ButtonComponent } from "../../button/button.component";
 import { RouterLink } from "@angular/router";
 import {Location, NgClass} from "@angular/common";
@@ -14,6 +14,7 @@ import {LoginService} from "../../../services/login/login.service";
 import {langue} from "../../../models/langue";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CrudServiceWithImageService} from "../../../services/CrudServiceWithImage/crud-service-with-image.service";
+import {AjouterContenuComponent} from "../ajouter-contenu/ajouter-contenu.component";
 
 @Component({
   selector: 'app-langue',
@@ -22,13 +23,13 @@ import {CrudServiceWithImageService} from "../../../services/CrudServiceWithImag
     ButtonComponent,
     RouterLink,
     NgClass,
-    AjouterCoursComponent,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    AjouterContenuComponent
   ],
   templateUrl: './langue.component.html',
   styleUrls: ['./langue.component.scss'],  // Correction ici
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
 })
 export class LangueComponent implements OnInit {
   activeTest: boolean = false;
@@ -74,10 +75,13 @@ export class LangueComponent implements OnInit {
   isDropdownOpen1 = false;
   pageActuelle: String = "Accueil";
   addCours = false;
-  lessonOption = false;
+  ContentOption = false;
   langue: any;
   addlangue= false;
-  authToken: any;
+  addChapitre = false;
+  addContenu = false;
+  addQuestion = false;
+  authToken = false;
 
 
   /*langue: langue = {
@@ -325,7 +329,17 @@ export class LangueComponent implements OnInit {
     this.addlangue = !this.addlangue;
   }
 
-   setActiveCoursNom(menuItem: string) {
+  public setAddContenu() {
+    this.addContenu = !this.addContenu;
+  }
+  public setAddChapitre() {
+    this.addChapitre = !this.addChapitre;
+  }
+  setAddQuestion() {
+    this.addQuestion = !this.addQuestion;
+  }
+
+  setActiveCoursNom(menuItem: string) {
     this.activeCoursNom = menuItem;
     console.log(this.activeCoursNom);
   }
@@ -378,8 +392,8 @@ export class LangueComponent implements OnInit {
   changerPageTitre(titre : String){
     this.pageActuelle = titre;
   }
-  afficherLessonOption(){
-    this.lessonOption =!this.lessonOption;
+  setoptions(){
+    this.ContentOption =!this.ContentOption;
   }
 
   back() {
@@ -393,5 +407,13 @@ export class LangueComponent implements OnInit {
       this.addlangue = false;
       this.loadLangue();
     });
+  }
+
+  AjouterContenu() {
+
+  }
+
+  setActiveLangueName(nom: any) {
+    this.activeLangueNom = nom;
   }
 }

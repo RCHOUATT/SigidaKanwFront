@@ -27,6 +27,18 @@ export const routes: Routes = [
     loadComponent: () => import("./composants/formations/ajouterCours/ajouterCours.component").then(m => m.AjouterCoursComponent)
   },
   {
+    path: "ajouterQuestion",
+    loadComponent: () => import("./composants/formations/ajouter-question/ajouter-question.component").then(m => m.AjouterQuestionComponent)
+  },
+  {
+    path: "ajouterContenu",
+    loadComponent: () => import("./composants/formations/ajouter-contenu/ajouter-contenu.component").then(m => m.AjouterContenuComponent)
+  },
+  {
+    path: "ajouterChapitre",
+    loadComponent: () => import("./composants/formations/ajouter-chapitre/ajouter-chapitre.component").then(m => m.AjouterChapitreComponent)
+  },
+  {
     path: "appLanding",
     loadComponent: () => import("./landing/landing.component").then(m => m.LandingComponent)
   }

@@ -1,42 +1,54 @@
-<div class="container">
-  @if (addlangue)
-  {
-    <div class="formulaire">
-      <div class="shadows1" (click)="setAddLangue()"></div>
-      <div class="forms-container">
-        <div class="forms-c02">
-          <p style="color: black; font-weight: bold" class="titre-c1">Titre</p>
-          <div class="field">
-            <input type="text" name="text" id="text-i0" class="text-i01" placeholder="Titre" [(ngModel)]="langueToBd.nom">
-          </div>
-        </div>
-        <div class="forms-c02">
-          <p style="color: black; font-weight: 600" class="titre-c1">Description</p>
-          <div class="field">
-            <textarea name="description" id="id-01" class="id-01" placeholder="Description" [(ngModel)]="langueToBd.apropos"></textarea>
-            <!--<div class="menu-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512"><polyline points="112 184 256 328 400 184" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:48px"/></svg>
-            </div>
-            -->
-          </div>
-        </div>
-        <div class="btn-c01">
-          <button
-            (click)="setAddLangue()"
-            class="custom-button primary"
-          >
-            annuler
-          </button>
-          <button
-            class="custom-button primary"
-            (click)="AjouterLangue()"
-          >
-            Ajouter
-          </button>
+@if (addlangue)
+{
+  <div class="formulaire">
+    <div class="shadows1" (click)="setAddLangue()"></div>
+    <div class="forms-container">
+      <div class="forms-c02">
+        <p style="color: black; font-weight: bold" class="titre-c1">Titre</p>
+        <div class="field">
+          <input type="text" name="text" id="text-i0" class="text-i01" placeholder="Titre" [(ngModel)]="langueToBd.nom">
         </div>
       </div>
+      <div class="forms-c02">
+        <p style="color: black; font-weight: 600" class="titre-c1">Description</p>
+        <div class="field">
+          <textarea name="description" id="id-01" class="id-01" placeholder="Description" [(ngModel)]="langueToBd.apropos"></textarea>
+          <!--<div class="menu-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512"><polyline points="112 184 256 328 400 184" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:48px"/></svg>
+          </div>
+          -->
+        </div>
+      </div>
+      <div class="btn-c01">
+        <button
+          (click)="setAddLangue()"
+          class="custom-button primary"
+        >
+          annuler
+        </button>
+        <button
+          class="custom-button primary"
+          (click)="AjouterLangue()"
+        >
+          Ajouter
+        </button>
+      </div>
     </div>
-  }
+  </div>
+}
+@if (addContenu)
+{
+  <div class="formulaire">
+    <div class="shadows1" (click)="setAddContenu()"></div>
+    <!--<div class="fermer_container" (click)="setAddContenu()">
+      <div class="fermer" (click)="setAddContenu()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512"><path d="M256,48C141.31,48,48,141.31,48,256s93.31,208,208,208,208-93.31,208-208S370.69,48,256,48Zm75.31,260.69a16,16,0,1,1-22.62,22.62L256,278.63l-52.69,52.68a16,16,0,0,1-22.62-22.62L233.37,256l-52.68-52.69a16,16,0,0,1,22.62-22.62L256,233.37l52.69-52.68a16,16,0,0,1,22.62,22.62L278.63,256Z"/></svg>
+      </div>
+    </div>-->
+    <app-ajouter-contenu class="forms-add" [chapitre]="this.activeChapitre"></app-ajouter-contenu>
+  </div>
+}
+<div class="container" >
   <nav class="sideBar">
     <div class="logo-and-menus">
       <div class="logo">
@@ -131,7 +143,6 @@
         <div class="icon-titre">
           <div class="menu-icon">
             <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512"><path d="M256,464C141.31,464,48,370.53,48,255.65c0-62.45,27.25-121,74.76-160.55a22,22,0,1,1,28.17,33.8C113.48,160.1,92,206.3,92,255.65,92,346.27,165.57,420,256,420s164-73.73,164-164.35A164,164,0,0,0,360.17,129a22,22,0,1,1,28-33.92A207.88,207.88,0,0,1,464,255.65C464,370.53,370.69,464,256,464Z"/><path d="M256,272a22,22,0,0,1-22-22V70a22,22,0,0,1,44,0V250A22,22,0,0,1,256,272Z"/></svg>
-            <!--<ion-icon name="power" size="large"></ion-icon>-->
           </div>
           <div class="deconnexion menu-titre">
             <p>Déconnexion</p>
@@ -215,6 +226,7 @@
     <div class="contenus">
       <div class="contenus-container">
         <div class="container-left">
+          <p>Langues</p>
           <div class="optionsNiveau">
             @for (language of langue; track $index){
               <app-button
@@ -223,7 +235,8 @@
                 type="button"
                 [disabled] = false
                 largeur="flex: 1"
-                (click)="setActiveLangue(language.nom.charAt(0).toUpperCase() + language.nom.slice(1).toLowerCase())"
+                (click)="setActiveLangue(language.nom)"
+                (click)="setActiveLangueName(language.nom.charAt(0).toUpperCase() + language.nom.slice(1).toLowerCase())"
                 (click)="setActiveNiveau(niveau[0].niveau.charAt(0).toUpperCase() + niveau[0].niveau.slice(1).toLowerCase())"
                 (click)="findCoursByLevelAndlangue(niveau[0].niveau, 'LINGUSTIQUE', language.nom)"
                 (click)="setActive('Cours ' + this.coursPerLevelAndLanguage[0].id)"
@@ -237,6 +250,7 @@
               </app-button>
             }
           </div>
+          <p>Niveaux</p>
           <div class="optionsNiveau">
             @for (niveau of niveau; track $index){
               <app-button
@@ -247,7 +261,7 @@
                 [disabled] = false
                 largeur="flex: 1"
                 (click)="setActiveNiveau(niveau.niveau.charAt(0).toUpperCase() + niveau.niveau.slice(1).toLowerCase())"
-                (click)="findCoursByLevelAndlangue(niveau.niveau, 'LINGUSTIQUE', 'SENOUFO')"
+                (click)="findCoursByLevelAndlangue(niveau.niveau, 'LINGUSTIQUE', activelangue)"
                 (click)="setActive('Cours ' + this.coursPerLevelAndLanguage[0].id)"
                 (click)="setActiveCoursNom('Cours ' + 1)"
                 (click)="setActiveLessonNom('chapitre ' + 1)"
@@ -259,6 +273,7 @@
               </app-button>
             }
           </div>
+          <p>Cours & chapitres</p>
           @if (activeNiveau == "Debutant"){
             <div class="conteneurCours">
               @for (cour of coursPerLevelAndLanguage; track $index)
@@ -407,9 +422,9 @@
                         }
                       </div>
                     </div>
-                    <div class="menu-icon">
-                      <ion-icon name="ellipsis-vertical" size="large" class="menu-drop" style="color: var(--couleur-main)"></ion-icon>
-                    </div>
+                    <!--<div class="menu-icon">
+                      <ion-icon name="ellipsis-vertical" size="large" class="menu-drop" style="color: var(&#45;&#45;couleur-main)"></ion-icon>
+                    </div>-->
                   </div>
                   <!-- Sous-options du menu déroulant -->
                   @if (isDropdownOpen && activeCours === 'Cours ' + cour.id && chapitrePerCours.length > 0){
@@ -426,15 +441,15 @@
                               <p>chapitre {{ $index + 1 }}</p>
                             </div>
                           </div>
-                          <div class="menu-icon" (click)="afficherLessonOption()">
-                            <ion-icon name="ellipsis-vertical" size="large" class="menu-drop" style="color: var(--couleur-main)"></ion-icon>
-                          </div>
-                          @if (lessonOption){
+                          <!--<div class="menu-icon" (click)="afficherLessonOption()">
+                            <ion-icon name="ellipsis-vertical" size="large" class="menu-drop" style="color: var(&#45;&#45;couleur-main)"></ion-icon>
+                          </div>-->
+                          @if (ContentOption){
                             <div class="lesson-dropdown">
-                              <div class="lesson-dropdown-option" (click)="afficherLessonOption()" (click)="setActiveTest()">
+                              <div class="lesson-dropdown-option" (click)="setoptions()" (click)="setActiveTest()">
                                 <p>Tests Associés</p>
                               </div>
-                              <div class="lesson-dropdown-option" (click)="afficherLessonOption()">
+                              <div class="lesson-dropdown-option" (click)="setoptions()">
                                 <p>Ajouter Contenu</p>
                               </div>
                             </div>
@@ -455,7 +470,7 @@
                 <!--Fil d'ariane-->
                 <div class="breadcrumb-titre" >
                   <div class="breadcrumb-menu-titre" (click)="openDropdown()">
-                    <p >{{ activelangue }}</p>
+                    <p >{{ activeLangueNom }}</p>
                   </div>
                   <div class="breadcrumb-menu-icon">
                     <ion-icon name="chevron-forward" size="large" class="arrow-forward"></ion-icon>
@@ -483,25 +498,54 @@
                   </div>
                 </div>
               </div>
-              <app-button
-                label= "Modifier"
-                color="primary"
-                icon="trash"
-                type="button"
-                [disabled] = false
-                largeur="flex: 1"
-              >
-              </app-button>
-              <app-button
-                label= "Test Associé"
-                color="primary"
-                icon="trash"
-                type="button"
-                [disabled] = false
-                largeur="flex: 1"
-                (click)="setActiveTest()"
-              >
-              </app-button>
+              @if(ContentOption){
+                <div class="cours-options">
+                  <!--<app-button
+                    label= "Modifier"
+                    color="primary"
+                    icon="trash"
+                    type="button"
+                    [disabled] = false
+                    largeur="flex: 1"
+                  >
+                  </app-button>-->
+                  <app-button
+                    label= "Test Associé"
+                    color="primary"
+                    icon="trash"
+                    type="button"
+                    [disabled] = false
+                    largeur="flex: 1"
+                    (click)="setActiveTest()"
+                  >
+                  </app-button>
+                  <app-button
+                    label= "Ajouter Contenu"
+                    color="primary"
+                    icon="trash"
+                    type="button"
+                    [disabled] = false
+                    largeur="flex: 1"
+                    (click) = setAddContenu();
+                    (click)="setoptions()"
+                  >
+                  </app-button>
+                  <app-button
+                    label= "Ajouter chapitre"
+                    color="primary"
+                    icon="trash"
+                    type="button"
+                    [disabled] = false
+                    largeur="flex: 1"
+                    (click)="setoptions()"
+                    [routerLink]="['/ajouterChapitre']"
+                  >
+                  </app-button>
+                </div>
+              }
+              <div class="menu-icon">
+                <ion-icon name="ellipsis-vertical" size="large" class="menu-drop" style="color: var(--couleur-main)" (click)="setoptions()"></ion-icon>
+              </div>
             </div>
             <div class="cours-datils" >
               <div class="titre-element">
@@ -590,7 +634,7 @@
                     <p><strong style="color: black">Reponse Correcte : </strong>{{quest.reponseCorrecte}}</p>
                     @for(possibleReponse of reponsePossible; track $index){
                       @if(possibleReponse.question.id == quest.id){
-                        <p><strong style="color: black">Reponse possible : </strong></p>
+                        <p><strong style="color: black">Reponse possible : </strong>{{ possibleReponse.reponsePossible }}</p>
                       }
                     }
                   </div>

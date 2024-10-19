@@ -1,24 +1,23 @@
 import {Component, CUSTOM_ELEMENTS_SCHEMA, OnInit} from '@angular/core';
-import {ButtonComponent} from "../../button/button.component";
-import {NgClass, Location} from "@angular/common";
+import {Location, NgClass} from "@angular/common";
 import {
   CrudServiceWithoutImageService
 } from "../../../services/CrudServiceWithoutImage/crud-service-without-image.service";
-import {Cours} from "../../../models/Cours";
-import {FormsModule} from "@angular/forms";
-import {FilesComponent} from "../../files/files.component";
+import {CrudServiceWithImageService} from "../../../services/CrudServiceWithImage/crud-service-with-image.service";
 import {shareService} from "../../../services/shareService";
-import {FilesService} from "../../../services/CrudServiceWithImage/Files.service";
-import {ContenuFiles, contenus} from "../../../models/Contenu";
+import {LoginService} from "../../../services/login/login.service";
 import {ReponsePossible} from "../../../models/ReponsePossible";
 import {Question, QuestionFiles} from "../../../models/Question";
+import {ContenuFiles, contenus} from "../../../models/Contenu";
+import {Cours} from "../../../models/Cours";
 import {Test} from "../../../models/Test";
-import {CrudServiceWithImageService} from "../../../services/CrudServiceWithImage/crud-service-with-image.service";
+import {ButtonComponent} from "../../button/button.component";
+import {FormsModule} from "@angular/forms";
+import {FilesComponent} from "../../files/files.component";
 import {RouterLink} from "@angular/router";
-import {LoginService} from "../../../services/login/login.service";
 
 @Component({
-  selector: 'app-ajouterCours',
+  selector: 'app-ajouter-question',
   standalone: true,
   imports: [
     ButtonComponent,
@@ -27,12 +26,12 @@ import {LoginService} from "../../../services/login/login.service";
     FilesComponent,
     RouterLink,
   ],
-  templateUrl: './ajouterCours.component.html',
-  styleUrl: './ajouterCours.component.scss',
+  templateUrl: './ajouter-question.component.html',
+  styleUrl: './ajouter-question.component.scss',
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 
 })
-export class AjouterCoursComponent implements OnInit {
+export class AjouterQuestionComponent implements OnInit{
   constructor(private location: Location,
               private service: CrudServiceWithoutImageService,
               private service2: CrudServiceWithImageService,
