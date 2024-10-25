@@ -1,4 +1,4 @@
-import {Component, CUSTOM_ELEMENTS_SCHEMA, OnInit} from '@angular/core';
+import {Component, CUSTOM_ELEMENTS_SCHEMA, Input, input, OnInit} from '@angular/core';
 import {Location, NgClass} from "@angular/common";
 import {
   CrudServiceWithoutImageService
@@ -57,6 +57,7 @@ export class AjouterQuestionComponent implements OnInit{
     this.contenu.push(new contenus({id: 0}));
   }
 
+  @Input() testId: number = 0
   cours: Cours = {
     titre: "",
     typeCours: {},
@@ -286,82 +287,26 @@ export class AjouterQuestionComponent implements OnInit{
   }
 
   async Ajouter() {
-    if (this.etat == 1) {
-      console.log(this.cours);
-      this.service.post("cours", this.cours, this.authToken).subscribe((data) => {
-        this.cours = data;
-        this.chapitre.cours.id = data.id
-        console.log(data);
-        console.log(this.cours);
-        console.log(this.chapitre.cours);
-        this.changeEtatspositif()
+    this.questions.forEach(q => {
+      q.question.test.id = this.testId;
+      console.log("question", this.questions);
+      this.service1.currentFiles.subscribe(files => {
+        this.files = files;
       });
-    } else if (this.etat == 2) {
-      console.log(this.chapitre);
-      console.log(this.contenu);
-      this.service.post("chapitre", this.chapitre, this.authToken).subscribe((data) => {
-        this.chapitre = data;
-        this.test.chapitre.id = data.id;
-        //this.contenus.chapitre.id = data.id
-        //pour ajouter les fichiers
-        this.contenu.forEach(c => {
-          this.service1.currentFiles.subscribe(files => {
-            this.files = files;
-          });
-          console.log('contenuToBD : ', c);
-          console.log("this.files", this.files);
-          c.chapitre.id = data.id;
-          this.service2.creer('contenu', c, this.files)
-            .subscribe(response => {
-              console.log('Réponse : ', response);
-              /*this.service2.creer().subscribe((data)=>{
-                  console.log("file : ", data);
-                  this.contenuFile.files.id = data.id;
-                  this.contenuFile.contenu.id = response.id;
-                  console.log("contenuFileAvant : ", this.contenuFile);
-                  this.service.post('contenuFiles', this.contenuFile, this.authToken)
-                    .subscribe(response => {
-                      console.log("contenuFileAvant : ", response);
-                    });
-                });*/
-            });
+      this.service2.creer('question', q.question, this.files)
+        .subscribe(response => {
+          q.reponsePossible.forEach((r: ReponsePossible) => {
+            r.question.id = response.id;
+            console.log("reponseToBack : ", r);
+            console.log("question from Back : ", response);
+            this.service.post('reponsePossible', r, this.authToken)
+              .subscribe(response => {
+                console.log('Réponse : ', response);
+              });
+          })
+          console.log('Réponse : ', response);
         });
-        this.changeEtatspositif();
-      });
-    } else if (this.etat == 3) {
-      console.log(this.test);
-      //console.log(this.questions);
-      this.service.post("test", this.test, this.authToken).subscribe((data) => {
-        this.test = data;
-        console.log("question", this.questions);
-        this.questions.forEach(q => {
-          q.question.test.id = data.id;
-          console.log("qActuelle : ", q);
-          this.service1.currentFiles.subscribe(files => {
-            this.files = files;
-          });
-          this.service2.creer('question', q.question, this.files)
-            .subscribe(response => {
-              q.reponsePossible.forEach((r: ReponsePossible) => {
-                r.question.id = response.id;
-                console.log("reponseToBack : ", r);
-                console.log("question from Back : ", response);
-                this.service.post('reponsePossible', r, this.authToken)
-                  .subscribe(response => {
-                    console.log('Réponse : ', response);
-                  });
-              })
-              console.log('Réponse : ', response);
-            });
-        });
-        console.log("data: ", data);
-        //console.log(data);
-        //console.log(this.test);
-        //console.log(this.questionToBd.test.id);
-        this.goBack()
-      });
-    }
-    ;
+    });
   }
 
   goBack(): void {

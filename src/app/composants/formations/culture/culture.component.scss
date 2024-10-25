@@ -1,5 +1,6 @@
 .container-left {
   width: 385px;
+  max-height: 100%;
   padding: var(--padding);
   border-radius: var(--border-radius);
   border: 1px var(--couleur-bordure-container-principaux) solid;
@@ -7,10 +8,11 @@
   display: flex;
   flex-direction: column;
   gap: var(--padding);
+  overflow-y: scroll;
 }
-.container-right
-{
+.container-right {
   display: flex;
+  max-height: 100%;
   flex-flow: column;
   gap: var(--padding);
   border: 1px var(--couleur-bordure-container-principaux) solid;
@@ -19,18 +21,40 @@
   flex: 1;
   transition: flex 0.1s linear;
   padding: var(--padding);
+  overflow-y: scroll;
 }
 
 .optionsNiveau {
   width: 100%;
   display: flex;
   align-items: flex-start;
-  justify-content: space-between;
+  justify-content: start;
+  column-gap: var(--padding);
   overflow-x: scroll;
   column-gap: var(--padding);
+  row-gap: var(--padding);
   border-radius: var(--border-radius);
 }
 
+
+.cours-options
+{
+  width: fit-content;
+  max-width: 296px;
+  padding: var(--padding);
+  display: flex;
+  flex-flow: row wrap;
+  background-color: white;
+  position: absolute;
+  right: calc(var(--padding) * 3);
+  column-gap: var(--padding);
+  row-gap: var(--padding);
+  top: 0;
+  z-index: 999;
+  border-radius: var(--border-radius);
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  transition: background 0.1s linear;
+}
 
 .option {
   display: flex;
@@ -49,6 +73,8 @@
   display: flex;
   flex-flow: column nowrap;
   gap: var(--padding);
+  flex: 1;
+  overflow-y: scroll;
 }
 .icon-titre:hover, .icon-titre:focus, .icon-titre.active
 {
@@ -182,7 +208,16 @@ ion-icon
   flex-flow: row nowrap;
   align-items: center;
   justify-content: space-between;
+  background-color: var(--couleur-container-principaux);
   width: 100%;
+  position: sticky;
+  z-index: 3;
+  top: -10px;
+  padding: 10px;
+  padding-top: 10px;
+  padding-right: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
 }
 .breadcrumb-titre
 {
@@ -383,7 +418,7 @@ ion-icon
 }
 .logo p
 {
-  font-size: 1em;
+  font-size: 1.2em;
   font-weight: 900;
   color: var(--couleur-main);
 }
@@ -416,6 +451,7 @@ ion-icon
   overflow: hidden;
   //border: 1px solid green;
 }
+
 .sideBar .beforeDrop{
   width: 100%;
   display: flex;
@@ -428,7 +464,6 @@ ion-icon
   overflow: hidden;
   //border: 1px solid green;
 }
-
 .dropdown-options {
   display: flex;
   flex-direction: column;
@@ -474,7 +509,7 @@ ion-icon
 }
 //ion-icon
 .home svg
-, .utilisateur svg, {
+, .utilisateur svg {
   stroke: var(--couleur-gray);
   //color: var(--couleur-gray);
   fill: var(--couleur-gray);
@@ -692,4 +727,189 @@ ion-icon
 .lesson-dropdown
 {
   background: red;
+}
+
+
+//formulaire ajout des cultures
+.formulaire
+{
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  position: absolute;
+  z-index: 1001;
+}
+
+.forms-container
+{
+  top: 50%;
+  left: 50%;
+  width: 30%;
+  height: fit-content;
+  max-width: 400px;
+  max-height: 300px;
+  min-width: 300px;
+  display: flex;
+  flex-flow: column nowrap;
+  position: absolute;
+  padding: var(--padding);
+  border: 1px solid var(--couleur-bordure-container-principaux);
+  background-color: var(--couleur-container-principaux);
+  border-radius: var(--border-radius);
+  row-gap: calc(var(--padding) / 2);
+  transform: translate(-50%, -50%);
+}
+.addculture
+{
+  width: 100%;
+  margin-bottom: var(--margin);
+  & .titre-addculture {
+    width: 100%;
+    text-align: center;
+  }
+}
+.forms-add
+{
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  padding: var(--padding);
+  border-radius: var(--border-radius);
+  transform: translate(-50%, -50%);
+}
+.field
+{
+  display: flex;
+  background-color: var(--couleur-gray-light);
+  flex-flow: row nowrap;
+  padding: calc(var(--padding) / 2) var(--padding);
+  align-items: center;
+  border-radius: var(--border-radius);
+  width: 100%;
+  border: 1px solid var(--couleur-bordure-container-principaux);
+}
+
+.forms-c02
+{
+  width: 100%;
+  display: flex;
+  //flex: 1;
+  flex-flow: column nowrap;
+  align-items: start;
+}
+
+.forms-c02 p
+{
+  text-align: left;
+}
+
+.btn-c01
+{
+  display: flex;
+  width: 100%;
+  column-gap: var(--padding);
+}
+
+.text-i01
+{
+  outline: none;
+  background-color: var(--couleur-gray-light);
+  width: 100%;
+}
+
+.id-01
+{
+  outline: none;
+  background-color: var(--couleur-gray-light);
+  width: 100%;
+  max-height: 100px;
+  min-height: 100px;
+  height: 100px;
+}
+
+.shadows1
+{
+  background-color: rgba(136, 136, 136, 0.61);
+  //backdrop-filter: blur(10px);
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  position: absolute;
+}
+
+
+//custom buttom
+.custom-button {
+  padding: var(--padding);
+  box-sizing: border-box;
+  border: none;
+  border-radius: var(--border-radius);
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  //border: 1px solid var(--couleur-bordure-container-principaux);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-wrap: nowrap;
+  height: 40px;
+  width: fit-content;
+
+  &.primary {
+    background-color: var(--couleur-main);
+    color: white;
+  }
+
+  &.secondary {
+    background-color: #6c757d;
+    color: white;
+  }
+
+  &.danger {
+    background-color: #dc3545;
+    color: white;
+  }
+
+  &:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  &:hover{
+    background-color: var(--couleur-secondaire)
+  }
+  &:active{
+    background-color: #009302;
+  }
+}
+
+
+//Styles pour ajouter conenus
+.fermer_container {
+  width: 100%;
+  height: 45px;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+
+.fermer
+{
+  width: 40px;
+  height: 45px;
+  border-radius: 50%;
+  border: 1px solid var(--couleur-bordure-container-principaux);
+  background-color: var(--couleur-close-menu);
+}
+
+.fermer svg
+{
+  fill: var(--couleur-close-menu);
+  //stroke: var(--couleur-close-menu);
+  &:active{
+    fill: var(--couleur-close-menu-active);
+    //stroke: var(--couleur-close-menu-active);
+  }
 }

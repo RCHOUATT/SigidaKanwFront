@@ -4,6 +4,9 @@ import {FilesService} from "../../../services/CrudServiceWithImage/Files.service
 import {NgClass} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import {shareService} from "../../../services/shareService";
+import {
+  CrudServiceWithoutImageService
+} from "../../../services/CrudServiceWithoutImage/crud-service-without-image.service";
 
 @Component({
   selector: 'app-liste-utilisateurs',
@@ -22,14 +25,14 @@ export class ListeUtilisateursComponent implements OnInit {
   user: any;
 
   //[ngClass]="{'active': activeUser}
-  constructor(private service: FilesService, private service1: shareService) {}
+  constructor(private service: CrudServiceWithoutImageService, private service1: shareService) {}
 
   ngOnInit(): void {
     this.loadUtilisateurs(); // Charge les utilisateurs lors de l'initialisation
 
   }
   loadUtilisateurs() {
-    this.service.getObject("utilisateur").subscribe({
+    this.service.get("utilisateur").subscribe({
       next: (data) => {
         this.utilisateurs = data; // Remplit la liste des utilisateurs
         console.log(this.utilisateurs);

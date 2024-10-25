@@ -16,6 +16,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CrudServiceWithImageService} from "../../../services/CrudServiceWithImage/crud-service-with-image.service";
 import {AjouterContenuComponent} from "../ajouter-contenu/ajouter-contenu.component";
 import {AjouterChapitreComponent} from "../ajouter-chapitre/ajouter-chapitre.component";
+import {AjouterQuestionComponent} from "../ajouter-question/ajouter-question.component";
 
 @Component({
   selector: 'app-langue',
@@ -27,7 +28,8 @@ import {AjouterChapitreComponent} from "../ajouter-chapitre/ajouter-chapitre.com
     ReactiveFormsModule,
     FormsModule,
     AjouterContenuComponent,
-    AjouterChapitreComponent
+    AjouterChapitreComponent,
+    AjouterQuestionComponent
   ],
   templateUrl: './langue.component.html',
   styleUrls: ['./langue.component.scss'],  // Correction ici
@@ -77,7 +79,9 @@ export class LangueComponent implements OnInit {
   isDropdownOpen1 = false;
   pageActuelle: String = "Accueil";
   addCours = false;
+  CoursOption = false;
   ContentOption = false;
+  ChapitreOption: boolean = false;
   langue: any;
   addlangue= false;
   addChapitre = false;
@@ -116,7 +120,8 @@ export class LangueComponent implements OnInit {
 
   isDropdownOpen = true;
   activeCours: string = 'Cours 1';  // Par défaut
-  activeCoursId: number = 0;  // Par défaut
+  activeCoursId: number = 0; // Par défaut
+  TestIdAchercher = 0
   activeLesson: string = 'Lesson 1';
   activeNiveau: string = 'Debutant';
   activelangue = 'SENOUFO';
@@ -227,21 +232,23 @@ export class LangueComponent implements OnInit {
   }*/
 
    findCoursByLevelAndlangue(niveau: string, typeCours: string, langue: string) {
-    console.log("this.cours: " + `${this.cours}`);
+    console.log("this.cours: " , this.cours);
+     console.log("this.coursPerLevel1: ", this.coursPerLevelAndLanguage);
      this.coursPerLevelAndLanguage = []
      this.cours.forEach(cours=>{
+       console.log(`COURSFOREACH ${cours.id} `, cours);
        if(cours.niveauEtudes.niveau === niveau &&
          cours.typeCours.type === typeCours && cours.langue.nom === langue){
          this.coursPerLevelAndLanguage.push(cours);
          console.log("c--- : ",cours )
        }
      })
+     console.log("this.coursPerLevel: ", this.coursPerLevelAndLanguage);
      this.findChapitreByCours(this.coursPerLevelAndLanguage[0].id);
-    console.log("this.coursPerLevel: ", this.coursPerLevelAndLanguage);
   }
 
    findChapitreByCours(cours: any) {
-    console.log("this.chapitre: " + this.chapitre);
+    console.log("this.chapitre: ", this.chapitre);
     console.log("this.chapitre et cours: " + cours);
      this.chapitrePerCours =[]
      this.chapitre.forEach(c=>{
@@ -306,6 +313,7 @@ export class LangueComponent implements OnInit {
       }
       return contenu.chapitre.id == contenu;
     });*/
+    this.TestIdAchercher = TestId;
     this.questionPerTest = []
     this.question.forEach(q=>{
       if(q.test.id == TestId){
@@ -331,16 +339,20 @@ export class LangueComponent implements OnInit {
   }
   setAddLangue() {
     this.addlangue = !this.addlangue;
+    this.loadLangue();
   }
 
-  public setAddContenu() {
+  setAddContenu() {
     this.addContenu = !this.addContenu;
+    this.loadContenu();
   }
-  public setAddChapitre() {
+  setAddChapitre() {
     this.addChapitre = !this.addChapitre;
+    this.loadChapitre();
   }
   setAddQuestion() {
     this.addQuestion = !this.addQuestion;
+    this.loadQuestion();
   }
 
   setActiveCoursNom(menuItem: string) {
@@ -399,6 +411,12 @@ export class LangueComponent implements OnInit {
   setoptions(){
     this.ContentOption =!this.ContentOption;
   }
+  setCoursoptions(){
+    this.CoursOption = !this.CoursOption;
+  }
+  setChapteroptions(){
+    this.ChapitreOption = !this.ChapitreOption;
+  }
 
   back() {
     this.location.back();  // This will navigate to the previous page in the browser history
@@ -419,5 +437,12 @@ export class LangueComponent implements OnInit {
 
   setActiveLangueName(nom: any) {
     this.activeLangueNom = nom;
+  }
+
+  deleteItem(nom: string, id: number) {
+    this.service.delete(nom, id).subscribe((data)=>{
+      console.log(`Item avec l'ID ${id} a été supprimé.`);
+      this.ngOnInit();
+    })
   }
 }

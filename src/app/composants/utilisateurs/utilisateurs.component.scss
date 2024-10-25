@@ -141,7 +141,8 @@ p
 {
   display: flex;
   flex-flow: row wrap;
- justify-content: space-between;
+  justify-content: space-between;
+  row-gap: var(--padding);
   align-items: center;
   width: 100%;
 }
@@ -275,7 +276,7 @@ p
 }
 .logo p
 {
-  font-size: 1em;
+  font-size: 1.2em;
   font-weight: 900;
   color: var(--couleur-main);
 }

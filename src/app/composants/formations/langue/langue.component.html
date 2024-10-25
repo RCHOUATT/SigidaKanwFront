@@ -4,15 +4,18 @@
     <div class="shadows1" (click)="setAddLangue()"></div>
     <div class="forms-container">
       <div class="forms-c02">
-        <p style="color: black; font-weight: bold" class="titre-c1">Titre</p>
+        <div class="addLangue">
+          <p style="color: black; font-weight: bold" class="titre-addLangue">Ajouter une langue</p>
+        </div>
+        <p style="color: black; font-weight: 600" class="titre-c1">Nom</p>
         <div class="field">
-          <input type="text" name="text" id="text-i0" class="text-i01" placeholder="Titre" [(ngModel)]="langueToBd.nom">
+          <input type="text" name="text" id="text-i0" class="text-i01" placeholder="Nom de la langue" [(ngModel)]="langueToBd.nom">
         </div>
       </div>
       <div class="forms-c02">
-        <p style="color: black; font-weight: 600" class="titre-c1">Description</p>
+        <p style="color: black; font-weight: 600" class="titre-c1">Détails</p>
         <div class="field">
-          <textarea name="description" id="id-01" class="id-01" placeholder="Description" [(ngModel)]="langueToBd.apropos"></textarea>
+          <textarea name="description" id="id-01" class="id-01" placeholder="Détails concernants la langue" [(ngModel)]="langueToBd.apropos"></textarea>
           <!--<div class="menu-icon">
             <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512"><polyline points="112 184 256 328 400 184" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:48px"/></svg>
           </div>
@@ -39,7 +42,7 @@
 @if (addContenu)
 {
   <div class="formulaire">
-    <div class="shadows1" (click)="setAddContenu()"></div>
+    <div class="shadows1" (click)="setAddContenu()" (click)="loadContenu()"></div>
     <!--<div class="fermer_container" (click)="setAddContenu()">
       <div class="fermer" (click)="setAddContenu()">
         <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512"><path d="M256,48C141.31,48,48,141.31,48,256s93.31,208,208,208,208-93.31,208-208S370.69,48,256,48Zm75.31,260.69a16,16,0,1,1-22.62,22.62L256,278.63l-52.69,52.68a16,16,0,0,1-22.62-22.62L233.37,256l-52.68-52.69a16,16,0,0,1,22.62-22.62L256,233.37l52.69-52.68a16,16,0,0,1,22.62,22.62L278.63,256Z"/></svg>
@@ -51,7 +54,7 @@
 @if (addChapitre)
 {
   <div class="formulaire">
-    <div class="shadows1" (click)="setAddChapitre()"></div>
+    <div class="shadows1" (click)="setAddChapitre()" (click)="loadChapitre()"></div>
     <!--<div class="fermer_container" (click)="setAddContenu()">
       <div class="fermer" (click)="setAddContenu()">
         <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512"><path d="M256,48C141.31,48,48,141.31,48,256s93.31,208,208,208,208-93.31,208-208S370.69,48,256,48Zm75.31,260.69a16,16,0,1,1-22.62,22.62L256,278.63l-52.69,52.68a16,16,0,0,1-22.62-22.62L233.37,256l-52.68-52.69a16,16,0,0,1,22.62-22.62L256,233.37l52.69-52.68a16,16,0,0,1,22.62,22.62L278.63,256Z"/></svg>
@@ -60,7 +63,19 @@
     <app-ajouter-chapitre class="forms-add" [ChapitreCoursId]="this.activeCoursId"></app-ajouter-chapitre>
   </div>
 }
-<div class="container" >
+@if (addQuestion)
+{
+  <div class="formulaire">
+    <div class="shadows1" (click)="setAddQuestion()" (click)="loadQuestion()"></div>
+    <!--<div class="fermer_container" (click)="setAddContenu()">
+      <div class="fermer" (click)="setAddContenu()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512"><path d="M256,48C141.31,48,48,141.31,48,256s93.31,208,208,208,208-93.31,208-208S370.69,48,256,48Zm75.31,260.69a16,16,0,1,1-22.62,22.62L256,278.63l-52.69,52.68a16,16,0,0,1-22.62-22.62L233.37,256l-52.68-52.69a16,16,0,0,1,22.62-22.62L256,233.37l52.69-52.68a16,16,0,0,1,22.62,22.62L278.63,256Z"/></svg>
+      </div>
+    </div>-->
+    <app-ajouter-question class="forms-add" [testId]="this.TestIdAchercher"></app-ajouter-question>
+  </div>
+}
+<div class="container">
   <nav class="sideBar">
     <div class="logo-and-menus">
       <div class="logo">
@@ -317,14 +332,81 @@
                       </div>
                     </div>
                     <div class="menu-icon">
-                      <ion-icon name="ellipsis-vertical" size="large" class="menu-drop" style="color: var(--couleur-main)"></ion-icon>
+                      <ion-icon name="ellipsis-vertical" size="large" class="menu-drop" style="color: var(--couleur-main)" (click)="ChapitreOption = false" (click)="setCoursoptions()" (click)="setActive('Cours ' + cour.id, cour.id)" ></ion-icon>
                     </div>
                   </div>
+                  @if(CoursOption && activeCours === 'Cours ' + cour.id){
+                    <div class="cours-options">
+                      <!--<app-button
+                        label= "Modifier"
+                        color="primary"
+                        icon="trash"
+                        type="button"
+                        [disabled] = false
+                        largeur="flex: 1"
+                      >
+                      </app-button>-->
+                      <app-button
+                        label= "Supprimé"
+                        color="primary"
+                        icon="trash"
+                        type="button"
+                        [disabled] = false
+                        largeur="flex: 1"
+                      >
+                      </app-button>
+                      <app-button
+                        label= "Ajouter chapitre"
+                        color="primary"
+                        icon="trash"
+                        type="button"
+                        [disabled] = false
+                        largeur="flex: 1"
+                        (click)="setoptions()"
+                        (click)="setAddChapitre()"
+                      >
+                      </app-button>
+                    </div>
+                  }
                   <!-- Sous-options du menu déroulant -->
                   @if (isDropdownOpen && activeCours === 'Cours ' + cour.id && chapitrePerCours.length > 0){
                     <div class="lesson-menu">
                       @for (chapitre of chapitrePerCours; track $index){
                         <div class="beforeDrop">
+                          @if(ChapitreOption && activeLesson === 'Lesson ' + chapitre.id){
+                            <div class="cours-options">
+                              <!--<app-button
+                                label= "Modifier"
+                                color="primary"
+                                icon="trash"
+                                type="button"
+                                [disabled] = false
+                                largeur="flex: 1"
+                              >
+                              </app-button>-->
+                              <app-button
+                                label= "Supprimé"
+                                color="primary"
+                                icon="trash"
+                                type="button"
+                                [disabled] = false
+                                largeur="flex: 1"
+                                (click)="deleteItem('chapitre', chapitre.id)"
+                              >
+                              </app-button>
+                              <app-button
+                                label= "Ajouter Contenu"
+                                color="primary"
+                                icon="trash"
+                                type="button"
+                                [disabled] = false
+                                largeur="flex: 1"
+                                (click)="setAddContenu()"
+                                (click)="ChapitreOption = false"
+                              >
+                              </app-button>
+                            </div>
+                          }
                           <div class="icon-titre"
                                (click)="setActiveLesson('Lesson ' + chapitre.id, chapitre)"
                                (click)="setActiveLessonNom('chapitre ' + ($index + 1))"
@@ -336,7 +418,7 @@
                             </div>
                           </div>
                           <div class="menu-icon">
-                            <ion-icon name="ellipsis-vertical" size="large" class="menu-drop" style="color: var(--couleur-main)"></ion-icon>
+                            <ion-icon name="ellipsis-vertical" size="large" class="menu-drop" style="color: var(--couleur-main)" (click)="setChapteroptions()" (click)="CoursOption = false" (click)="setActiveLesson('Lesson ' + chapitre.id, chapitre)"></ion-icon>
                           </div>
                         </div>
                       }
@@ -434,9 +516,9 @@
                         }
                       </div>
                     </div>
-                    <!--<div class="menu-icon">
-                      <ion-icon name="ellipsis-vertical" size="large" class="menu-drop" style="color: var(&#45;&#45;couleur-main)"></ion-icon>
-                    </div>-->
+                    <div class="menu-icon">
+                      <ion-icon name="ellipsis-vertical" size="large" class="menu-drop" style="color: var(--couleur-main)" (click)="setoptions()"></ion-icon>
+                    </div>
                   </div>
                   <!-- Sous-options du menu déroulant -->
                   @if (isDropdownOpen && activeCours === 'Cours ' + cour.id && chapitrePerCours.length > 0){
@@ -456,16 +538,6 @@
                           <!--<div class="menu-icon" (click)="afficherLessonOption()">
                             <ion-icon name="ellipsis-vertical" size="large" class="menu-drop" style="color: var(&#45;&#45;couleur-main)"></ion-icon>
                           </div>-->
-                          @if (ContentOption){
-                            <div class="lesson-dropdown">
-                              <div class="lesson-dropdown-option" (click)="setoptions()" (click)="setActiveTest()">
-                                <p>Tests Associés</p>
-                              </div>
-                              <div class="lesson-dropdown-option" (click)="setoptions()">
-                                <p>Ajouter Contenu</p>
-                              </div>
-                            </div>
-                          }
                         </div>
                       }
                     </div>
@@ -609,6 +681,15 @@
                 type="button"
                 [disabled] = false
                 largeur="flex: 1"
+              >
+              </app-button>
+              <app-button
+                label= "Ajouter Question"
+                color="primary"
+                icon="trash"
+                type="button"
+                [disabled] = false
+                (click)="setAddQuestion()"
               >
               </app-button>
             </div>

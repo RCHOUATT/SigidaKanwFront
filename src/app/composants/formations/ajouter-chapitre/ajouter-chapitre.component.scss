@@ -27,6 +27,8 @@ p
 }
 .forms-container
 {
+  display: flex;
+  flex-flow: column nowrap;
   width: 100%;
   padding: calc(32.5px) var(--padding) var(--padding) var(--padding);
   align-items: center;

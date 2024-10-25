@@ -7,7 +7,7 @@ import {Observable} from "rxjs";
 })
 export class CrudServiceWithoutImageService {
 
-  public baseUrl = "http://localhost:8080/sigidaKanw";
+  public baseUrl = "/sigidaKanw";
 
   constructor(private http: HttpClient) {}
 
@@ -48,7 +48,7 @@ export class CrudServiceWithoutImageService {
    * @return {Observable<Object>} Un observable qui émet l'objet mis à jour.
    */
   update(name: string,id: number, object: Object): Observable<Object> {
-    return this.http.put(`${this.baseUrl}/${name}/modifier/${id}`, object, {headers: this.headers});
+    return this.http.put(`${this.baseUrl}/${name}/Modifier/${id}`, object, {headers: this.headers});
   }
 
 
@@ -65,7 +65,7 @@ export class CrudServiceWithoutImageService {
    * @return {Observable<any>} Un observable qui émet la réponse du serveur.
    */
   delete(name: string,id: number): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/${name}/supprimer/${id}`, {headers: this.headers});
+    return this.http.delete(`${this.baseUrl}/${name}/Supprimer/${id}`, {headers: this.headers});
   }
 
   /**

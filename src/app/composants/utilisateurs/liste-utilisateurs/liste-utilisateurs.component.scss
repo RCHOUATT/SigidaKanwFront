@@ -81,8 +81,9 @@
 {
   position: sticky;
   top: -10px;
-  border-radius: 0px;
+  border-radius: 0 0 var(--border-radius) var(--border-radius);
   background-color: #fff;
+  z-index: 100;
   /* border: 1px solid #ccc; */
 }
 .Liste-contenu
@@ -103,7 +104,6 @@
   grid-template-columns: repeat(6, 1fr);
   align-items: center;
   padding: var(--padding);
-  border-radius: var(--border-radius);
 }
 .Liste-entete > div, .Liste-contenu > div{
   min-width: 75px;

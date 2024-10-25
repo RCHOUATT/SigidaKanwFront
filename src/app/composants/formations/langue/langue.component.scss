@@ -1,5 +1,6 @@
 .container-left {
   width: 385px;
+  max-height: 100%;
   padding: var(--padding);
   border-radius: var(--border-radius);
   border: 1px var(--couleur-bordure-container-principaux) solid;
@@ -9,9 +10,9 @@
   gap: var(--padding);
   overflow-y: scroll;
 }
-.container-right
-{
+.container-right {
   display: flex;
+  max-height: 100%;
   flex-flow: column;
   gap: var(--padding);
   border: 1px var(--couleur-bordure-container-principaux) solid;
@@ -20,29 +21,32 @@
   flex: 1;
   transition: flex 0.1s linear;
   padding: var(--padding);
+  overflow-y: scroll;
 }
 
 .optionsNiveau {
   width: 100%;
   display: flex;
   align-items: flex-start;
-  justify-content: space-between;
+  justify-content: start;
+  column-gap: var(--padding);
   overflow-x: scroll;
   column-gap: var(--padding);
   row-gap: var(--padding);
   border-radius: var(--border-radius);
 }
 
+
 .cours-options
 {
   width: fit-content;
-  max-width: 296px;
+  max-width: 170px;
   padding: var(--padding);
   display: flex;
   flex-flow: row wrap;
   background-color: white;
   position: absolute;
-  right: calc(var(--padding) *2);
+  right: calc(var(--padding) * 3);
   column-gap: var(--padding);
   row-gap: var(--padding);
   top: 0;
@@ -69,6 +73,12 @@
   display: flex;
   flex-flow: column nowrap;
   gap: var(--padding);
+  flex: 1;
+  overflow-y: scroll;
+}
+.cours.menu
+{
+  overflow: visible;
 }
 .icon-titre:hover, .icon-titre:focus, .icon-titre.active
 {
@@ -170,7 +180,7 @@ ion-icon
   min-height: 40px;
   border-radius: var(--border-radius);
   text-overflow: ellipsis;
-  overflow: hidden;
+  overflow: visible;
   width: 100%;
   //border: 1px solid green;
 }
@@ -183,7 +193,7 @@ ion-icon
   gap: var(--padding);
   height: fit-content;
   text-overflow: ellipsis;
-  overflow: hidden;
+  overflow: visible;
   //border: 1px solid green;
   border-radius: var(--border-radius);
 }
@@ -202,7 +212,16 @@ ion-icon
   flex-flow: row nowrap;
   align-items: center;
   justify-content: space-between;
+  background-color: var(--couleur-container-principaux);
   width: 100%;
+  position: sticky;
+  z-index: 3;
+  top: -10px;
+  padding: 10px;
+  padding-top: 10px;
+  padding-right: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
 }
 .breadcrumb-titre
 {
@@ -403,7 +422,7 @@ ion-icon
 }
 .logo p
 {
-  font-size: 1em;
+  font-size: 1.2em;
   font-weight: 900;
   color: var(--couleur-main);
 }
@@ -743,6 +762,15 @@ ion-icon
   border-radius: var(--border-radius);
   row-gap: calc(var(--padding) / 2);
   transform: translate(-50%, -50%);
+}
+.addLangue
+{
+  width: 100%;
+  margin-bottom: var(--margin);
+  & .titre-addLangue {
+    width: 100%;
+    text-align: center;
+  }
 }
 .forms-add
 {
