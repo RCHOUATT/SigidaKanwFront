@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class CustomTextField extends StatelessWidget {
+  dynamic xtextAlign = TextAlign.start;
   final String labelText;
   final String hintText;
   final TextEditingController? controller;
@@ -11,7 +12,7 @@ class CustomTextField extends StatelessWidget {
   final void Function(String)? onChanged;
   final String? errorText;  // Nouvelle propriété pour afficher l'erreur
 
-  const CustomTextField({
+  CustomTextField({
     super.key,
     this.labelText = "",
     required this.hintText,
@@ -22,6 +23,7 @@ class CustomTextField extends StatelessWidget {
     this.keyboardType,
     this.onChanged,
     this.errorText,  // Initialisation de l'erreur
+    this.xtextAlign,
   });
 
   @override
@@ -65,6 +67,7 @@ class CustomTextField extends StatelessWidget {
               ),
               errorText: errorText,  // Affichage de l'erreur
             ),
+            textAlign: xtextAlign,
             style: const TextStyle(
               color: Colors.black,
               fontSize: 16,

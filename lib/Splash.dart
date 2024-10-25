@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:sigidakanwmobile/AccueillPage.dart';
 import 'ApprenantNav.dart';
 import 'service/AuthService.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 import 'Login.dart';
 
 class Splash extends StatefulWidget {
@@ -53,14 +54,28 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
     print(token);
 
     if (token != null) {
-      print(token);
-      // Rediriger vers la page d'accueil si le token est valide
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => ApprenantNav()),
-      );
+      bool isTokenExpired = JwtDecoder.isExpired(token);
+
+      if (!isTokenExpired) {
+        // Le token est valide
+        print('Token valide : $token');
+        // Rediriger vers la page d'accueil si le token est valide
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => ApprenantNav()),
+        );
+      } else {
+        // Le token est expiré
+        print('Token expiré');
+        // Rediriger vers la page de connexion
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => Accueil()),
+        );
+      }
     } else {
-      // Rediriger vers la page de connexion si le token n'est pas trouvé
+      // Aucun token trouvé, rediriger vers la page de connexion
+      print('Aucun token trouvé');
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => Accueil()),

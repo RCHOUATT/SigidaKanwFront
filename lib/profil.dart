@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:sigidakanwmobile/Login.dart';
 import 'package:sigidakanwmobile/service/AuthService.dart';
@@ -650,21 +651,59 @@ class Profil extends StatelessWidget {
                               )
                           ),
                           ElevatedButton(
-                            onPressed: () async {
-                              // Appel du service d'authentification
-                              await _authService.logout();
+                              onPressed: () async {
+                                // Affichage de la boîte de dialogue de confirmation avant déconnexion
+                                bool? confirm = await showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: Text('Confirmation'),
+                                      content: Text('Êtes-vous sûr de vouloir vous déconnecter ?'),
+                                      actions: <Widget>[
+                                        TextButton(
+                                          onPressed: () {
+                                            // Si l'utilisateur choisit "Non"
+                                            Navigator.of(context).pop(false); // Retourne 'false'
+                                          },
+                                          child: const Text('Non', style: TextStyle(color: Color(0xFF58CC02)),),
+                                        ),
+                                        TextButton(
+                                          onPressed: () {
+                                            // Si l'utilisateur choisit "Oui"
+                                            Navigator.of(context).pop(true); // Retourne 'true'
+                                          },
+                                          child: const Text('Oui', style: TextStyle(color: Color(0xEFFF023B)),),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
 
-                              // Affichage d'un message d'erreur si la connexion échoue
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(content: Text('Deconnexion réussie avec succès.')),
-                              );
+                                // Si l'utilisateur a confirmé (confirm est true)
+                                if (confirm == true) {
+                                  await _authService.logout();
 
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(builder: (context)=> const Login()),
-                              );
-                            },
-                            style: ElevatedButton.styleFrom(
+                                  // Affichage d'un message de succès après déconnexion
+                                  Flushbar(
+                                    message: "Déconnexion réussie avec succès.",
+                                    duration: Duration(seconds: 3), // Durée d'affichage
+                                    backgroundColor: Colors.green, // Couleur de fond
+                                    icon: const Icon(
+                                      Icons.check_circle_outline,
+                                      size: 28.0,
+                                      color: Colors.white,
+                                    ),
+                                    leftBarIndicatorColor: Colors.greenAccent, // Couleur de l'indicateur
+                                  ).show(context);
+
+                                  // Redirection vers la page de connexion
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(builder: (context) => const Login()),
+                                  );
+                                }
+                              },
+                              style: ElevatedButton.styleFrom(
                               elevation: 10,
                               backgroundColor: const Color(0xFFEAEAEA),
                               padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 7),

@@ -1,9 +1,10 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthService {
-  final String apiUrl = 'http://10.0.2.2:8080/sigidaKanw/api/auth/login'; // URL de ton API backend
+  final String apiUrl = 'http://localhost:8080/sigidaKanw/api/auth/login'; // URL de ton API backend
 
   Future<String?> login(String email, String password) async {
     try {
@@ -45,5 +46,20 @@ class AuthService {
   Future<void> logout() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove('jwt_token');
+  }
+
+  // Fonction pour récupérer le rôle de l'utilisateur à partir du token
+  Future<String?> getUserRoleFromToken(String token) async {
+    try {
+      final payload = _decodeJwt(token); // Fonction qui décode le JWT
+      return payload['role']; // Assurez-vous que 'role' est la clé correcte
+    } catch (e) {
+      print('Erreur lors de l\'extraction du rôle: $e');
+      return null; // En cas d'erreur, retourner null
+    }
+  }
+
+  Map<String, dynamic> _decodeJwt(String token) {
+    return JwtDecoder.decode(token);
   }
 }

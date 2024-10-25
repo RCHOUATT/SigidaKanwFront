@@ -1,7 +1,8 @@
+import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:sigidakanwmobile/ApprenantNav.dart';
-import 'package:sigidakanwmobile/signUp.dart';
-import 'service/AuthService.dart'; // Assurez-vous que le chemin d'importation est correct
+import 'package:sigidakanwmobile/SignUpLandingPage.dart';
+import 'service/AuthService.dart';
 import 'CustomTextField.dart';
 
 class Login extends StatefulWidget {
@@ -12,12 +13,21 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  bool pass = true; // Correction: pas besoin de 'late' ici
+  bool _isEmailValid = true; // Pour le statut de validation
+  bool pass = true;
+  bool isLoading = false; // Nouvelle variable pour suivre l'état de chargement
   String email = '';
   String password = '';
   final AuthService _authService = AuthService();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+
+  bool _validateEmail(String email) {
+    // Expression régulière pour vérifier un e-mail valide
+    String emailPattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$';
+    RegExp regExp = RegExp(emailPattern);
+    return regExp.hasMatch(email);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,20 +68,24 @@ class _LoginState extends State<Login> {
                           children: [
                             SizedBox(height: 16.0),
                             CustomTextField(
+                              xtextAlign: TextAlign.start,
                               labelText: 'Email',
                               hintText: 'Entrez votre email',
                               controller: emailController,
                               prefixIcon: Icons.email,
                               keyboardType: TextInputType.emailAddress,
+                              errorText: _isEmailValid ? null : "Adresse e-mail invalide",
                               onChanged: (value) {
                                 setState(() {
                                   email = value;
                                   print(email);
+                                  _isEmailValid = _validateEmail(email);
                                 });
                               },
                             ),
                             const SizedBox(height: 16.0),
                             CustomTextField(
+                              xtextAlign: TextAlign.start,
                               labelText: 'Mot de passe',
                               hintText: 'Entrez votre mot de passe',
                               isPassword: pass,
@@ -80,7 +94,7 @@ class _LoginState extends State<Login> {
                                 icon: Icon(pass ? Icons.visibility : Icons.visibility_off),
                                 onPressed: () {
                                   setState(() {
-                                    pass = !pass; // Change l'état du mot de passe
+                                    pass = !pass;
                                   });
                                 },
                               ),
@@ -96,20 +110,59 @@ class _LoginState extends State<Login> {
                               height: 52,
                               child: ElevatedButton(
                                 onPressed: () async {
+                                  setState(() {
+                                    isLoading = true; // Affiche le CircularProgressIndicator
+                                  });
+
                                   // Appel du service d'authentification
                                   String? token = await _authService.login(email, password);
 
+                                  setState(() {
+                                    isLoading = false; // Cache le CircularProgressIndicator
+                                  });
+
                                   if (token != null) {
                                     // Redirection après connexion réussie
-                                    Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(builder: (context) => ApprenantNav()),
-                                    );
+                                    final userRole = await _authService.getUserRoleFromToken(token); // Méthode pour récupérer le rôle
+                                    print(userRole);
+                                    if (userRole == 'APPRENANT') {
+                                      // Redirection après connexion réussie pour l'apprenant
+                                      Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(builder: (context) =>
+                                            ApprenantNav()),
+                                      );
+                                    }
+                                    if (userRole != 'APPRENANT') {
+                                      // Redirection après connexion réussie pour l'apprenant
+                                      Flushbar(
+                                        message: "Vous ne pouvez pas vous connecter avec ce compte",
+                                        duration: Duration(seconds: 3), // Durée d'affichage de Flushbar
+                                        backgroundColor: Color(0xFF0F4BD9), // Couleur de fond
+                                        icon: const Icon(
+                                          Icons.check_circle_outline,
+                                          size: 28.0,
+                                          color: Colors.white,
+                                        ),
+                                        leftBarIndicatorColor: Color(0xFF4872D5), // Couleur du bord gauche
+                                      ).show(context);
+                                    }
                                   } else {
                                     // Affichage d'un message d'erreur si la connexion échoue
-                                    ScaffoldMessenger.of(context).showSnackBar(
+                                    /*ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(content: Text('Connexion échouée. Veuillez vérifier vos identifiants.')),
-                                    );
+                                    );*/
+                                    Flushbar(
+                                      message: "Connexion échouée. Veuillez vérifier vos identifiants.",
+                                      duration: Duration(seconds: 3), // Durée d'affichage de Flushbar
+                                      backgroundColor: Color(0xEFFF023B), // Couleur de fond
+                                      icon: const Icon(
+                                        Icons.check_circle_outline,
+                                        size: 28.0,
+                                        color: Colors.white,
+                                      ),
+                                      leftBarIndicatorColor: Color(0xF0E85F5F), // Couleur du bord gauche
+                                    ).show(context);
                                   }
                                 },
                                 style: ElevatedButton.styleFrom(
@@ -131,17 +184,22 @@ class _LoginState extends State<Login> {
                                 ),
                               ),
                             ),
+                            const SizedBox(height: 16.0),
+                            isLoading ? const CircularProgressIndicator(
+                              color: Color(0xFF58CC02),
+                            ) : const SizedBox(),
                           ],
                         ),
                       ),
                     ],
                   ),
                 ),
-                Expanded(child: Container()),
                 Container(
                   width: double.infinity,
                   child: Wrap(
                     direction: Axis.horizontal,
+                    runAlignment: WrapAlignment.center,
+                    alignment: WrapAlignment.center,
                     crossAxisAlignment: WrapCrossAlignment.center,
                     children: [
                       const Text(
@@ -151,10 +209,10 @@ class _LoginState extends State<Login> {
                       ),
                       TextButton(
                         onPressed: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => Signup()));
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => SignupLandinPage()));
                         },
                         child: const Text(
-                          "Inscriver-vous",
+                          "Inscrivez-vous",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontFamily: "Lexend",

@@ -16,6 +16,7 @@ class _AccueilState extends State<Accueil> {
     "Apprentissage accessible, culture à portée de main!",
     "Explorez notre culture, parlez nos langues!",
   ];
+
   final List<String> slogansDescript = [
     "Maîtrisez la langue de vos racines, quand vous voulez, où que vous soyez!",
     "Apprenez à votre rythme et embrassez les traditions de votre région avec nos cours de langue!",
@@ -77,8 +78,8 @@ class _AccueilState extends State<Accueil> {
               // Partie verte avec le texte et le slider
               Expanded(
                 child: Container(
-                  padding: EdgeInsets.all(10),
-                  decoration: BoxDecoration(
+                  padding: const EdgeInsets.all(10),
+                  decoration: const BoxDecoration(
                     color: Color(0xFF58CC02),
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(20),
@@ -164,7 +165,6 @@ class _AccueilState extends State<Accueil> {
                           ),
                           padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
                         ),
-
                         child: Text(
                           'Se connecter',
                           style: TextStyle(
