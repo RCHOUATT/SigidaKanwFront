@@ -20,6 +20,7 @@ dependencies:
   another_flushbar: ^1.12.30
   image_picker: ^1.1.2
   intl: ^0.19.0 #nécessaire pour utiliser DateFormat.
+  provider: ^6.1.2
 
 dev_dependencies:
   flutter_test:

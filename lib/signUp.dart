@@ -153,7 +153,7 @@ class _SignupState extends State<Signup> {
           setState(() {
             nom = value;
             newuser.nom = nom;
-            print("this.newuser.nom : " + newuser.nom);
+            print("this.newuser.nom : " + newuser.nom.toString());
           });
         },
       ),
@@ -229,7 +229,7 @@ class _SignupState extends State<Signup> {
           setState(() {
             email = value;
             newuser.email = email;
-            print("newuser.email : " + newuser.email);
+            print("newuser.email : " + newuser.email.toString());
 
             _isEmailValid = _validateEmail(email);
           });
@@ -396,7 +396,7 @@ class _SignupState extends State<Signup> {
                               case 0:
                                 return newuser.dateBirthday != DateFormat("dd-MM-yyyy").parse("31-12-1970");
                               case 1:
-                                return newuser.nom.isNotEmpty;
+                                return newuser.nom!.isNotEmpty;
                               case 2:
                                 return newuser.pays != null;
                               case 3:

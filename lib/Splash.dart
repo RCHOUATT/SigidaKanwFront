@@ -1,7 +1,12 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sigidakanwmobile/AccueillPage.dart';
+import 'package:sigidakanwmobile/service/CrudServiceWithoutImage.dart';
 import 'ApprenantNav.dart';
+import 'ChoixDesLangues.dart';
+import 'Modal/UserProvider.dart';
+import 'Modal/Utilisateur.dart';
 import 'service/AuthService.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'Login.dart';
@@ -15,6 +20,7 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _fadeInAnimation;
   late Animation<double> _scaleAnimation;
+  final CrudServiceWithoutImage _withoutImageService = CrudServiceWithoutImage();
   final AuthService _authService = AuthService(); // Initialiser AuthService
 
   @override
@@ -59,11 +65,24 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
       if (!isTokenExpired) {
         // Le token est valide
         print('Token valide : $token');
-        // Rediriger vers la page d'accueil si le token est valide
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => ApprenantNav()),
-        );
+        final userId = await _authService.getUserIdFromToken(token); // Méthode pour récupérer le rôle
+        dynamic? user = await _withoutImageService.findUser(userId);
+        print(user["langues"]);
+
+        // Redirection après connexion réussie pour l'apprenant
+        if (user != null && user["langues"] != null && user["langues"].isEmpty) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => const Choixdeslangues()),
+          );
+        }else{
+          Provider.of<UserProvider>(context, listen: false).initializeUser(userId); // Remplacez 'user_id' par l'ID réel
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) =>
+            const ApprenantNav()),
+          );
+        }
       } else {
         // Le token est expiré
         print('Token expiré');

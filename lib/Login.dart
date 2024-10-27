@@ -1,7 +1,12 @@
 import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sigidakanwmobile/ApprenantNav.dart';
+import 'package:sigidakanwmobile/ChoixDesLangues.dart';
+import 'package:sigidakanwmobile/Modal/Utilisateur.dart';
 import 'package:sigidakanwmobile/SignUpLandingPage.dart';
+import 'package:sigidakanwmobile/service/CrudServiceWithoutImage.dart';
+import 'Modal/UserProvider.dart';
 import 'service/AuthService.dart';
 import 'CustomTextField.dart';
 
@@ -19,6 +24,7 @@ class _LoginState extends State<Login> {
   String email = '';
   String password = '';
   final AuthService _authService = AuthService();
+  final CrudServiceWithoutImage _withoutImageService = CrudServiceWithoutImage();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
@@ -124,14 +130,26 @@ class _LoginState extends State<Login> {
                                   if (token != null) {
                                     // Redirection après connexion réussie
                                     final userRole = await _authService.getUserRoleFromToken(token); // Méthode pour récupérer le rôle
+                                    final userId = await _authService.getUserIdFromToken(token); // Méthode pour récupérer le rôle
                                     print(userRole);
+                                    print(userId);
                                     if (userRole == 'APPRENANT') {
+                                      dynamic? user = await _withoutImageService.findUser(userId);
+
                                       // Redirection après connexion réussie pour l'apprenant
-                                      Navigator.pushReplacement(
-                                        context,
-                                        MaterialPageRoute(builder: (context) =>
-                                            ApprenantNav()),
-                                      );
+                                      if (user != null && user["langues"] != null && user["langues"].isEmpty) {
+                                        Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(builder: (context) => const Choixdeslangues()),
+                                        );
+                                      }else{
+                                        Provider.of<UserProvider>(context, listen: false).initializeUser(userId); // Remplacez 'user_id' par l'ID réel
+                                        Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(builder: (context) =>
+                                              const ApprenantNav()),
+                                        );
+                                      }
                                     }
                                     if (userRole != 'APPRENANT') {
                                       // Redirection après connexion réussie pour l'apprenant

@@ -1,25 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:sigidakanwmobile/Splash.dart';
+import 'package:provider/provider.dart'; // Importez provider ici
+import 'Modal/UserProvider.dart';
+import 'Splash.dart';
 import 'AccueillPage.dart';
-import 'ApprenantNav.dart';
-
 import 'Login.dart';
-/*import 'ChatRoom.dart';
-import 'profil.dart';
-import 'users.dart';
-import 'home.dart';
-import 'AdminNav.dart';
-import 'Level.dart';*/
+// Importez d'autres écrans selon vos besoins
 
-void main() async{
-  runApp(const SigidaKanw());
+void main() {
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => UserProvider(),
+      child: const SigidaKanw(),
+    ),
+  );
 }
 
-class SigidaKanw extends StatelessWidget{
-  const SigidaKanw ({super.key});
+class SigidaKanw extends StatelessWidget {
+  const SigidaKanw({super.key});
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: "My ticketing system",
@@ -28,19 +28,19 @@ class SigidaKanw extends StatelessWidget{
         "/splash": (context) => Splash(),
         "/": (context) => Splash(),
         "/accueil": (context) => Accueil(),
-        "/login" : (context) => const Login(),
+        "/login": (context) => const Login(),
+        // Décommentez et ajoutez d'autres routes si nécessaire
         /*
-        "/home" : (context) => const Home(),
-        "/adminnav" : (context) => Adminnav(),
-        "/apprenantNav" : (context) => ApprenantNav(),
-        "/formateurNav" : (context) => FormateurNav(),
-        "/users" : (context) => Users(),
-        "/profil" : (context) => const Profil(),
-        "/chatAll" : (context) => const Chatall(),
-        "/chatRoom" : (context) => const ChatRoom(),*/
+        "/home": (context) => const Home(),
+        "/adminnav": (context) => Adminnav(),
+        "/apprenantNav": (context) => ApprenantNav(),
+        "/formateurNav": (context) => FormateurNav(),
+        "/users": (context) => Users(),
+        "/profil": (context) => const Profil(),
+        "/chatAll": (context) => const Chatall(),
+        "/chatRoom": (context) => const ChatRoom(),
+        */
       },
     );
   }
-
 }
-

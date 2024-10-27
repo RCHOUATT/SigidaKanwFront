@@ -20,12 +20,6 @@ class _CourCoursparniveauState extends State<Coursparniveau> {
 
   @override
   Widget build(BuildContext context) {
-
-    bool option = false;
-    final TextEditingController searchUser = TextEditingController();
-    double largeur = MediaQuery.of(context).size.width;
-    late String searchValue;
-    late bool pass = true;
     return Scaffold(
       body: Container(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -45,57 +39,37 @@ class _CourCoursparniveauState extends State<Coursparniveau> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Container(
-                            width: constraints.maxWidth,
-                            height: 60,
-                            padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 5),
-                            margin: const EdgeInsets.fromLTRB(0,0,0,13),
-                            decoration: BoxDecoration(
-                                color: const Color(0xFF58CC02),
-                                borderRadius: BorderRadius.circular(15)
-                            ),
-                            child: LayoutBuilder(
-                              builder: (context, constraints){
-                                double width1 = constraints.maxWidth;
-                                double heigth1 = constraints.maxHeight;
-                                return
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Container(
-                                        width: width1 * 0.127,
-                                        //color: Colors.green,
-                                        child: TextButton(
-                                          onPressed: (){
-                                            Navigator.pop(context);
-                                          },
-                                          child: Image.asset(
-                                            "Assets/Icons/back.png",
-                                            color: const Color(0xFFFFFFFF),
-                                          ),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: Container(
-                                          width: double.infinity,
-                                          //color: Colors.blue,
-                                          child: const Text(
-                                            "Debutant",
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                color: Color(0xFFFFFFFF),
-                                                fontFamily: "Lexend",
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w600
-                                            ),
-                                          ),
-                                        ),
-                                      )
-                                    ],
-                                  );
-                              },
+                        Row(
+                          children: [
+                            Container(
+                              width: 42,
+                              height: 42,
+                              decoration: BoxDecoration(
+                                  color: const Color(0xFFFFFFFF),
+                                  borderRadius: BorderRadius.circular(10),
+                                  boxShadow: const [
+                                    BoxShadow(
+                                      color: Colors.black26, // Color of the shadow
+                                      blurRadius: 4.0, // Softness of the shadow
+                                      spreadRadius: 1.0, // How much the shadow spreads
+                                      offset: Offset(2.0, 2.0), // Position of the shadow (x, y)
+                                    ),
+                                  ]
+                              ),
+                              child: GestureDetector(
+                                onTap: (){
+                                    Navigator.pop(context);
+                                },
+                                child: const Icon(
+                                  Icons.chevron_left,
+                                  color: Colors.grey,
+                                  size: 40,
+                                ),
+                              ),
                             )
+                          ],
                         ),
+                        const SizedBox(height: 10),
                         Container(
                         width: double.infinity,
                         height: heigth * 0.89,
@@ -108,9 +82,9 @@ class _CourCoursparniveauState extends State<Coursparniveau> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                             StreamBuilder(
-                                  stream: _serviceWithoutImage.getdata("niveauEtudes"),
-                                  builder: (context, snapshot){
+                              StreamBuilder(
+                                stream: _serviceWithoutImage.getdata("niveauEtudes"),
+                                builder: (context, snapshot){
                                     if(snapshot.connectionState == ConnectionState.waiting){
                                       return const CircularProgressIndicator(
                                         backgroundColor: Colors.white,
@@ -127,12 +101,50 @@ class _CourCoursparniveauState extends State<Coursparniveau> {
                                       Column(
                                         children: cours.map((c){
                                           return
-                                            Container(
+                                            SizedBox(
                                               width: double.infinity,
                                               child: Column(
                                                 mainAxisAlignment: MainAxisAlignment.center,
                                                 crossAxisAlignment: CrossAxisAlignment.center,
                                                 children: [
+                                                  Container(
+                                                      width: constraints.maxWidth,
+                                                      height: 60,
+                                                      padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 5),
+                                                      margin: const EdgeInsets.fromLTRB(0,0,0,13),
+                                                      decoration: BoxDecoration(
+                                                          color: const Color(0xFF58CC02),
+                                                          borderRadius: BorderRadius.circular(15)
+                                                      ),
+                                                      child: LayoutBuilder(
+                                                        builder: (context, constraints){
+                                                          double width1 = constraints.maxWidth;
+                                                          double heigth1 = constraints.maxHeight;
+                                                          return
+                                                            const Row(
+                                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                              children: [
+                                                                Expanded(
+                                                                  child: SizedBox(
+                                                                    width: double.infinity,
+                                                                    //color: Colors.blue,
+                                                                    child: Text(
+                                                                      "Debutant",
+                                                                      textAlign: TextAlign.center,
+                                                                      style: TextStyle(
+                                                                          color: Color(0xFFFFFFFF),
+                                                                          fontFamily: "Lexend",
+                                                                          fontSize: 16,
+                                                                          fontWeight: FontWeight.w600
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                )
+                                                              ],
+                                                            );
+                                                        },
+                                                      )
+                                                  ),
                                                   Container(
                                                     width: double.infinity,
                                                     //margin: const EdgeInsets.fromLTRB(0, 0, 0, 10),
@@ -152,7 +164,7 @@ class _CourCoursparniveauState extends State<Coursparniveau> {
                                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                           crossAxisAlignment: CrossAxisAlignment.center,
                                                           children: [
-                                                            Container(
+                                                            SizedBox(
                                                               width : width * 0.3,
                                                               child: const Text(
                                                                 "Cours 1 : ................",

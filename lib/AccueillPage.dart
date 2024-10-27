@@ -86,96 +86,90 @@ class _AccueilState extends State<Accueil> {
                       topRight: Radius.circular(20),
                     ),
                   ),
-                  child: Column(
-                    children: <Widget>[
-                      // Slider
-                      Container(
-                        constraints: BoxConstraints(maxHeight: 200),
-                        child: PageView.builder(
-                          controller: _pageController,
-                          itemCount: slogans.length,
-                          itemBuilder: (context, index) {
-                            return Container(
-                              child: Column(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: <Widget>[
+                        // Slider
+                        Container(
+                          constraints: const BoxConstraints(maxHeight: 200),
+                          child: PageView.builder(
+                            controller: _pageController,
+                            itemCount: slogans.length,
+                            itemBuilder: (context, index) {
+                              return Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  Container(
-                                    margin: EdgeInsets.only(bottom: 10),
-                                    child: Text(
-                                      slogans[index],
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        fontFamily: "Lexend",
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white,
-                                      ),
+                                  Text(
+                                    slogans[index],
+                                    textAlign: TextAlign.center,
+                                    style: const TextStyle(
+                                      fontFamily: "Lexend",
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
                                     ),
                                   ),
-                                  Container(
-                                    margin: EdgeInsets.only(bottom: 10),
-                                    child: Text(
-                                      slogansDescript[index],
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        fontFamily: "Lexend",
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.normal,
-                                        color: Colors.white,
-                                      ),
+                                  const SizedBox(height: 10),
+                                  Text(
+                                    slogansDescript[index],
+                                    textAlign: TextAlign.center,
+                                    style: const TextStyle(
+                                      fontFamily: "Lexend",
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.white,
                                     ),
                                   ),
                                 ],
-                              ),
+                              );
+                            },
+                            onPageChanged: (index) {
+                              setState(() {
+                                _activePage = index;
+                              });
+                            },
+                          ),
+                        ),
+                        // Slider des petits points (indicateurs)
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: List.generate(
+                            slogans.length,
+                                (index) {
+                              return _buildDot(index == _activePage);
+                            },
+                          ),
+                        ),
+                        const SizedBox(height: 30),
+                        // Bouton "Se connecter"
+                        ElevatedButton(
+                          onPressed: () {
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(builder: (context) => Login())
                             );
+                            // Action pour le bouton
                           },
-                          onPageChanged: (index) {
-                            setState(() {
-                              _activePage = index;
-                            });
-                          },
-                        ),
-                      ),
-                      SizedBox(height: 30),
-                      // Slider des petits points (indicateurs)
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: List.generate(
-                          slogans.length,
-                              (index) {
-                            return _buildDot(index == _activePage);
-                          },
-                        ),
-                      ),
-                      SizedBox(height: 30),
-                      // Bouton "Se connecter"
-                      ElevatedButton(
-                        onPressed: () {
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(builder: (context) => Login())
-                          );
-                          // Action pour le bouton
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
                           ),
-                          padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-                        ),
-                        child: Text(
-                          'Se connecter',
-                          style: TextStyle(
-                            fontFamily: "Lexend",
-                            color: Color(0xFF58CC02),
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
+                          child: const Text(
+                            'Se connecter',
+                            style: TextStyle(
+                              fontFamily: "Lexend",
+                              color: Color(0xFF58CC02),
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -189,7 +183,7 @@ class _AccueilState extends State<Accueil> {
   // Fonction pour créer les dots du slider
   Widget _buildDot(bool isActive) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 5),
+      margin: const EdgeInsets.symmetric(horizontal: 5),
       width: isActive ? 30 : 10,
       height: 10,
       decoration: BoxDecoration(

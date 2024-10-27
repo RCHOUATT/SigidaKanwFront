@@ -1,94 +1,69 @@
-import 'package:sigidakanwmobile/Modal/Pays.dart';
-
 import 'GenreUser.dart';
+import 'Langues.dart';
+import 'Pays.dart';
 
 class Utilisateur {
   int? id;
-  String nom;
+  String? nom;
   Pays? pays;
-  String email;
-  DateTime dateBirthday;
-  String adresse;
+  String? email;
+  DateTime? dateBirthday;
+  String? adresse;
   String? telephone;
-  String password;
+  String? password;
   dynamic? role; // Assurez-vous que vous savez comment sérialiser cela
   GenreUser? genreUser;
   dynamic? files; // Assurez-vous que vous savez comment sérialiser cela
+  List<dynamic> langues;
 
   Utilisateur({
     this.id,
-    required this.nom,
-    required this.pays,
-    required this.email,
-    required this.dateBirthday,
-    required this.adresse,
+    this.nom,
+    this.pays,
+    this.email,
+    this.dateBirthday,
+    this.adresse,
     this.telephone,
-    required this.password,
+    this.password,
     this.role,
-    required this.genreUser,
+    this.genreUser,
     this.files,
-  });
+    List<dynamic>? langues,
+  }) : this.langues = langues ?? []; // Initialize to an empty list if null
 
-  // Méthode pour convertir l'objet en JSON pour les requêtes HTTP
   Map<String, dynamic> toJson() {
     return {
       'id': id,
       'nom': nom,
-      'pays': pays?.toJson(), // Vérifiez que Pays a une méthode toJson()
+      'pays': pays?.toJson(),
       'email': email,
-      'dateBirthday': dateBirthday.toIso8601String(),
+      'dateBirthday': dateBirthday?.toIso8601String(),
       'adresse': adresse,
       'telephone': telephone,
       'password': password,
       'role': role, // Assurez-vous que cela est sérialisable
-      'genreUser': genreUser?.toJson(), // Vérifiez que GenreUser a une méthode toJson()
+      'genreUser': genreUser?.toJson(),
       'files': files, // Assurez-vous que cela est sérialisable
+      'langues': langues.map((l) => l.toJson()).toList(),
     };
   }
 
-  // Méthode pour créer un objet Utilisateur à partir d'un JSON
   factory Utilisateur.fromJson(Map<String, dynamic> json) {
     return Utilisateur(
       id: json['id'],
       nom: json['nom'],
-      pays: json['pays'] != null ? Pays.fromJson(json['pays']) : null, // Ajoutez cette ligne
+      pays: json['pays'] != null ? Pays.fromJson(json['pays']) : null,
       email: json['email'],
-      dateBirthday: DateTime.parse(json['dateBirthday']),
+      dateBirthday: json['dateBirthday'] != null ? DateTime.tryParse(json['dateBirthday']) : null,
       adresse: json['adresse'],
       telephone: json['telephone'],
       password: json['password'],
       role: json['role'], // Assurez-vous que cela est désérialisable
-      genreUser: json['genreUser'] != null ? GenreUser.fromJson(json['genreUser']) : null, // Ajoutez cette ligne
+      genreUser: json['genreUser'] != null ? GenreUser.fromJson(json['genreUser']) : null,
       files: json['files'], // Assurez-vous que cela est désérialisable
+      langues: json['langues'] != null
+          ? (json['langues'] as List).map((e) => Langues.fromJson(e)).toList()
+          : [], // Ensure it's initialized to an empty list if null
     );
   }
 }
-
-
-/*// Classe Files (pour le fichier image ou autre fichier joint)
-class Files {
-  int id;
-  String fileName;
-  String fileType;
-  String fileUrl;
-
-  Files({required this.id, required this.fileName, required this.fileType, required this.fileUrl});
-
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'fileName': fileName,
-      'fileType': fileType,
-      'fileUrl': fileUrl,
-    };
-  }
-
-  factory Files.fromJson(Map<String, dynamic> json) {
-    return Files(
-      id: json['id'],
-      fileName: json['fileName'],
-      fileType: json['fileType'],
-      fileUrl: json['fileUrl'],
-    );
-  }
-}*/
