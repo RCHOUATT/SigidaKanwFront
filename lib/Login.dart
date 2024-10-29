@@ -135,7 +135,7 @@ class _LoginState extends State<Login> {
                                     print(userId);
                                     if (userRole == 'APPRENANT') {
                                       dynamic? user = await _withoutImageService.findUser(userId);
-
+                                      print(user["langues"]);
                                       // Redirection après connexion réussie pour l'apprenant
                                       if (user != null && user["langues"] != null && user["langues"].isEmpty) {
                                         Navigator.pushReplacement(

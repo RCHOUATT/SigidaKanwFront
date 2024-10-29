@@ -9,6 +9,8 @@ class Coursparniveau extends StatefulWidget {
 class _CourCoursparniveauState extends State<Coursparniveau> {
 
   List Cours = [];
+  dynamic? utilisateur;
+  dynamic _selectedLangue;
 
   final CrudServiceWithoutImage _serviceWithoutImage = new CrudServiceWithoutImage();
 
@@ -85,230 +87,147 @@ class _CourCoursparniveauState extends State<Coursparniveau> {
                               StreamBuilder(
                                 stream: _serviceWithoutImage.getdata("niveauEtudes"),
                                 builder: (context, snapshot){
-                                    if(snapshot.connectionState == ConnectionState.waiting){
-                                      return const CircularProgressIndicator(
-                                        backgroundColor: Colors.white,
-                                        strokeWidth: 4,
-                                        color: Color(0xFF0E90FF),
-                                      );
-                                    };
-                                    if(snapshot.hasError){
-                                      return Center(child: Text("Erreur ${snapshot.error}"));
-                                    };
-                                    final cours = snapshot.data!;
-                                    print("cours : " + "$cours" );
-                                    return
-                                      Column(
-                                        children: cours.map((c){
-                                          return
-                                            SizedBox(
-                                              width: double.infinity,
-                                              child: Column(
-                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                crossAxisAlignment: CrossAxisAlignment.center,
-                                                children: [
-                                                  Container(
-                                                      width: constraints.maxWidth,
-                                                      height: 60,
-                                                      padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 5),
-                                                      margin: const EdgeInsets.fromLTRB(0,0,0,13),
-                                                      decoration: BoxDecoration(
-                                                          color: const Color(0xFF58CC02),
-                                                          borderRadius: BorderRadius.circular(15)
+                                  if(snapshot.connectionState == ConnectionState.waiting){
+                                    return const CircularProgressIndicator(
+                                      backgroundColor: Colors.white,
+                                      strokeWidth: 4,
+                                      color: Color(0xFF0E90FF),
+                                    );
+                                  };
+                                  if(snapshot.hasError){
+                                    return Center(child: Text("Erreur ${snapshot.error}"));
+                                  };
+                                  final niveau = snapshot.data!;
+                                  print("niveau : " + "$niveau" );
+                                  return
+                                    Column(
+                                      children: niveau.map((n){
+                                        return
+                                          SizedBox(
+                                            width: double.infinity,
+                                            child: Column(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                              children: [
+                                                Container(
+                                                  width: constraints.maxWidth,
+                                                  height: 60,
+                                                  padding: const EdgeInsets.all(10),
+                                                  margin: const EdgeInsets.fromLTRB(0,0,0,13),
+                                                  decoration: BoxDecoration(
+                                                      color: const Color(0xFF58CC02),
+                                                      borderRadius: BorderRadius.circular(15)
+                                                  ),
+                                                  child: Center(
+                                                    child: Text(
+                                                      n["niveau"][0].toUpperCase() + n["niveau"].substring(1).toLowerCase(),
+                                                      textAlign: TextAlign.center,
+                                                      style: const TextStyle(
+                                                          color: Color(0xFFFFFFFF),
+                                                          fontFamily: "Lexend",
+                                                          fontSize: 16,
+                                                          fontWeight: FontWeight.w600
                                                       ),
-                                                      child: LayoutBuilder(
-                                                        builder: (context, constraints){
-                                                          double width1 = constraints.maxWidth;
-                                                          double heigth1 = constraints.maxHeight;
-                                                          return
-                                                            const Row(
+                                                    ),
+                                                  )
+                                                ),
+                                                Column(
+                                                children: n["CoursList"].map<Widget>((c){
+                                                  return
+                                                    SizedBox(
+                                                    width: double.infinity,
+                                                    child: Column(
+                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                                    children: [
+                                                      Container(
+                                                        width: double.infinity,
+                                                        //margin: const EdgeInsets.fromLTRB(0, 0, 0, 10),
+                                                        padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                                                        height: 50,
+                                                        decoration: const BoxDecoration(
+                                                          color: Color(0xFFFFFFFF),
+                                                          borderRadius: BorderRadius.all(
+                                                            Radius.circular(15),
+                                                          ),
+                                                        ),
+                                                        child: LayoutBuilder(
+                                                          builder: (context, constraints){
+                                                            double width = constraints.maxWidth;
+                                                            double height = constraints.maxHeight;
+                                                            return Row(
                                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                              crossAxisAlignment: CrossAxisAlignment.center,
                                                               children: [
-                                                                Expanded(
-                                                                  child: SizedBox(
-                                                                    width: double.infinity,
-                                                                    //color: Colors.blue,
-                                                                    child: Text(
-                                                                      "Debutant",
-                                                                      textAlign: TextAlign.center,
-                                                                      style: TextStyle(
-                                                                          color: Color(0xFFFFFFFF),
-                                                                          fontFamily: "Lexend",
-                                                                          fontSize: 16,
-                                                                          fontWeight: FontWeight.w600
-                                                                      ),
+                                                                SizedBox(
+                                                                  width : width * 0.3,
+                                                                  child: Text(
+                                                                    c["titre"][0].toUpperCase() + c["titre"].substring(1).toLowerCase(),
+                                                                    overflow: TextOverflow.ellipsis,
+                                                                    maxLines: 1,
+                                                                    style: const TextStyle(
+                                                                      color: Color(0xFF000000),
+                                                                      fontSize: 14,
+                                                                      fontFamily: 'Lexend',
+                                                                      fontWeight: FontWeight.w500,
                                                                     ),
                                                                   ),
-                                                                )
+                                                                ),
                                                               ],
                                                             );
-                                                        },
-                                                      )
-                                                  ),
-                                                  Container(
-                                                    width: double.infinity,
-                                                    //margin: const EdgeInsets.fromLTRB(0, 0, 0, 10),
-                                                    padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                                                    height: 50,
-                                                    decoration: const BoxDecoration(
-                                                      color: Color(0xFFFFFFFF),
-                                                      borderRadius: BorderRadius.all(
-                                                        Radius.circular(15),
+                                                          },
+                                                        ),
                                                       ),
-                                                    ),
-                                                    child: LayoutBuilder(
-                                                      builder: (context, constraints){
-                                                        double width = constraints.maxWidth;
-                                                        double height = constraints.maxHeight;
-                                                        return Row(
-                                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                          crossAxisAlignment: CrossAxisAlignment.center,
-                                                          children: [
+                                                      const SizedBox(height: 10),
+                                                      Wrap(
+                                                        direction: Axis.horizontal,
+                                                        spacing: 10,
+                                                        runSpacing: 10,
+                                                        children: c["chapitreList"].map<Widget>((ch){
+                                                          return
                                                             SizedBox(
-                                                              width : width * 0.3,
-                                                              child: const Text(
-                                                                "Cours 1 : ................",
-                                                                overflow: TextOverflow.ellipsis,
-                                                                maxLines: 1,
-                                                                style: TextStyle(
-                                                                  color: Color(0xFF000000),
-                                                                  fontSize: 14,
-                                                                  fontFamily: 'Lexend',
-                                                                  fontWeight: FontWeight.w500,
+                                                              width: (width * 0.5) - 6,
+                                                              height: 52,
+                                                              child: ElevatedButton(
+                                                                onPressed: () async {
+                                                                  //Navigator.push(context, MaterialPageRoute(builder: (context) => const Level()));
+                                                                  // Appel du service d'authentification;
+                                                                },
+                                                                style: ElevatedButton.styleFrom(
+                                                                  elevation: 5,
+                                                                  backgroundColor: Color(0xFFFFFFFF),
+                                                                  padding: const EdgeInsets.symmetric(
+                                                                      horizontal: 18, vertical: 7),
+                                                                  shape: RoundedRectangleBorder(
+                                                                    borderRadius: BorderRadius.circular(10),
+                                                                  ),
+                                                                ),
+                                                                child: Text(
+                                                                  ch["titre"][0].toUpperCase() + ch["titre"].substring(1).toLowerCase(),
+                                                                  maxLines: 1,
+                                                                  overflow: TextOverflow.ellipsis,
+                                                                  style: const TextStyle(
+                                                                    color: Color(0xFF000000),
+                                                                    fontSize: 16,
+                                                                    fontWeight: FontWeight.w500,
+                                                                    fontFamily: "Lexend",
+                                                                  ),
                                                                 ),
                                                               ),
-                                                            ),
-                                                          ],
-                                                        );
-                                                      },
+                                                            );
+                                                          }
+                                                        ).toList(),
+                                                      ),
+                                                      const SizedBox(height: 20),
+                                                     ]
                                                     ),
-                                                  ),
-                                                  const SizedBox(height: 10),
-                                                  Wrap(
-                                                    direction: Axis.horizontal,
-                                                    spacing: 10,
-                                                    runSpacing: 10,
-                                                    children: [
-                                                      SizedBox(
-                                                        width: (width * 0.5) - 6,
-                                                        height: 52,
-                                                        child: ElevatedButton(
-                                                          onPressed: () async {
-                                                            //Navigator.push(context, MaterialPageRoute(builder: (context) => const Level()));
-                                                            // Appel du service d'authentification;
-                                                          },
-                                                          style: ElevatedButton.styleFrom(
-                                                            elevation: 5,
-                                                            backgroundColor: Color(0xFFFFFFFF),
-                                                            padding: const EdgeInsets.symmetric(
-                                                                horizontal: 18, vertical: 7),
-                                                            shape: RoundedRectangleBorder(
-                                                              borderRadius: BorderRadius.circular(10),
-                                                            ),
-                                                          ),
-                                                          child: const Text(
-                                                            "Langues",
-                                                            style: TextStyle(
-                                                              color: Color(0xFF000000),
-                                                              fontSize: 16,
-                                                              fontWeight: FontWeight.w500,
-                                                              fontFamily: "Lexend",
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      SizedBox(
-                                                        width: (width * 0.5) - 6,
-                                                        height: 52,
-                                                        child: ElevatedButton(
-                                                          onPressed: () async {
-                                                            //Navigator.push(context, MaterialPageRoute(builder: (context) => const Level()));
-                                                            // Appel du service d'authentification;
-                                                          },
-                                                          style: ElevatedButton.styleFrom(
-                                                            elevation: 5,
-                                                            backgroundColor: Color(0xFFFFFFFF),
-                                                            padding: EdgeInsets.symmetric(
-                                                                horizontal: 18, vertical: 7),
-                                                            shape: RoundedRectangleBorder(
-                                                              borderRadius: BorderRadius.circular(10),
-                                                            ),
-                                                          ),
-                                                          child: const Text(
-                                                            "Culrures",
-                                                            style: TextStyle(
-                                                              color: Color(0xFF000000),
-                                                              fontSize: 16,
-                                                              fontWeight: FontWeight.w500,
-                                                              fontFamily: "Lexend",
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      SizedBox(
-                                                        width: (width * 0.5) - 6,
-                                                        height: 52,
-                                                        child: ElevatedButton(
-                                                          onPressed: () async {
-                                                            //Navigator.push(context, MaterialPageRoute(builder: (context) => const Level()));
-                                                            // Appel du service d'authentification;
-                                                          },
-                                                          style: ElevatedButton.styleFrom(
-                                                            elevation: 5,
-                                                            backgroundColor: Color(0xFFFFFFFF),
-                                                            padding: EdgeInsets.symmetric(
-                                                                horizontal: 18, vertical: 7),
-                                                            shape: RoundedRectangleBorder(
-                                                              borderRadius: BorderRadius.circular(10),
-                                                            ),
-                                                          ),
-                                                          child: const Text(
-                                                            "Culrures",
-                                                            style: TextStyle(
-                                                              color: Color(0xFF000000),
-                                                              fontSize: 16,
-                                                              fontWeight: FontWeight.w500,
-                                                              fontFamily: "Lexend",
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      SizedBox(
-                                                        width: (width * 0.5) - 6,
-                                                        height: 52,
-                                                        child: ElevatedButton(
-                                                          onPressed: () async {
-                                                            //Navigator.push(context, MaterialPageRoute(builder: (context) => const Level()));
-                                                            // Appel du service d'authentification;
-                                                          },
-                                                          style: ElevatedButton.styleFrom(
-                                                            elevation: 5,
-                                                            backgroundColor: Color(0xFFFFFFFF),
-                                                            padding: EdgeInsets.symmetric(
-                                                                horizontal: 18, vertical: 7),
-                                                            shape: RoundedRectangleBorder(
-                                                              borderRadius: BorderRadius.circular(10),
-                                                            ),
-                                                          ),
-                                                          child: const Text(
-                                                            "Culrures",
-                                                            style: TextStyle(
-                                                              color: Color(0xFF000000),
-                                                              fontSize: 16,
-                                                              fontWeight: FontWeight.w500,
-                                                              fontFamily: "Lexend",
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  const SizedBox(height: 10),
-                                                ],
-                                              ),
-                                            );
-                                        }).toList(),
-                                      );
+                                                  );
+                                                }).toList())
+                                              ],
+                                            ),
+                                          );
+                                      }).toList(),
+                                    );
                                   }
                               ),
                             ],

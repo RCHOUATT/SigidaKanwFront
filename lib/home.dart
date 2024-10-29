@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
+import 'package:sigidakanwmobile/ChoixDesLangues.dart';
 import 'package:sigidakanwmobile/CoursParNiveau.dart';
 import 'package:sigidakanwmobile/Modal/Utilisateur.dart';
 
@@ -22,34 +24,25 @@ class HomeState extends State<Home> {
   final TextEditingController searchUser = TextEditingController();
   late String searchValue;
   dynamic? utilisateur;
-  Langues _selectedLangue = new Langues(id: 0, apropos: "", nom: "");
+  dynamic _selectedLangue;
 
-  @override
-  void initState() {
-
-  } // Variable pour stocker la langue sélectionnée
-
-  List<String> langues = [
-    "Senoufo",
-    "Bambara",
-    "Soninke",
-    "Soninke",
-    "Soninke",
-    "Soninke",
-  ];
-  List<String> progression = [
-    "70%",
-    "50%",
-    "30%",
-    "65%",
-    "90%",
-  ];
-
+  // Initialise la langue sélectionnée avec la première langue
+  void _initSelectedLanguage() {
+    if (utilisateur != null && utilisateur["langues"].isNotEmpty) {
+      _selectedLangue = utilisateur["langues"][0];
+      print("Langue initialisée : $_selectedLangue");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     final userProvider = Provider.of<UserProvider>(context);
     utilisateur = userProvider.utilisateur;
+
+    // Initialiser la langue sélectionnée après que `utilisateur` est défini
+    if (utilisateur != null && _selectedLangue == null) {
+      _initSelectedLanguage();
+    }
     return Scaffold(
       body:  utilisateur == null
         ? const Center(child: CircularProgressIndicator())
@@ -117,7 +110,7 @@ class HomeState extends State<Home> {
                               children: [
                                 Container(
                                   child: const Text(
-                                    "Bonjour",
+                                    "Salut !",
                                     style: TextStyle(
                                       color: Color(0xFF000000),
                                       fontFamily: "Nunito",
@@ -253,6 +246,7 @@ class HomeState extends State<Home> {
                             ),
                             GestureDetector(
                               onTap: (){
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => const Choixdeslangues()));
                               },
                               child: Image.asset(
                                 "Assets/Icons/plus.png",
@@ -272,76 +266,44 @@ class HomeState extends State<Home> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children:
-                            /*utilisateur!.langues.map((l){
-                              return Container(
-                                height: 64,
-                                margin: const EdgeInsets.all(5),
-                                decoration: BoxDecoration(
-                                    color: const Color(0xFFFFFFFF),
-                                    borderRadius: BorderRadius.circular(10),
-                                    boxShadow: const [
-                                      BoxShadow(
-                                          color: Color(0xFF6B6B6B),
-                                          blurStyle: BlurStyle.inner,
-                                          blurRadius: 4,
-                                          spreadRadius: 0,
-                                          offset: Offset(0, -4)
-                                      ),
-                                      BoxShadow(
-                                        color: Color(0xFF6B6B6B),
-                                        blurStyle: BlurStyle.normal,
-                                        blurRadius: 4,
-                                        spreadRadius: 0,
-                                      )
-                                    ]
-                                ),
-                                padding: const EdgeInsets.all(10),
-                                child: Text(l.nom[0]+l.nom.substring(1).toLowerCase(),
-                                  style: const TextStyle(
-                                      color: Color(0xFF000000),
-                                      fontSize: 12
-                                  ),
-                                ),
-                              );
-                            }).toList(),*/
-                            utilisateur["langues"].map((l){
-                              //_selectedLangue = l;
+                            utilisateur["langues"].map<Widget>((l) {
                               final isSelected = l == _selectedLangue;
                               return GestureDetector(
-                                onTap: (){
+                                onTap: () {
                                   setState(() {
                                     _selectedLangue = l;
-                                    print(l.toJson());
-                                    print(utilisateur!.toJson());
+                                    print(l);
+                                    print(isSelected);
+                                    print(_selectedLangue);
+                                    print(utilisateur);
                                   });
                                 },
                                 child: Container(
                                   height: 64,
                                   margin: const EdgeInsets.all(5),
                                   decoration: BoxDecoration(
-                                      color: isSelected ? const Color(0xFF58CC02) : const Color(0xFFDFDFDF),
-                                      borderRadius: BorderRadius.circular(10),
-                                      boxShadow: const [
-                                        BoxShadow(
-                                            color: Color(0xFF6B6B6B),
-                                            blurStyle: BlurStyle.inner,
-                                            blurRadius: 4,
-                                            spreadRadius: 0,
-                                            offset: Offset(0, -4)
-                                        ),
-                                        BoxShadow(
-                                          color: Color(0xFF6B6B6B),
-                                          blurStyle: BlurStyle.normal,
-                                          blurRadius: 4,
-                                          spreadRadius: 0,
-                                        )
-                                      ]
+                                    color: isSelected ? const Color(0xFF58CC02) : const Color(0xFFDFDFDF),
+                                    borderRadius: BorderRadius.circular(10),
+                                    boxShadow: const [
+                                      BoxShadow(
+                                        color: Color(0xFF6B6B6B),
+                                        blurStyle: BlurStyle.inner,
+                                        blurRadius: 4,
+                                        offset: Offset(0, -4),
+                                      ),
+                                      BoxShadow(
+                                        color: Color(0xFF6B6B6B),
+                                        blurStyle: BlurStyle.normal,
+                                        blurRadius: 4,
+                                      ),
+                                    ],
                                   ),
                                   padding: const EdgeInsets.all(10),
-                                  child: Text(l["nom"][0]+l["nom"].substring(1).toLowerCase(),
+                                  child: Text(
+                                    l["nom"][0] + l["nom"].substring(1).toLowerCase(),
                                     style: const TextStyle(
-                                        color: Color(0xFF000000),
-                                        fontSize: 12
+                                      color: Color(0xFF000000),
+                                      fontSize: 12,
                                     ),
                                   ),
                                 ),
@@ -448,9 +410,12 @@ class HomeState extends State<Home> {
                           scrollDirection: Axis.horizontal,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Container(
-                                height: 140,
+                            children: _selectedLangue["coursList"]
+                              .where((cours) => cours["typeCours"]["type"] == "LINGUISTIQUE") // Filtre les cours de type LINGUISTIQUE
+                              .toList() // Convertit le résultat en liste
+                              .sublist(0)
+                              .map<Widget>((c){
+                                return Container(
                                 width: 120,
                                 margin: const EdgeInsets.all(5),
                                 decoration: BoxDecoration(
@@ -466,92 +431,53 @@ class HomeState extends State<Home> {
                                           decoration: BoxDecoration(
                                             borderRadius: BorderRadius.circular(10),
                                           ),
-                                          child: Image.asset(
-                                            "Assets/Images/sample.png",
+                                          child: Image.network(
+                                            "http://localhost:8081/sigidaKanw/drive/getFile/${c["chapitreList"][0]["contenuList"][0]["files"][0]["idFile"]}",
+                                            loadingBuilder: (context, child, loadingProgress) {
+                                              const SizedBox(
+                                                width: double.infinity,
+                                                height: 120 * 0.768,
+                                                child: Center(
+                                                  child: CircularProgressIndicator(),
+                                                ),
+                                              );
+                                              if (loadingProgress != null) {
+                                                // Affiche le circular indicator pendant le chargement
+                                                return const SizedBox(
+                                                  width: double.infinity,
+                                                  height: 120 * 0.768,
+                                                  child: Center(
+                                                    child: CircularProgressIndicator(),
+                                                  ),
+                                                );
+                                              }else{return child;}
+                                            },
+                                            errorBuilder: (context, error, stackTrace) {
+                                              return const Icon(Icons.broken_image, size: 50, color: Colors.grey);
+                                            },
                                             fit: BoxFit.cover,
                                           ),
                                         ),
                                         const SizedBox(height: 10),
-                                        const Text("fgdgfdfg",
-                                          style: TextStyle(
-                                              color: Color(0xFF000000),
-                                              fontSize: 12
-                                          ),
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                )
-                              ),
-                              Container(
-                                height: 140,
-                                width: 120,
-                                margin: const EdgeInsets.all(5),
-                                decoration: BoxDecoration(
-                                    color: const Color(0xFF85DA47),
-                                    borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: LayoutBuilder(
-                                  builder: (BuildContext context, BoxConstraints constraints) {
-                                    return Column(
-                                      children: [
                                         Container(
-                                          clipBehavior: Clip.antiAliasWithSaveLayer,
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(10),
-                                          ),
-                                          child: Image.asset(
-                                            "Assets/Images/sample.png",
-                                            fit: BoxFit.cover,
+                                          width: double.infinity,
+                                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                                          child: Text(c["titre"],
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 1,
+                                            style: const TextStyle(
+                                              color: Color(0xFF000000),
+                                              fontSize: 12
+                                            ),
                                           ),
                                         ),
                                         const SizedBox(height: 10),
-                                        const Text("fgdgfdfg",
-                                          style: TextStyle(
-                                              color: Color(0xFF000000),
-                                              fontSize: 12
-                                          ),
-                                        ),
                                       ],
                                     );
                                   },
                                 )
-                              ),
-                              Container(
-                                height: 140,
-                                width: 120,
-                                margin: const EdgeInsets.all(5),
-                                decoration: BoxDecoration(
-                                    color: const Color(0xFF85DA47),
-                                    borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: LayoutBuilder(
-                                  builder: (BuildContext context, BoxConstraints constraints) {
-                                    return Column(
-                                      children: [
-                                        Container(
-                                          clipBehavior: Clip.antiAliasWithSaveLayer,
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(10),
-                                          ),
-                                          child: Image.asset(
-                                            "Assets/Images/sample.png",
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ),
-                                        const SizedBox(height: 10),
-                                        const Text("fgdgfdfg",
-                                          style: TextStyle(
-                                              color: Color(0xFF000000),
-                                              fontSize: 12
-                                          ),
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                )
-                              ),
-                            ]
+                              );
+                            }).toList(),
                           ),
                         ),
                       )

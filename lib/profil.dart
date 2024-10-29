@@ -456,7 +456,6 @@ class Profil extends StatelessWidget {
                           ),
                           Container(
                               width: double.infinity,
-                              height: 250,
                               margin: const EdgeInsets.fromLTRB(0, 0, 0, 13),
                               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
                               decoration: BoxDecoration(
@@ -470,181 +469,178 @@ class Profil extends StatelessWidget {
                                     builder: (context, constraints){
                                       double width = constraints.maxWidth;
                                       double height = constraints.maxHeight;
-                                      return SingleChildScrollView(
-                                        scrollDirection: Axis.vertical,
-                                        child: Wrap(
-                                          direction: Axis.horizontal,
-                                          spacing: width * 0.10,
-                                          runSpacing: 14,
-                                          children: [
-                                            Container(
-                                              width: width * 0.445,
-                                              child: const Column(
-                                                mainAxisAlignment: MainAxisAlignment.start,
-                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    "Nom",
-                                                    overflow: TextOverflow.ellipsis,
-                                                    maxLines: 1,
-                                                    style: TextStyle(
-                                                      fontFamily: "Lexend",
-                                                      fontWeight: FontWeight.w900,
-                                                      fontSize: 16,
-                                                    ),
+                                      return Wrap(
+                                        direction: Axis.horizontal,
+                                        spacing: width * 0.10,
+                                        runSpacing: 14,
+                                        children: [
+                                          Container(
+                                            width: width * 0.445,
+                                            child: const Column(
+                                              mainAxisAlignment: MainAxisAlignment.start,
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  "Nom",
+                                                  overflow: TextOverflow.ellipsis,
+                                                  maxLines: 1,
+                                                  style: TextStyle(
+                                                    fontFamily: "Lexend",
+                                                    fontWeight: FontWeight.w900,
+                                                    fontSize: 16,
                                                   ),
-                                                  Text(
-                                                    "Ouattara",
-                                                    overflow: TextOverflow.ellipsis,
-                                                    maxLines: 1,
-                                                    style: TextStyle(
-                                                      fontFamily: "Lexend",
-                                                      fontWeight: FontWeight.w500,
-                                                      fontSize: 14,
-                                                    ),
+                                                ),
+                                                Text(
+                                                  "Ouattara",
+                                                  overflow: TextOverflow.ellipsis,
+                                                  maxLines: 1,
+                                                  style: TextStyle(
+                                                    fontFamily: "Lexend",
+                                                    fontWeight: FontWeight.w500,
+                                                    fontSize: 14,
                                                   ),
-                                                ],
-                                              ),
+                                                ),
+                                              ],
                                             ),
-                                            Container(
-                                              width: width * 0.445,
-                                              child: const Column(
-                                                mainAxisAlignment: MainAxisAlignment.start,
-                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    "Prenom",
-                                                    overflow: TextOverflow.ellipsis,
-                                                    maxLines: 1,
-                                                    style: TextStyle(
-                                                      fontFamily: "Lexend",
-                                                      fontWeight: FontWeight.w900,
-                                                      fontSize: 16,
-                                                    ),
+                                          ),
+                                          Container(
+                                            width: width * 0.445,
+                                            child: const Column(
+                                              mainAxisAlignment: MainAxisAlignment.start,
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  "Prenom",
+                                                  overflow: TextOverflow.ellipsis,
+                                                  maxLines: 1,
+                                                  style: TextStyle(
+                                                    fontFamily: "Lexend",
+                                                    fontWeight: FontWeight.w900,
+                                                    fontSize: 16,
                                                   ),
-                                                  Text(
-                                                    "Cheick Hamed",
-                                                    overflow: TextOverflow.ellipsis,
-                                                    maxLines: 1,
-                                                    style: TextStyle(
-                                                      fontFamily: "Lexend",
-                                                      fontWeight: FontWeight.w500,
-                                                      fontSize: 14,
-                                                    ),
+                                                ),
+                                                Text(
+                                                  "Cheick Hamed",
+                                                  overflow: TextOverflow.ellipsis,
+                                                  maxLines: 1,
+                                                  style: TextStyle(
+                                                    fontFamily: "Lexend",
+                                                    fontWeight: FontWeight.w500,
+                                                    fontSize: 14,
                                                   ),
-                                                ],
-                                              ),
+                                                ),
+                                              ],
                                             ),
-                                            Container(
-                                              width: width * 0.445,
-                                              child: const Column(
-                                                mainAxisAlignment: MainAxisAlignment.start,
-                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    "Tel",
-                                                    overflow: TextOverflow.ellipsis,
-                                                    maxLines: 1,
-                                                    style: TextStyle(
-                                                      fontFamily: "Lexend",
-                                                      fontWeight: FontWeight.w900,
-                                                      fontSize: 16,
-                                                    ),
+                                          ),
+                                          Container(
+                                            width: width * 0.445,
+                                            child: const Column(
+                                              mainAxisAlignment: MainAxisAlignment.start,
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  "Tel",
+                                                  overflow: TextOverflow.ellipsis,
+                                                  maxLines: 1,
+                                                  style: TextStyle(
+                                                    fontFamily: "Lexend",
+                                                    fontWeight: FontWeight.w900,
+                                                    fontSize: 16,
                                                   ),
-                                                  Text(
-                                                    "72834301",
-                                                    overflow: TextOverflow.ellipsis,
-                                                    maxLines: 1,
-                                                    style: TextStyle(
-                                                      fontFamily: "Lexend",
-                                                      fontWeight: FontWeight.w500,
-                                                      fontSize: 14,
-                                                    ),
+                                                ),
+                                                Text(
+                                                  "72834301",
+                                                  overflow: TextOverflow.ellipsis,
+                                                  maxLines: 1,
+                                                  style: TextStyle(
+                                                    fontFamily: "Lexend",
+                                                    fontWeight: FontWeight.w500,
+                                                    fontSize: 14,
                                                   ),
-                                                ],
-                                              ),
+                                                ),
+                                              ],
                                             ),
-                                            Container(
-                                              child: const Column(
-                                                mainAxisAlignment: MainAxisAlignment.start,
-                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    "Email",
-                                                    overflow: TextOverflow.ellipsis,
-                                                    maxLines: 1,
-                                                    style: TextStyle(
-                                                      fontFamily: "Lexend",
-                                                      fontWeight: FontWeight.w900,
-                                                      fontSize: 16,
-                                                    ),
+                                          ),
+                                          Container(
+                                            child: const Column(
+                                              mainAxisAlignment: MainAxisAlignment.start,
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  "Email",
+                                                  overflow: TextOverflow.ellipsis,
+                                                  maxLines: 1,
+                                                  style: TextStyle(
+                                                    fontFamily: "Lexend",
+                                                    fontWeight: FontWeight.w900,
+                                                    fontSize: 16,
                                                   ),
-                                                  Text(
-                                                    "CheickHamedOuattara865@gmail.com",
-                                                    overflow: TextOverflow.ellipsis,
-                                                    maxLines: 1,
-                                                    style: TextStyle(
-                                                      fontFamily: "Lexend",
-                                                      fontWeight: FontWeight.w500,
-                                                      fontSize: 14,
-                                                    ),
+                                                ),
+                                                Text(
+                                                  "CheickHamedOuattara865@gmail.com",
+                                                  overflow: TextOverflow.ellipsis,
+                                                  maxLines: 1,
+                                                  style: TextStyle(
+                                                    fontFamily: "Lexend",
+                                                    fontWeight: FontWeight.w500,
+                                                    fontSize: 14,
                                                   ),
-                                                ],
-                                              ),
+                                                ),
+                                              ],
                                             ),
-                                            Container(
-                                              child: Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                children: [
-                                                  Container(
-                                                    child: const Column(
-                                                      mainAxisAlignment: MainAxisAlignment.start,
-                                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                                      children: [
-                                                        Text(
-                                                          "Mot de passe",
-                                                          overflow: TextOverflow.ellipsis,
-                                                          maxLines: 1,
-                                                          style: TextStyle(
-                                                            fontFamily: "Lexend",
-                                                            fontWeight: FontWeight.w900,
-                                                            fontSize: 16,
-                                                          ),
+                                          ),
+                                          Container(
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Container(
+                                                  child: const Column(
+                                                    mainAxisAlignment: MainAxisAlignment.start,
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: [
+                                                      Text(
+                                                        "Mot de passe",
+                                                        overflow: TextOverflow.ellipsis,
+                                                        maxLines: 1,
+                                                        style: TextStyle(
+                                                          fontFamily: "Lexend",
+                                                          fontWeight: FontWeight.w900,
+                                                          fontSize: 16,
                                                         ),
-                                                        Text(
-                                                          ".......................",
-                                                          overflow: TextOverflow.ellipsis,
-                                                          maxLines: 1,
-                                                          style: TextStyle(
-                                                            fontFamily: "Lexend",
-                                                            fontWeight: FontWeight.w500,
-                                                            fontSize: 14,
-                                                          ),
+                                                      ),
+                                                      Text(
+                                                        ".......................",
+                                                        overflow: TextOverflow.ellipsis,
+                                                        maxLines: 1,
+                                                        style: TextStyle(
+                                                          fontFamily: "Lexend",
+                                                          fontWeight: FontWeight.w500,
+                                                          fontSize: 14,
                                                         ),
-                                                      ],
-                                                    ),
+                                                      ),
+                                                    ],
                                                   ),
-                                                  Container(
-                                                    width: 56,
-                                                    child: TextButton(
-                                                      style: TextButton.styleFrom(
-                                                          foregroundColor: Colors.green
-                                                      ),
-                                                      child: Image.asset(
-                                                        "Assets/Icons/update.png",
-                                                        color: Color(0xFFFF8181),
-                                                        fit: BoxFit.fill,
-                                                      ),
-                                                      onPressed: () {
+                                                ),
+                                                Container(
+                                                  width: 56,
+                                                  child: TextButton(
+                                                    style: TextButton.styleFrom(
+                                                        foregroundColor: Colors.green
+                                                    ),
+                                                    child: Image.asset(
+                                                      "Assets/Icons/update.png",
+                                                      color: Color(0xFFFF8181),
+                                                      fit: BoxFit.fill,
+                                                    ),
+                                                    onPressed: () {
 
-                                                      },
-                                                    ),
+                                                    },
                                                   ),
-                                                ],
-                                              ),
+                                                ),
+                                              ],
                                             ),
-                                          ],
-                                        ),
+                                          ),
+                                        ],
                                       );
                                     },
                                   )
@@ -727,6 +723,7 @@ class Profil extends StatelessWidget {
                               ],
                             )
                           ),
+                          const SizedBox(height: 10),
                         ],
                       ),
                     ),

@@ -1,6 +1,7 @@
 import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sigidakanwmobile/ApprenantNav.dart';
 import 'package:sigidakanwmobile/Modal/Utilisateur.dart';
 import 'package:sigidakanwmobile/home.dart';
 import 'package:sigidakanwmobile/service/AuthService.dart';
@@ -155,17 +156,19 @@ class _Choixdeslangues extends State<Choixdeslangues> {
                   ),
                 ),
                 onPressed: () async {
-                  int? reponse = await service.UpdateUser(utilisateur);
-                  print(reponse);
-                  if (reponse! >= 200 && reponse! <= 205) {
-                    String? token = await _authservice.getToken();
-                    final userId = await _authservice.getUserIdFromToken(token!);
-                    Provider.of<UserProvider>(context, listen: false).initializeUser(userId); // Remplacez 'user_id' par l'ID réel
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (context) => const Home()),
-                    );
-                  };
+                  if(_selectedLangue != null){
+                    int? reponse = await service.UpdateUser(utilisateur);
+                    print(reponse);
+                    if (reponse! >= 200 && reponse! <= 205) {
+                      String? token = await _authservice.getToken();
+                      final userId = await _authservice.getUserIdFromToken(token!);
+                      Provider.of<UserProvider>(context, listen: false).initializeUser(userId); // Remplacez 'user_id' par l'ID réel
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => const ApprenantNav()),
+                      );
+                    }
+                  }
                   // Logique pour terminer la sélection de langue
                 },
                 child: const Text("Terminer", style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 18, fontWeight: FontWeight.w500)),
