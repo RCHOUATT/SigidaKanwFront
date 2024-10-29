@@ -112,7 +112,7 @@ export class LangueComponent implements OnInit {
     this.loadReponsePossible();
     this.loadContenu();
     console.log("this.cours2 :",this.cours);
-    this.findCoursByLevelAndlangue("DEBUTANT", "LINGUSTIQUE", "SENOUFO");
+    this.findCoursByLevelAndlangue("DEBUTANT", "LINGUISTIQUE", "SENOUFO");
     //this.findChapitreByCours(this.coursPerLevel[0].id);
     //this.findcContenuByChapitre(this.chapitrePerCours[0].id);
     this.openDropdown()
@@ -156,7 +156,7 @@ export class LangueComponent implements OnInit {
           this.cours.push(c);
         })
         console.log("cours from backend : ",this.cours);
-        this.findCoursByLevelAndlangue("DEBUTANT", "LINGUSTIQUE", "SENOUFO");
+        this.findCoursByLevelAndlangue("DEBUTANT", "LINGUISTIQUE", "SENOUFO");
       },
       error: (err) => {
         console.error('Erreur lors du chargement des cours:', err);

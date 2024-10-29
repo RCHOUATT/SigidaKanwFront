@@ -33,7 +33,7 @@
           <p>{{ user.id }}</p>
         </div>
         <div class="utilisateur_role"><p>{{ user.role.role }}</p></div>
-        <div class="utilisateur_pays"><p>{{ user.pays }}</p></div>
+        <div class="utilisateur_pays"><p>{{ user.pays?.pays }}</p></div>
         <div class="utilisateur_point"><p>{{ user.stats == null ? "- : -" : user.stats.point}}</p></div>
         <div class="utilisateur_piece"><p>{{ user.stats == null ? "- : -" : user.stats.piece }}</p></div>
       </div>
